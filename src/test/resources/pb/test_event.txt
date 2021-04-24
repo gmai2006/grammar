@@ -1,0 +1,31 @@
+event pfc_printer;call super::pfc_printer;//////////////////////////////////////////////////////////////////////////////
+//
+//	Event:  pfc_printer
+//
+//	Arguments:  none
+//
+//	Returns:  none
+//
+//	Description:
+//	Printer setup
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	5.0.02   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Copyright $$HEX2$$a9002000$$ENDHEX$$1996-1997 Sybase, Inc. and its subsidiaries.  All rights reserved.
+//	Any distribution of the PowerBuilder Foundation Classes (PFC)
+//	source code by other than Sybase, Inc. and its subsidiaries is prohibited.
+//
+//////////////////////////////////////////////////////////////////////////////
+
+if PrintSetup() = -1 then
+	of_MessageBox ("pfc_print_accesserror", "Print", &
+		"An error has occurred accessing printer setup", exclamation!, Ok!, 1)
+end if
+end event

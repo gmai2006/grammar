@@ -1,0 +1,2 @@
+of_MessageBox ("pfc_print_accesserror", "Print", &
+		"An error has occurred accessing printer setup", exclamation!, Ok!, 1)
