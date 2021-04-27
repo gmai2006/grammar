@@ -23,30 +23,6 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBody_rule(PowerBuilderParser.Body_ruleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#window_property}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWindow_property(PowerBuilderParser.Window_propertyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#window_property_attribute_sub}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWindow_property_attribute_sub(PowerBuilderParser.Window_property_attribute_subContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#attribute_name}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAttribute_name(PowerBuilderParser.Attribute_nameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#attribute_value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAttribute_value(PowerBuilderParser.Attribute_valueContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#forward_decl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -58,12 +34,6 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDatatype_decl(PowerBuilderParser.Datatype_declContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#global_type_variables_decl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGlobal_type_variables_decl(PowerBuilderParser.Global_type_variables_declContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#type_variables_decl}.
 	 * @param ctx the parse tree
@@ -89,6 +59,12 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable_decl_sub(PowerBuilderParser.Variable_decl_subContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#variable_decl_sub0}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable_decl_sub0(PowerBuilderParser.Variable_decl_sub0Context ctx);
+	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#variable_decl_sub1}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -100,6 +76,12 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariable_decl_sub2(PowerBuilderParser.Variable_decl_sub2Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#variable_decl_event}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable_decl_event(PowerBuilderParser.Variable_decl_eventContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#decimal_decl_sub}.
 	 * @param ctx the parse tree
@@ -281,6 +263,18 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPublic_statement(PowerBuilderParser.Public_statementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#throw_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThrow_statement(PowerBuilderParser.Throw_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#goto_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGoto_statement(PowerBuilderParser.Goto_statementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#statement_sub}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -413,6 +407,12 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment_rhs(PowerBuilderParser.Assignment_rhsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#describe_function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDescribe_function_call(PowerBuilderParser.Describe_function_callContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#assignment_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -424,12 +424,6 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariable_name(PowerBuilderParser.Variable_nameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#create_object_function}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCreate_object_function(PowerBuilderParser.Create_object_functionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#return_statement}.
 	 * @param ctx the parse tree
@@ -479,6 +473,12 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_call_statement(PowerBuilderParser.Function_call_statementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#ancestor_function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAncestor_function_call(PowerBuilderParser.Ancestor_function_callContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#call_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -490,6 +490,12 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSuper_call_statement(PowerBuilderParser.Super_call_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#ancestor_event_call_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAncestor_event_call_statement(PowerBuilderParser.Ancestor_event_call_statementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#event_call_statement_sub}.
 	 * @param ctx the parse tree
@@ -599,35 +605,17 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitChoose_case_cond_sub(PowerBuilderParser.Choose_case_cond_subContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#choose_case_range_sub}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitChoose_case_range_sub(PowerBuilderParser.Choose_case_range_subContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#choose_case_else_sub}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitChoose_case_else_sub(PowerBuilderParser.Choose_case_else_subContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#goto_stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGoto_stat(PowerBuilderParser.Goto_statContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#label_stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLabel_stat(PowerBuilderParser.Label_statContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#throw_stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitThrow_stat(PowerBuilderParser.Throw_statContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#identifier}.
 	 * @param ctx the parse tree
@@ -683,35 +671,11 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtom_sub_member1(PowerBuilderParser.Atom_sub_member1Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtom(PowerBuilderParser.AtomContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#array_access_atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArray_access_atom(PowerBuilderParser.Array_access_atomContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#numeric_atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNumeric_atom(PowerBuilderParser.Numeric_atomContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#boolean_atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBoolean_atom(PowerBuilderParser.Boolean_atomContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PowerBuilderParser#cast_expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCast_expression(PowerBuilderParser.Cast_expressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#data_type_name}.
 	 * @param ctx the parse tree

@@ -147,6 +147,7 @@ DISCONNECT: D I S C O N N E C T;
 CONSTANT: C O N S T A N T;
 SELECTBLOB: S E L E C T B L O B;
 UPDATEBLOB: U P D A T E B L O B;
+ROLLBACK: R O L L B A C K;
 // Operators
 
 EQ:                 '=';
@@ -182,13 +183,13 @@ TQ:                 '???';
 DOUBLE_PIPE:        '||';
 DOTDOTDOT:          '...';
 AT: '@';
-
+UNDERSCORE: '_';
 // Literals
 
 NUMBER:             (NUM '.' NUM | '.' NUM | NUM) ('E' ('+' | '-')? NUM)? ('D' | 'F')?;
 DOT:                '.';
 DATE:               DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT;
-TIME:               DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT (':' DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT)?;
+TIME:               DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT DIGIT DIGIT DIGIT DIGIT DIGIT)?;
 
 ENUM:               ID_PARTS '!';
 ID:                 ID_PARTS;

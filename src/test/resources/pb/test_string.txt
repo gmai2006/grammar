@@ -1,0 +1,4 @@
+ls_colhead = lnv_string.of_GlobalReplace ( ls_colhead, "~~", '' )
+
+//WordCap string.
+ls_colhead = ids_requestor.Describe ( "Evaluate('WordCap(~"" + ls_colhead + "~")',0)" )

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
@@ -26,7 +27,7 @@ public class ParserTestIt {
 
   private static void testAllFiles(Path dir, Predicate<Path> filtered) throws IOException {
     try (Stream<Path> paths = Files.walk(dir, 2)) {
-      paths.filter(filtered).forEach(ParserTestIt::testParser);
+      paths.filter(filtered).sorted().collect(Collectors.toList()).forEach(ParserTestIt::testParser);
     }
   }
 

@@ -23,10 +23,9 @@ public class ParserFragmentTest {
 
   @Test
   public void testLexer() {
-    InputStream in = PbParserTest.class.getResourceAsStream("/pb/w_app.srw");
-    PowerBuilderLexer lexer = null;
+    InputStream in = PbParserTest.class.getResourceAsStream("/pb/test_string.txt");
     try {
-      lexer = PbHelper.getLexer(in);
+      PowerBuilderLexer lexer = PbHelper.getLexer(in);
       CommonTokenStream tokens = new CommonTokenStream(lexer);
       tokens.fill();
       tokens.getTokens().forEach(token -> System.out.println(token.getText()));

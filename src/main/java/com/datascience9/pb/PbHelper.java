@@ -43,15 +43,18 @@ public class PbHelper {
   public static PowerBuilderLexer getLexer(InputStream in) throws IOException {
     try {
       CharStream s = CharStreams.fromStream(in);
-//      CaseChangingCharStream upper = new CaseChangingCharStream(s, true);
       return new PowerBuilderLexer(s);
     } catch (IOException ex) {
       throw new IOException(ex);
     }
   }
 
+  public static PowerBuilderLexer getLexer(String str) {
+      return new PowerBuilderLexer(CharStreams.fromString(str));
+
+  }
+
   public static PowerBuilderLexer getLexer(CharStream s) {
-//    CaseChangingCharStream upper = new CaseChangingCharStream(s, true);
     return new PowerBuilderLexer(s);
   }
 
