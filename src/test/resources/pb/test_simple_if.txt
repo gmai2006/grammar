@@ -1,0 +1,1 @@
+If test(param) <1 Then Return -1

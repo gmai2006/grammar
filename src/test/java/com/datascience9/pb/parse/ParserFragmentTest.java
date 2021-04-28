@@ -22,6 +22,13 @@ public class ParserFragmentTest {
   }
 
   @Test
+  public void testSimpleIfStmt() throws IOException {
+    InputStream in = PbParserTest.class.getResourceAsStream("/pb/test_simple_if.txt");
+    PowerBuilderParser parser = PbHelper.getParser(in);
+    parser.statement();
+  }
+
+  @Test
   public void testLexer() {
     InputStream in = PbParserTest.class.getResourceAsStream("/pb/test_string.txt");
     try {
