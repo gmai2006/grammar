@@ -91,3 +91,30 @@ task generatePb() {
     println 'Generate both lexer and parser successsfully'
 }
 
+task generateMySqlLexer(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/mysql/parse/MySqlLexer.g4"
+    def packageName = "com.datascience9.mysql.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
+task generateMySqlParser(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/mysql/parse/MySqlParser.g4"
+    def packageName = "com.datascience9.mysql.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
+task generateMySql() {
+    dependsOn generateMySqlLexer, generateMySqlParser
+    println 'Generate both lexer and parser successsfully'
+}
+

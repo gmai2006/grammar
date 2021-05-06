@@ -1,0 +1,1 @@
+select  misth_final_ypal.kodfinal, misth_final_ypal.kodypal, misth_final_ypal.kodxrisi, misth_final_ypal.plirdate from misth_final_ypal  WHERE misth_final_ypal.kodfinal = :arg_kodfinal and misth_final_ypal.kodxrisi = :arg_kodxrisi  

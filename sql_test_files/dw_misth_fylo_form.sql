@@ -1,0 +1,1 @@
+select  misth_fylo.kodfylo, misth_fylo.kodxrisi, misth_fylo.descfylo from misth_fylo  WHERE misth_fylo.kodfylo = :arg_kodfylo and misth_fylo.kodxrisi = :arg_kodxrisi  

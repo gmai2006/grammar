@@ -1,0 +1,1 @@
+select  misth_zptamio.kodtamio, misth_zptamio.kodxrisi, misth_zptamio.desctamio from misth_zptamio  WHERE misth_zptamio.kodxrisi = :arg_kodxrisi  order by misth_zptamio.kodtamio ASC

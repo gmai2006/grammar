@@ -1,0 +1,1 @@
+select  usrusers.koduser, usrusers.username from usrusers  WHERE usrusers.koduser <> -1  order by usrusers.username ASC

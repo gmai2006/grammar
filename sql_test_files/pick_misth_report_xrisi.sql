@@ -1,0 +1,1 @@
+select  misth_report.kodreport, misth_report.descreport, misth_report.kodxrisi from misth_report  WHERE misth_report.kodxrisi = :arg_kodxrisi  order by misth_report.descreport ASC

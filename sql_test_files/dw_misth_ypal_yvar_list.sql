@@ -1,0 +1,1 @@
+select  misth_ypal_yvar.kodypal, misth_ypal_yvar.kodyvar, misth_ypal_yvar.kodxrisi, misth_ypal_yvar.aa, misth_ypal_yvar.expr from misth_ypal_yvar  WHERE ( misth_ypal_yvar.kodypal = :arg_kodypal ) and ( misth_ypal_yvar.kodxrisi = :arg_kodxrisi )  order by misth_ypal_yvar.aa ASC, misth_ypal_yvar.kodyvar ASC

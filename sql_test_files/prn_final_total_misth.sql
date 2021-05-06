@@ -1,0 +1,1 @@
+select  misth_final.kodfinal, misth_final.descfinal, misth_final.datefinal, misth_final.title, misth_final.aa from misth_final  WHERE ( misth_final.kodfinal = :arg_kodfinal ) and ( misth_final.kodxrisi = :arg_kodxrisi )  

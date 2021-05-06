@@ -1,0 +1,1 @@
+select  misth_zpkrat.kodkrat, misth_zpkrat.kodxrisi, misth_zpkrat.desckrat, 0 as issel from misth_zpkrat  WHERE misth_zpkrat.kodxrisi = :arg_kodxrisi  order by misth_zpkrat.desckrat ASC

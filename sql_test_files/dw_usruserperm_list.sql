@@ -1,0 +1,1 @@
+select  usruserperm.kodapp, usruserperm.koduser, usruserperm.enable, usrapps.descapp from usruserperm, usrapps WHERE usruserperm.kodapp = usrapps.kodapp AND ( usruserperm.koduser = :arg_koduser  ) order by usrapps.descapp ASC

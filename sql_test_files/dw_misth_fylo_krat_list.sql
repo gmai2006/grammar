@@ -1,0 +1,1 @@
+select  misth_fylo_krat.kodfylo, misth_fylo_krat.kodkrat, misth_fylo_krat.kodxrisi, misth_fylo_krat.expr, misth_fylo_krat.aa, misth_fylo_krat.notes from misth_fylo_krat  WHERE misth_fylo_krat.kodfylo = :arg_kodfylo and misth_fylo_krat.kodxrisi = :arg_kodxrisi  order by misth_fylo_krat.aa ASC

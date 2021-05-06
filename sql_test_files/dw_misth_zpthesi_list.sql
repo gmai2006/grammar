@@ -1,0 +1,1 @@
+select  misth_zpthesi.kodthesi, misth_zpthesi.kodxrisi, misth_zpthesi.descthesi from misth_zpthesi  WHERE misth_zpthesi.kodxrisi = :arg_kodxrisi  order by misth_zpthesi.kodthesi ASC

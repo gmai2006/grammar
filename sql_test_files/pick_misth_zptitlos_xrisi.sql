@@ -1,0 +1,1 @@
+select  misth_zptitlos.kodtitlos, misth_zptitlos.kodxrisi, misth_zptitlos.desctitlos from misth_zptitlos  WHERE misth_zptitlos.kodxrisi = :arg_kodxrisi  order by misth_zptitlos.kodtitlos ASC

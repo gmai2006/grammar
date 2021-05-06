@@ -1,0 +1,1 @@
+select  afxptoseis.onom, afxptoseis.gen, afxptoseis.ait from afxptoseis  

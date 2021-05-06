@@ -1,0 +1,1 @@
+select  misth_zpstath.kodstath, misth_zpstath.kodxrisi, misth_zpstath.descstath, misth_zpstath.poso from misth_zpstath  WHERE misth_zpstath.kodxrisi = :arg_kodxrisi  order by misth_zpstath.kodstath ASC

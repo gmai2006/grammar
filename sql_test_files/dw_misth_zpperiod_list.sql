@@ -1,0 +1,1 @@
+select  misth_zpperiod.kodperiod, misth_zpperiod.kodxrisi, misth_zpperiod.descperiod, misth_zpperiod.orderno from misth_zpperiod  WHERE misth_zpperiod.kodxrisi = :arg_kodxrisi  order by misth_zpperiod.orderno ASC

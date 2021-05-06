@@ -1,0 +1,1 @@
+select  misth_ypal.kodypal, misth_ypal.kodxrisi, misth_ypal.surname, misth_ypal.name, misth_ypal.mitroo, misth_ypal.klimakio, misth_ypal.klados, misth_ypal.bathmos, misth_zpidikot.descidikot from misth_ypal, misth_zpidikot WHERE misth_ypal.kodidikot = misth_zpidikot.kodidikot AND misth_ypal.kodxrisi = misth_zpidikot.kodxrisi AND ( ( misth_ypal.kodxrisi = :arg_kodxrisi )  ) 

@@ -1,0 +1,1 @@
+select  usractions.kodaction, usractions.kodapp, usractions.descaction, usrapps.descapp from usractions, usrapps  WHERE usractions.kodapp = usrapps.kodapp order by usrapps.descapp ASC, usractions.descaction ASC

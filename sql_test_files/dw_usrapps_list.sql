@@ -1,0 +1,1 @@
+select  usrapps.kodapp, usrapps.descapp from usrapps  order by usrapps.descapp ASC

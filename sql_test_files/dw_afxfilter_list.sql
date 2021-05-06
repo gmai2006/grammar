@@ -1,0 +1,1 @@
+select  afxfilter.kodfilter, afxfilter.descfilter, afxfilter.tablename from afxfilter  WHERE afxfilter.tablename = :argtrablename  order by afxfilter.descfilter ASC

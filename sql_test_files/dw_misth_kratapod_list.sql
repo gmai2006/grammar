@@ -1,0 +1,1 @@
+select  misth_kratapod.kodkratapod, misth_kratapod.kodxrisi, misth_kratapod.desckratapod, misth_kratapod.apoddate from misth_kratapod  WHERE misth_kratapod.kodxrisi = :arg_kodxrisi  

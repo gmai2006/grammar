@@ -1,0 +1,1 @@
+select  misth_zpyvar.kodyvar, misth_zpyvar.kodxrisi, misth_zpyvar.descyvar from misth_zpyvar  WHERE misth_zpyvar.kodxrisi = :arg_kodxrisi  order by misth_zpyvar.descyvar ASC

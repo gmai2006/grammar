@@ -1,0 +1,1 @@
+select  usrmembers.kodgroup, usrmembers.koduser, usrgroups.descgroup from usrmembers, usrgroups WHERE usrgroups.kodgroup = usrmembers.kodgroup AND ( usrmembers.koduser = :arg_koduser  ) order by usrgroups.descgroup ASC

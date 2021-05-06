@@ -1,0 +1,1 @@
+select  misth_zpkat.kodkat, misth_zpkat.kodxrisi, misth_zpkat.desckat from misth_zpkat  WHERE misth_zpkat.kodxrisi = :arg_kodxrisi  order by misth_zpkat.desckat ASC

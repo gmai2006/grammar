@@ -1,0 +1,1 @@
+select  misth_ypal.surname, misth_ypal.name, misth_ypal.fathername, misth_ypal.mitroo, misth_ypal.klados, misth_ypal.bathmos, misth_ypal.klimakio, misth_ypal.newexeldate from misth_ypal  WHERE misth_ypal.kodxrisi = :arg_kodxrisi and misth_ypal.newexeldate <= :arg_date  order by misth_ypal.surname ASC, misth_ypal.name ASC, misth_ypal.fathername ASC, misth_ypal.mothername ASC

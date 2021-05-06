@@ -1,0 +1,1 @@
+select  misth_report_cols.kodcol, misth_report_cols.kodreport, misth_report_cols.kodxrisi, misth_report_cols.expr, misth_report_cols.header_text, misth_report_cols.width, misth_report_cols.aa from misth_report_cols  WHERE misth_report_cols.kodreport = :arg_kodreport and misth_report_cols.kodxrisi = :arg_kodxrisi  order by misth_report_cols.aa ASC

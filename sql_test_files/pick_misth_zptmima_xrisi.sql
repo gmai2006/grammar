@@ -1,0 +1,1 @@
+select  misth_zptmima.kodtmima, misth_zptmima.kodxrisi, misth_zptmima.desctmima from misth_zptmima  WHERE misth_zptmima.kodxrisi = :arg_kodxrisi  order by misth_zptmima.desctmima ASC

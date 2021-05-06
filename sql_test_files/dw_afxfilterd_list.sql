@@ -1,0 +1,1 @@
+select  afxfilterd.kodfilterd, afxfilterd.kodfilter, afxfilterd.pedio, afxfilterd.telestis, afxfilterd.timi, afxfilterd.joint from afxfilterd  WHERE afxfilterd.kodfilter = :kodfilter  order by afxfilterd.kodfilterd ASC

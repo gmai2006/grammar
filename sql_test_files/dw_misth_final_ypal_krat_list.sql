@@ -1,0 +1,1 @@
+select  misth_final_ypal_krat.kodfinal, misth_final_ypal_krat.kodypal, misth_final_ypal_krat.kodkrat, misth_final_ypal_krat.kodxrisi, misth_final_ypal_krat.poso, misth_final_ypal_krat.aa, misth_final_ypal_krat.notes from misth_final_ypal_krat  WHERE misth_final_ypal_krat.kodfinal = :arg_kodfinal and misth_final_ypal_krat.kodxrisi = :arg_kodxrisi  
