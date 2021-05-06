@@ -13,3 +13,8 @@ ANTLR4 PowerBuilder & DataWindow grammars
 ## DataWindow
 Tested against 120 DataWindow files.
 Test files are from [this project](https://github.com/gmai2006/powerbuilder-pbl-dump/tree/master/test)
+
+## MySql
+- Support mix case.  No need to use ChangeCase any more
+- Add BIND_VAR to handle plSql :<variable_name>
+- Test against more 100 Sql files
