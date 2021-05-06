@@ -1111,7 +1111,7 @@ STAR:                                '*';
 DIVIDE:                              '/';
 MODULE:                              '%';
 PLUS:                                '+';
-MINUSMINUS:                          '--';
+//MINUSMINUS:                          '--';
 MINUS:                               '-';
 DIV:                                 'DIV';
 MOD:                                 'MOD';

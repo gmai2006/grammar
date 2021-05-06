@@ -782,6 +782,18 @@ public interface MySqlParserListener extends ParseTreeListener {
 	 */
 	void exitSpecialIndexDeclaration(MySqlParser.SpecialIndexDeclarationContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code tableOptionType}
+	 * labeled alternative in {@link MySqlParser#tableOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterTableOptionType(MySqlParser.TableOptionTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code tableOptionType}
+	 * labeled alternative in {@link MySqlParser#tableOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitTableOptionType(MySqlParser.TableOptionTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code tableOptionEngine}
 	 * labeled alternative in {@link MySqlParser#tableOption}.
 	 * @param ctx the parse tree

@@ -469,6 +469,13 @@ public interface MySqlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSpecialIndexDeclaration(MySqlParser.SpecialIndexDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code tableOptionType}
+	 * labeled alternative in {@link MySqlParser#tableOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTableOptionType(MySqlParser.TableOptionTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code tableOptionEngine}
 	 * labeled alternative in {@link MySqlParser#tableOption}.
 	 * @param ctx the parse tree

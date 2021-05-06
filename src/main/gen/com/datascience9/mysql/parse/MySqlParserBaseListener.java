@@ -868,6 +868,18 @@ public class MySqlParserBaseListener implements MySqlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTableOptionType(MySqlParser.TableOptionTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTableOptionType(MySqlParser.TableOptionTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTableOptionEngine(MySqlParser.TableOptionEngineContext ctx) { }
 	/**
 	 * {@inheritDoc}
