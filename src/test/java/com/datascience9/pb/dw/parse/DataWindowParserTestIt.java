@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
+import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.atn.PredictionMode;
 
 public class DataWindowParserTestIt {
   public static void main(String[] args) throws Exception {
@@ -28,6 +30,9 @@ public class DataWindowParserTestIt {
     System.out.println("Parsing ... " + file);
     try {
       PowerBuilderDWParser parser = DataWindowParserHelper.getDataWindowParser(CharStreams.fromPath(file));
+      parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
+      parser.removeErrorListeners();
+      parser.setErrorHandler(new BailErrorStrategy());
       parser.start_rule();
     } catch (IOException e) {
       e.printStackTrace();
