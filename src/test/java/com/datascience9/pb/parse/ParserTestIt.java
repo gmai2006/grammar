@@ -32,7 +32,7 @@ public class ParserTestIt {
   }
 
   private static void testParser(Path file) {
-    System.out.println("Parsing ... " + file);
+    System.out.println(String.format("Parsing ... %s", file));
     try {
       PowerBuilderParser parser = PbHelper.getParser(CharStreams.fromPath(file));
       parser.setErrorHandler(new BailErrorStrategy());

@@ -242,7 +242,7 @@ mul_expr
 
 unary_sign_expr
    : ENUM
-   | (MINUS | PLUS)? (COLON? variable_name | value)
+   | (MINUS | PLUS)? (variable_name | bind_param | value)
    | function_call_statement
    | LCURLY function_call_statement RCURLY
    | LPAREN unary_sign_expr RPAREN
@@ -281,16 +281,12 @@ statement
    | for_loop_statement
    | continue_statement
    | exit_statement
-   | sql_insert_statement
-   | sql_delete_statement
-   | sql_select_statement
+   | sql_statement
    | sql_commit_statement
-   | sql_update_statement
    | open_cursor_statement
    | prepare_sql_stateent
    | declare_cursor_statement
    | close_cursor_statement
-   | sql_connect_statement
    | fetch_into_statement
    | call_statement
    ;
@@ -333,13 +329,21 @@ try_catch_statement
     END TRY
     ;
 
+sql_statement
+  : sql_insert_statement
+  | sql_delete_statement
+  | sql_select_statement
+  | sql_update_statement
+  | sql_connect_statement
+  ;
+
 sql_insert_statement
   : INSERT INTO variable_name LPAREN variable_name (COMMA variable_name)* RPAREN VALUES LPAREN sql_values (COMMA sql_values)* RPAREN SEMI?
   ;
 
 sql_values
   : value
-  | COLON variable_name
+  | bind_param
   ;
 
 sql_delete_statement
@@ -347,7 +351,7 @@ sql_delete_statement
   ;
 
 sql_select_statement
-  : (SELECT | SELECTBLOB) select_clause INTO COLON variable_name (COMMA COLON variable_name)* FROM variable_name (COMMA variable_name)*
+  : (SELECT | SELECTBLOB) select_clause INTO bind_param (COMMA bind_param)* FROM variable_name (COMMA variable_name)*
   where_clause? (USING variable_name)? SEMI?
   ;
 
@@ -360,7 +364,7 @@ sql_update_statement
   ;
 
 set_value
-  : variable_name EQ COLON variable_name
+  : variable_name EQ bind_param
   | variable_name IS NOT? NULL
   ;
 
@@ -380,7 +384,7 @@ sql_commit_statement
 
 execute_statement
   : EXECUTE IMMEDIATE? (variable_name | value) SEMI?
-  | EXECUTE IMMEDIATE? COLON variable_name (USING (SQLCA | variable_name))? SEMI
+  | EXECUTE IMMEDIATE? bind_param (USING (SQLCA | variable_name))? SEMI
   | EXECUTE DYNAMIC? identifier (USING DESCRIPTOR? (SQLCA | identifier))? SEMI?
   ;
 
@@ -405,12 +409,12 @@ close_cursor_statement
   ;
 
 fetch_into_statement
-  : FETCH variable_name INTO COLON variable_name SEMI?
+  : FETCH variable_name INTO bind_param SEMI?
   | FETCH identifier USING DESCRIPTOR? identifier SEMI?
   ;
 
 prepare_sql_stateent
-  : PREPARE variable_name FROM COLON variable_name USING (SQLCA | identifier_name) SEMI
+  : PREPARE variable_name FROM bind_param USING (SQLCA | identifier_name) SEMI
   ;
 
 increment_decrement_statement
@@ -433,7 +437,7 @@ describe_function_call
   ;
 
 assignment_statement
-   : AT variable_name EQ COLON variable_name SEMI
+   : AT variable_name EQ bind_param SEMI
    | (function_call_statement DOT)? variable_name (EQ | PLUSEQ | MINUSEQ | MULTEQ | DIVEQ) assignment_rhs SEMI?
    ;
 
@@ -627,6 +631,10 @@ identifier_name_ex
 identifier_name
    : (UNDERSCORE)? ID
    ;
+
+bind_param
+  : COLON identifier
+  ;
 
 atom_sub
    : array_access_atom
