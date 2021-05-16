@@ -1,5 +1,5 @@
 // Generated from /backup/apps/grammars/src/main/java/com/datascience9/pb/dw/parse/PowerBuilderDWParser.g4 by ANTLR 4.9.1
-package com.datascience9.pb.dw.parse;
+package com.datascience9.pb.datawindow.parse;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

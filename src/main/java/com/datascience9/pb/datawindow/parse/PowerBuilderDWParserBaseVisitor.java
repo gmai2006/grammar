@@ -1,5 +1,5 @@
-// Generated from ./src/main/java/com/datascience9/pb/dw/parse/PowerBuilderDWParser.g4 by ANTLR 4.9.2
-package com.datascience9.pb.dw.parse;
+// Generated from ./src/main/java/com/datascience9/pb/datawindow/parse/PowerBuilderDWParser.g4 by ANTLR 4.9.2
+package com.datascience9.pb.datawindow.parse;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

@@ -1,7 +1,7 @@
-package com.datascience9.pb.dw;
+package com.datascience9.pb.datawindow;
 
-import com.datascience9.pb.dw.parse.PowerBuilderDWLexer;
-import com.datascience9.pb.dw.parse.PowerBuilderDWParser;
+import com.datascience9.pb.datawindow.parse.PowerBuilderDWLexer;
+import com.datascience9.pb.datawindow.parse.PowerBuilderDWParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;

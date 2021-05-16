@@ -1,6 +1,6 @@
-package com.datascience9.pb.dw.parse;
+package com.datascience9.pb.datawindow.parse;
 
-import com.datascience9.pb.dw.DataWindowParserHelper;
+import com.datascience9.pb.datawindow.DataWindowParserHelper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

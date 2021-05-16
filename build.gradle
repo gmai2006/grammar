@@ -38,8 +38,8 @@ task IntegrationTest( type: Test ) {
 }
 
 task generatePbDwLexer(type: JavaExec) {
-    def grammarFile = "./src/main/java/com/datascience9/pb/dw/parse/PowerBuilderDWLexer.g4"
-    def packageName = "com.datascience9.pb.dw.parse"
+    def grammarFile = "./src/main/java/com/datascience9/pb/datawindow/parse/PowerBuilderDWLexer.g4"
+    def packageName = "com.datascience9.pb.datawindow.parse"
     def outputDir = "./"
 
     println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
@@ -49,8 +49,8 @@ task generatePbDwLexer(type: JavaExec) {
 }
 
 task generatePbDwParser(type: JavaExec) {
-    def grammarFile = "./src/main/java/com/datascience9/pb/dw/parse/PowerBuilderDWParser.g4"
-    def packageName = "com.datascience9.pb.dw.parse"
+    def grammarFile = "./src/main/java/com/datascience9/pb/datawindow/parse/PowerBuilderDWParser.g4"
+    def packageName = "com.datascience9.pb.datawindow.parse"
     def outputDir = "./"
 
     println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
