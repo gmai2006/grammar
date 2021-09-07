@@ -2,6 +2,7 @@
 ANTLR4 PowerBuilder & DataWindow grammars
 
 ## PowerBuilder
+- Add a grammar that parse comments
 - Fixed the ambiguous HEADER.  Put it into the hidden channel
 - Fixed the function call statement that should accept argument types (string literal, primitive data types)
 - Simplify the grammar.  Boolean expression is a expression, not the other way around like the implemetation of the version 3 and the ported version.  The generated parse tree should be shorter and clean.
