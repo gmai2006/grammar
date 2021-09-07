@@ -5,12 +5,14 @@ import com.datascience9.pb.parse.PowerBuilderParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.regex.Pattern;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public class PbHelper {
+
+  private PbHelper() {}
+
   public static PowerBuilderLexer getLexer(Path path) throws IOException {
     try {
       CharStream s = CharStreams.fromPath(path);

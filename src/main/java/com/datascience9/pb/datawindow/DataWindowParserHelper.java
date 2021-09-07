@@ -11,7 +11,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 
 public class DataWindowParserHelper {
 
-  
+  private DataWindowParserHelper() {}
+
   public static PowerBuilderDWLexer getDataWindowLexer(Path path) throws IOException {
     try {
       CharStream s = CharStreams.fromPath(path);

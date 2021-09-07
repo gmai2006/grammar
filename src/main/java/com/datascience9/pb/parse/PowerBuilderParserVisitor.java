@@ -563,6 +563,18 @@ public interface PowerBuilderParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIf_statement(PowerBuilderParser.If_statementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#elseif_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseif_statement(PowerBuilderParser.Elseif_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PowerBuilderParser#else_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse_statement(PowerBuilderParser.Else_statementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PowerBuilderParser#if_simple_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

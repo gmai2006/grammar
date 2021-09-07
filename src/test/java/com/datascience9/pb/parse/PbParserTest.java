@@ -11,6 +11,5 @@ public class PbParserTest {
     PowerBuilderParser parser = PbHelper.getParser(in);
     ParseTree tree = parser.start_rule();
     Trees.inspect(tree, parser);
-
   }
 }

@@ -86,8 +86,35 @@ task generatePbParser(type: JavaExec) {
     args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
 }
 
+task generatePbWithCommentLexer(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/pb/parse/PowerBuilderWithCommentLexer.g4"
+    def packageName = "com.datascience9.pb.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
+task generatePbWithCommentParser(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/pb/parse/PowerBuilderWithCommentParser.g4"
+    def packageName = "com.datascience9.pb.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
 task generatePb() {
     dependsOn generatePbLexer, generatePbParser
+    println 'Generate both lexer and parser successsfully'
+}
+
+task generatePbWithComment() {
+    dependsOn generatePbWithCommentLexer, generatePbWithCommentParser
     println 'Generate both lexer and parser successsfully'
 }
 

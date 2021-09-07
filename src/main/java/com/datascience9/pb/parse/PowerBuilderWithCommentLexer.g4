@@ -27,7 +27,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-lexer grammar PowerBuilderLexer;
+lexer grammar PowerBuilderWithCommentLexer;
 
 // Keywords
 ANY: A N Y ;
@@ -199,8 +199,8 @@ ID:                 ID_PARTS;
 
 EXPORT_HEADER:      ('HA')? '$' ~[\r\n]* -> channel(HIDDEN);
 LINE_CONTINUATION:  '&' WS* [\r\n] -> channel(HIDDEN);
-SL_COMMENT:         '//' ~ [\r\n]* -> channel(HIDDEN);
-ML_COMMENT:         '/*' .*? '*/'  -> channel(HIDDEN);
+SL_COMMENT:         '//' ~ [\r\n]* ;
+ML_COMMENT:         '/*' .*? '*/'  ;
 WS:                 [ \t\r\n]+     -> channel(HIDDEN);
 
 // Fragments

@@ -26,13 +26,15 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-parser grammar PowerBuilderParser;
+parser grammar PowerBuilderWithCommentParser;
 
-options { tokenVocab = PowerBuilderLexer; }
+options { tokenVocab = PowerBuilderWithCommentLexer; }
 
 start_rule
-   : (RELEASE NUMBER SEMI)? body_rule+ EOF
+   : (RELEASE NUMBER SEMI)? body_rule_comment+ EOF
    ;
+
+body_rule_comment : comment* body_rule comment*;
 
 body_rule
    : datatype_decl
@@ -50,23 +52,25 @@ body_rule
    ;
 
 forward_decl
-   : FORWARD (datatype_decl | variable_decl | global_variables_decl)+ END FORWARD
+   : FORWARD (datatype_decl | variable_decl_comment | global_variables_decl)+ END FORWARD
    ;
 
 datatype_decl
    : scope_modif? TYPE identifier_name FROM (identifier_name TICK)? data_type_name (WITHIN identifier_name)? AUTOINSTANTIATE? (DESCRIPTOR DQUOTED_STRING EQ DQUOTED_STRING)?
-     (variable_decl | event_forward_decl)*
+     (variable_decl_comment | event_forward_decl)*
      END TYPE
    ;
 
 type_variables_decl
-   : TYPE VARIABLES (variable_decl | constant_decl | public_statement)* END VARIABLES
+   : TYPE VARIABLES (variable_decl_comment | constant_decl | public_statement)* END VARIABLES
    ;
 
 global_variables_decl
-   : GLOBAL variable_decl
-   | (GLOBAL | SHARED) VARIABLES (variable_decl)* END VARIABLES
+   : GLOBAL variable_decl_comment
+   | (GLOBAL | SHARED) VARIABLES (variable_decl_comment)* END VARIABLES
    ;
+
+variable_decl_comment : comment* variable_decl comment*;
 
 variable_decl
    : access_type? variable_decl_sub SEMI?
@@ -135,11 +139,11 @@ functions_forward_decl
 
 function_body
    : access_type? scope_modif? (FUNCTION data_type_name | SUBROUTINE) identifier_name LPAREN parameters_list_sub? RPAREN (THROWS identifier_name)?
-   (SEMI)? (statement SEMI?)* END (FUNCTION | SUBROUTINE)
+   (SEMI)? comment* (statement_comment SEMI?)* END (FUNCTION | SUBROUTINE)
    ;
 
 on_body
-   : ON identifier (DOT (CREATE | DESTROY) | OPEN | CLOSE)? SEMI? (statement SEMI?)* END ON
+   : ON identifier (DOT (CREATE | DESTROY) | OPEN | CLOSE)? SEMI? (statement_comment SEMI?)* END ON
    ;
 
 event_forward_decl
@@ -149,7 +153,8 @@ event_forward_decl
 
 event_body
    : EVENT (TYPE data_type_name)? (identifier_name COLONCOLON)? (identifier_name | OPEN | CLOSE) (LPAREN parameters_list_sub? RPAREN)? SEMI?
-   (statement SEMI?)* END EVENT
+   comment*
+   (statement_comment SEMI?)* END EVENT
    ;
 
 access_type
@@ -177,6 +182,8 @@ scope_modif
    | LOCAL
    ;
 
+expression_comment : comment* expression comment*;
+
 expression
    : close_call_sub
    | value
@@ -199,7 +206,7 @@ value
   ;
 
 expression_list
-   : REF? expression (COMMA REF? expression)*
+   : REF? expression_comment (COMMA REF? expression_comment)*
    ;
 
 boolean_expression
@@ -249,6 +256,10 @@ unary_sign_expr
    | set_value
    ;
 
+statement_comment
+  : comment* statement comment*
+  ;
+
 statement
    : increment_decrement_statement
    | public_statement
@@ -295,10 +306,10 @@ public_statement
   : (PUBLIC | PROTECTED | PRIVATE) COLON
   ;
 
-throw_statement : THROW expression;
+throw_statement : THROW expression_comment;
 
 goto_statement
-: GOTO variable_name(statement SEMI?)* variable_name COLON (statement SEMI?)*
+: GOTO variable_name(statement_comment SEMI?)* variable_name COLON (statement_comment SEMI?)*
 ;
 
 statement_sub
@@ -317,14 +328,14 @@ statement_sub
 
 try_catch_statement
     : TRY
-    (statement SEMI?)*
+    (statement_comment SEMI?)*
     (
       CATCH LPAREN variable_decl_sub RPAREN
-      (statement SEMI?)*
+      (statement_comment SEMI?)*
     )*
     (
       FINALLY
-      (statement SEMI?)*
+      (statement_comment SEMI?)*
     )?
     END TRY
     ;
@@ -423,7 +434,7 @@ increment_decrement_statement
 
 assignment_rhs
   : value
-  | expression (COMMA expression)*
+  | expression_comment (COMMA expression_comment)*
   | function_call_statement
   | describe_function_call
   | create_call_statement
@@ -446,7 +457,7 @@ variable_name
   ;
 
 return_statement
-   : RETURN (expression)?
+   : RETURN (expression_comment)?
    ;
 
 function_call_expression_sub
@@ -518,7 +529,7 @@ event_call_statement
    ;
 
 create_call_sub
-   : CREATE USING expression
+   : CREATE USING expression_comment
    | CREATE USING? (identifier_name DOT)? data_type_name (LPAREN expression_list? RPAREN)?
    ;
 
@@ -527,7 +538,7 @@ create_call_statement
    ;
 
 destroy_call_sub
-   : DESTROY expression
+   : DESTROY expression_comment
    ;
 
 destroy_call_statement
@@ -535,32 +546,32 @@ destroy_call_statement
    ;
 
 for_loop_statement
-   : FOR variable_name EQ expression TO expression (STEP expression)? statement* (NEXT | END FOR)
+   : FOR variable_name EQ expression_comment TO expression_comment (STEP expression_comment)? statement_comment* (NEXT | END FOR)
    ;
 
 do_while_loop_statement
-   : DO (WHILE | UNTIL) boolean_expression  (statement SEMI?)* LOOP
+   : DO (WHILE | UNTIL) boolean_expression  (statement_comment SEMI?)* LOOP
    ;
 
 do_loop_while_statement
-   : DO statement* LOOP (WHILE | UNTIL) boolean_expression
+   : DO statement_comment* LOOP (WHILE | UNTIL) boolean_expression
    ;
 
 if_statement
-   : IF boolean_expression THEN  (statement SEMI?)* (elseif_statement)* (else_statement)?
+   : IF boolean_expression THEN  (statement_comment SEMI?)* (elseif_statement)* (else_statement)?
     END IF SEMI?
    ;
 
 elseif_statement
-  : ELSEIF boolean_expression THEN (statement SEMI?)*
+  : ELSEIF boolean_expression THEN (statement_comment SEMI?)*
   ;
 
 else_statement
-  : ELSE  (statement SEMI?)*
+  : ELSE  (statement_comment SEMI?)*
   ;
 
 if_simple_statement
-   : IF boolean_expression THEN  statement (ELSE statement)? SEMI?
+   : IF boolean_expression THEN  statement_comment (ELSE statement_comment)? SEMI?
    ;
 
 continue_statement
@@ -580,22 +591,22 @@ exit_statement
    ;
 
 choose_statement
-   : CHOOSE CASE expression (choose_case_cond_sub
+   : CHOOSE CASE expression_comment (choose_case_cond_sub
                             | choose_case_else_sub
                             | choose_case_value_sub)+
      END CHOOSE
    ;
 
 choose_case_value_sub
-   : CASE expression (TO expression)? (COMMA expression (TO expression)?)*  (statement SEMI?)*
+   : CASE expression_comment (TO expression_comment)? (COMMA expression_comment (TO expression_comment)?)*  (statement_comment SEMI?)*
    ;
 
 choose_case_cond_sub
-   : CASE IS (EQ | GT | LT | GTLT | GTE | LTE) expression  (statement SEMI?)*
+   : CASE IS (EQ | GT | LT | GTLT | GTE | LTE) expression_comment  (statement_comment SEMI?)*
    ;
 
 choose_case_else_sub
-   : CASE ELSE  (statement SEMI?)*
+   : CASE ELSE  (statement_comment SEMI?)*
    ;
 
 label_stat
@@ -638,7 +649,7 @@ identifier_name_ex
    ;
 
 identifier_name
-   : (UNDERSCORE)? ID
+   : comment* (UNDERSCORE)? ID comment*
    ;
 
 bind_param
@@ -692,3 +703,5 @@ dataTypeSub
    | ULONG
    | WINDOW
    ;
+
+comment : SL_COMMENT | ML_COMMENT;
