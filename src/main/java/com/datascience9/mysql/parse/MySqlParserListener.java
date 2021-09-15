@@ -5962,6 +5962,16 @@ public interface MySqlParserListener extends ParseTreeListener {
 	 */
 	void exitBitExpressionAtom(MySqlParser.BitExpressionAtomContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MySqlParser#bindVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterBindVar(MySqlParser.BindVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySqlParser#bindVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitBindVar(MySqlParser.BindVarContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MySqlParser#unaryOperator}.
 	 * @param ctx the parse tree
 	 */

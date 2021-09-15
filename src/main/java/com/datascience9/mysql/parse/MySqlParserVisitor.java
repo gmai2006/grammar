@@ -3528,6 +3528,12 @@ public interface MySqlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBitExpressionAtom(MySqlParser.BitExpressionAtomContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MySqlParser#bindVar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBindVar(MySqlParser.BindVarContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MySqlParser#unaryOperator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -2377,7 +2377,7 @@ predicate
 
 // Add in ASTVisitor nullNotnull in constant
 expressionAtom
-    : BIND_VAR                                                      #bindVarExpressionAtom
+    : bindVar                                                      #bindVarExpressionAtom
     | constant                                                      #constantExpressionAtom
     | fullColumnName                                                #fullColumnNameExpressionAtom
     | functionCall                                                  #functionCallExpressionAtom
@@ -2394,6 +2394,10 @@ expressionAtom
     | left=expressionAtom mathOperator right=expressionAtom         #mathExpressionAtom
     | left=expressionAtom jsonOperator right=expressionAtom         #jsonExpressionAtom
     ;
+
+bindVar
+  : BIND_VAR
+  ;
 
 unaryOperator
     : '!' | '~' | '+' | '-' | NOT

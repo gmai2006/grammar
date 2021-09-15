@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class MySqlSchemaParserTest {
 	private final static Logger logger = Logger.getLogger(MySqlSchemaParserTest.class.getName());
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		runFromResource("/sql/openpay101.sql");
 	}
 
