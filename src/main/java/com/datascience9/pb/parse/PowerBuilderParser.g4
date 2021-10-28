@@ -365,7 +365,7 @@ sql_update_statement
 
 set_value
   : variable_name EQ bind_param
-  | variable_name IS NOT? NULL
+  | variable_name IS NOT? NULL_
   ;
 
 where_clause

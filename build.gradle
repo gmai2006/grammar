@@ -145,3 +145,30 @@ task generateMySql() {
     println 'Generate both lexer and parser successsfully'
 }
 
+task generatePostgresLexer(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/postgres/parse/PostgreSQLLexer.g4"
+    def packageName = "com.datascience9.postgres.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
+task generatePostgresParser(type: JavaExec) {
+    def grammarFile = "./src/main/java/com/datascience9/postgres/parse/PostgreSQLParser.g4"
+    def packageName = "com.datascience9.postgres.parse"
+    def outputDir = "./"
+
+    println 'input args: grammar file ' + grammarFile + ': packageName ' + packageName + ' : outputDir ' + outputDir
+    classpath sourceSets.main.runtimeClasspath
+    main = "org.antlr.v4.Tool"
+    args  grammarFile, "-visitor",  "-package", packageName, "-o", outputDir
+}
+
+task generatePostgres() {
+    dependsOn generatePostgresLexer, generatePostgresParser
+    println 'Generate both lexer and parser successsfully'
+}
+

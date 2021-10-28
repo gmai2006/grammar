@@ -72,7 +72,7 @@ ON: O N ;
 TO: T O ;
 FROM: F R O M ;
 REF: R E F ;
-NULL: N U L L ;
+NULL_: N U L L ;
 UPDATE: U P D A T E ;
 CASE: C A S E ;
 DYNAMIC: D Y N A M I C ;

@@ -23,7 +23,7 @@ public class PowerBuilderParser extends Parser {
 		ULONG=22, WINDOW=23, TRUE=24, FALSE=25, GLOBAL=26, SHARED=27, END=28, 
 		INDIRECT=29, VARIABLES=30, FORWARD=31, PUBLIC=32, PRIVATE=33, FUNCTION=34, 
 		SUBROUTINE=35, READONLY=36, PROTOTYPES=37, TYPE=38, ON=39, TO=40, FROM=41, 
-		REF=42, NULL=43, UPDATE=44, CASE=45, DYNAMIC=46, WITHIN=47, PRIVATEWRITE=48, 
+		REF=42, NULL_=43, UPDATE=44, CASE=45, DYNAMIC=46, WITHIN=47, PRIVATEWRITE=48, 
 		PROTECTED=49, PRIVATEREAD=50, PROTECTEDREAD=51, PROTECTEDWRITE=52, LOCAL=53, 
 		EVENT=54, OPEN=55, GOTO=56, ELSE=57, IF=58, THEN=59, ELSEIF=60, TRY=61, 
 		EXIT=62, CHOOSE=63, IS=64, CONTINUE=65, DO=66, WHILE=67, FOR=68, CLOSE=69, 
@@ -145,7 +145,7 @@ public class PowerBuilderParser extends Parser {
 			"REAL", "STRING", "TIME_TYPE", "UNSIGNEDINTEGER", "UINT", "UNSIGNEDLONG", 
 			"ULONG", "WINDOW", "TRUE", "FALSE", "GLOBAL", "SHARED", "END", "INDIRECT", 
 			"VARIABLES", "FORWARD", "PUBLIC", "PRIVATE", "FUNCTION", "SUBROUTINE", 
-			"READONLY", "PROTOTYPES", "TYPE", "ON", "TO", "FROM", "REF", "NULL", 
+			"READONLY", "PROTOTYPES", "TYPE", "ON", "TO", "FROM", "REF", "NULL_", 
 			"UPDATE", "CASE", "DYNAMIC", "WITHIN", "PRIVATEWRITE", "PROTECTED", "PRIVATEREAD", 
 			"PROTECTEDREAD", "PROTECTEDWRITE", "LOCAL", "EVENT", "OPEN", "GOTO", 
 			"ELSE", "IF", "THEN", "ELSEIF", "TRY", "EXIT", "CHOOSE", "IS", "CONTINUE", 
@@ -6216,7 +6216,7 @@ public class PowerBuilderParser extends Parser {
 			return getRuleContext(Bind_paramContext.class,0);
 		}
 		public TerminalNode IS() { return getToken(PowerBuilderParser.IS, 0); }
-		public TerminalNode NULL() { return getToken(PowerBuilderParser.NULL, 0); }
+		public TerminalNode NULL_() { return getToken(PowerBuilderParser.NULL_, 0); }
 		public TerminalNode NOT() { return getToken(PowerBuilderParser.NOT, 0); }
 		public Set_valueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -6274,7 +6274,7 @@ public class PowerBuilderParser extends Parser {
 				}
 
 				setState(1076);
-				match(NULL);
+				match(NULL_);
 				}
 				break;
 			}

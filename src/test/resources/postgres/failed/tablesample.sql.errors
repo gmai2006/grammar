@@ -1,0 +1,2 @@
+SELECT q.* FROM tablename TABLESAMPLE BERNOULLI (5);
+

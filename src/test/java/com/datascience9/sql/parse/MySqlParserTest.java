@@ -10,7 +10,7 @@ public class MySqlParserTest {
 	private final static Logger logger = Logger.getLogger(MySqlParserTest.class.getName());
 
 	public static void main(String[] args) throws Exception {
-//		runFromResource("/selecttest.query");
+		runFromResource("/sql/openpay101.sql");
 //		String query = "SELECT *, oc_order.*, or_order.store_name as test3, invoice_no as test4, (SELECT os.name FROM oc_order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = o.language_id) AS order_status, (select language_id from oc_option_value_description) as another FROM oc_order o WHERE o.order_id = 'param0'";
 //		String query = "SELECT oc_address.*, SUM(address_id) as total, customer_id, CURRENT_DATE as current, TRIM(city) FROM oc_address WHERE customer_id = 'param0' AND address_id = param1 LIMIT 1";
 //    String query = "SELECT * FROM oc_address WHERE customer_id = 'param0' AND address_id = param1 LIMIT 1";
@@ -68,8 +68,8 @@ public class MySqlParserTest {
 //		String query = "SELECT o.lastname, (SELECT os.name FROM oc_order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = o"
 //				+ ".language_id) AS order_status FROM oc_order o WHERE o.order_id = :param0";
 
-		final String query = "select  misth_zpepidom.descepidom, misth_final_ypal_epidom.poso, misth_final_ypal_epidom.notes, sum"
-				+ "(misth_final_ypal_epidom.poso) as sum_poso from misth_final_ypal_epidom, misth_zpepidom, misth_final, misth_final_ypal join misth_final_ypal_epidom on misth_final_ypal_epidom.kodepidom = misth_zpepidom.kodepidom join misth_final_ypal_epidom on misth_final_ypal_epidom.kodxrisi = misth_zpepidom.kodxrisi join misth_final_ypal on misth_final_ypal.kodfinal = misth_final_ypal_epidom.kodfinal join misth_final_ypal on misth_final_ypal.kodypal = misth_final_ypal_epidom.kodypal join misth_final_ypal on misth_final_ypal.kodxrisi = misth_final_ypal_epidom.kodxrisi join misth_final on misth_final.kodfinal = misth_final_ypal.kodfinal join misth_final on misth_final.kodxrisi = misth_final_ypal.kodxrisi where misth_final_ypal_epidom.kodxrisi = :arg_kodxrisi and misth_final_ypal_epidom.kodypal = :arg_kodypal and misth_final_ypal.plirdate >= :arg_fromdate and misth_final_ypal.plirdate <= :arg_todate  order by misth_final_ypal_epidom.aa ASC";
+//		final String query = "select  misth_zpepidom.descepidom, misth_final_ypal_epidom.poso, misth_final_ypal_epidom.notes, sum"
+//				+ "(misth_final_ypal_epidom.poso) as sum_poso from misth_final_ypal_epidom, misth_zpepidom, misth_final, misth_final_ypal join misth_final_ypal_epidom on misth_final_ypal_epidom.kodepidom = misth_zpepidom.kodepidom join misth_final_ypal_epidom on misth_final_ypal_epidom.kodxrisi = misth_zpepidom.kodxrisi join misth_final_ypal on misth_final_ypal.kodfinal = misth_final_ypal_epidom.kodfinal join misth_final_ypal on misth_final_ypal.kodypal = misth_final_ypal_epidom.kodypal join misth_final_ypal on misth_final_ypal.kodxrisi = misth_final_ypal_epidom.kodxrisi join misth_final on misth_final.kodfinal = misth_final_ypal.kodfinal join misth_final on misth_final.kodxrisi = misth_final_ypal.kodxrisi where misth_final_ypal_epidom.kodxrisi = :arg_kodxrisi and misth_final_ypal_epidom.kodypal = :arg_kodypal and misth_final_ypal.plirdate >= :arg_fromdate and misth_final_ypal.plirdate <= :arg_todate  order by misth_final_ypal_epidom.aa ASC";
 
 //		final String query = "select  misth_final.datefinal, misth_final.descfinal, misth_final.kodfinal, misth_final_ypal.kodypal, misth_final_ypal"
 //				+ ".plirdate, if(isnull(misth_final_ypal.plirdate), 0, 1) as cm_paid from misth_final as o, misth_final_ypal join misth_final_ypal on "
@@ -91,7 +91,7 @@ public class MySqlParserTest {
 //		final String query = "select  misth_zpkrat.desckrat, misth_final_ypal_krat.kodkrat, misth_final_ypal_krat.kodxrisi, misth_final_ypal_krat.poso, sum(misth_final_ypal_krat.poso) as cm_sumposo from misth_final_ypal_krat, misth_zpkrat, misth_final_ypal WHERE misth_zpkrat.kodkrat = misth_final_ypal_krat.kodkrat AND misth_zpkrat.kodxrisi = misth_final_ypal_krat.kodxrisi AND misth_final_ypal.kodfinal = misth_final_ypal_krat.kodfinal AND misth_final_ypal.kodypal = misth_final_ypal_krat.kodypal AND misth_final_ypal.kodxrisi = misth_final_ypal_krat.kodxrisi AND ( misth_final_ypal_krat.kodypal = :arg_kodypal and misth_final_ypal_krat.kodxrisi = :arg_kodxrisi and misth_zpkrat.isforos = 1 and misth_zpkrat.isautoforos = 0 and misth_final_ypal.plirdate is not null  ) order by misth_zpkrat.desckrat ASC";
 //		final String query = "select  misth_zpxrisi.kodxrisi, misth_zpxrisi.descxrisi from misth_zpxrisi  WHERE misth_zpxrisi.kodxrisi not like "
 //				+ ":arg_kodxrisi  order by misth_zpxrisi.kodxrisi ASC";
-		runFromString(query);
+//		runFromString(query);
 	}
 
 	private static void runFromResource(String path) throws Exception {
