@@ -1,5 +1,5 @@
 # grammar
-ANTLR4 PowerBuilder & DataWindow grammars
+ANTLR4 PowerBuilder, DataWindow, MySql, and PostgreSQL grammars
 
 ## PowerBuilder
 - Add a grammar that parse comments
@@ -21,3 +21,5 @@ Test files are from [this project](https://github.com/gmai2006/powerbuilder-pbl-
 - Add BIND_VAR to handle plSql :<variable_name>
 - Test against more 100 Sql files
 - Resolve the expression issue with minus minus  condition #1525 (https://github.com/antlr/grammars-v4/issues/1525)
+# PostgreSQL
+- A modified version from the ANTLR4 repo, which should be language agnostic
