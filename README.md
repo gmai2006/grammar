@@ -10,6 +10,7 @@ ANTLR4 PowerBuilder & DataWindow grammars
 - Add more test files to unit test
 - Add support for embedded SQL
 - Add try-catch
+- Add comments
 
 ## DataWindow
 Tested against 120 DataWindow files.
