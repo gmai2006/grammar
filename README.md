@@ -2,7 +2,7 @@
 ANTLR4 PowerBuilder, DataWindow, MySql, and PostgreSQL grammars
 
 ## PowerBuilder
-There are two versions of PB: (1) general and (2) grammar that supports comments extraction
+There are two versions of PB: (1) general and (2) grammar that supports comments extraction.
 
 To generate parser and lexer for PB no support for comment run: **gradle generatePb**
 To generate parser and lexer for PB that supports comment run: **gradle generatePbWithComment**
