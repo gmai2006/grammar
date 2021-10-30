@@ -23,3 +23,5 @@ Test files are from [this project](https://github.com/gmai2006/powerbuilder-pbl-
 - Resolve the expression issue with minus minus  condition #1525 (https://github.com/antlr/grammars-v4/issues/1525)
 # PostgreSQL
 - A modified version from the ANTLR4 repo, which should be language agnostic
+- Replace all recursive rules with iterative rules (list: list item => list item (item)*) => reduce the parsetree size
+- Replace or epsilon rules with optional => remove all the empty node on the parse tree
