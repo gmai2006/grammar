@@ -719,12 +719,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOptinherit(PostgreSQLParser.OptinheritContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#optpartitionspec}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOptpartitionspec(PostgreSQLParser.OptpartitionspecContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#partitionspec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -845,12 +839,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAlterseqstmt(PostgreSQLParser.AlterseqstmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#optseqoptlist}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOptseqoptlist(PostgreSQLParser.OptseqoptlistContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#optparenthesizedseqoptlist}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -893,12 +881,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCreateplangstmt(PostgreSQLParser.CreateplangstmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_trusted}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpt_trusted(PostgreSQLParser.Opt_trustedContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#handler_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -916,12 +898,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitValidator_clause(PostgreSQLParser.Validator_clauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_validator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpt_validator(PostgreSQLParser.Opt_validatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_procedural}.
 	 * @param ctx the parse tree
@@ -1007,12 +983,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFdw_options(PostgreSQLParser.Fdw_optionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_fdw_options}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpt_fdw_options(PostgreSQLParser.Opt_fdw_optionsContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#alterfdwstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -1084,12 +1054,6 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitForeign_server_version(PostgreSQLParser.Foreign_server_versionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_foreign_server_version}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpt_foreign_server_version(PostgreSQLParser.Opt_foreign_server_versionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#alterforeignserverstmt}.
 	 * @param ctx the parse tree

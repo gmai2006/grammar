@@ -377,7 +377,7 @@ alter_table_cmd: ADD_P columnDef
                | ALTER opt_column? colid SET reloptions
                | ALTER opt_column? colid RESET reloptions
                | ALTER opt_column? colid SET STORAGE colid
-               | ALTER opt_column? colid ADD_P GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
+               | ALTER opt_column? colid ADD_P GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist?
                | ALTER opt_column? colid alter_identity_column_option_list
                | ALTER opt_column? colid DROP IDENTITY_P
                | ALTER opt_column? colid DROP IDENTITY_P IF_P EXISTS
@@ -543,18 +543,18 @@ copy_generic_opt_arg_list: copy_generic_opt_arg_list_item (COMMA copy_generic_op
 copy_generic_opt_arg_list_item: opt_boolean_or_string;
 
 //create table
-createstmt: CREATE opttemp? TABLE qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? optpartitionspec table_access_method_clause
-optwith oncommitoption opttablespace?
-          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? optpartitionspec
-          table_access_method_clause optwith oncommitoption opttablespace?
-          | CREATE opttemp? TABLE qualified_name OF any_name opttypedtableelementlist? optpartitionspec table_access_method_clause optwith 
-          oncommitoption opttablespace?
-          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OF any_name opttypedtableelementlist? optpartitionspec table_access_method_clause 
-          optwith oncommitoption opttablespace?
-          | CREATE opttemp? TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec optpartitionspec 
-          table_access_method_clause optwith oncommitoption opttablespace?
+createstmt: CREATE opttemp? TABLE qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? partitionspec? table_access_method_clause?
+optwith? oncommitoption? opttablespace?
+          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? partitionspec?
+          table_access_method_clause? optwith? oncommitoption? opttablespace?
+          | CREATE opttemp? TABLE qualified_name OF any_name opttypedtableelementlist? partitionspec? table_access_method_clause? optwith? 
+          oncommitoption? opttablespace?
+          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OF any_name opttypedtableelementlist? partitionspec? table_access_method_clause? 
+          optwith? oncommitoption? opttablespace?
+          | CREATE opttemp? TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec partitionspec? 
+          table_access_method_clause? optwith? oncommitoption? opttablespace?
           | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec 
-          optpartitionspec table_access_method_clause optwith oncommitoption opttablespace?
+          partitionspec? table_access_method_clause? optwith? oncommitoption? opttablespace?
 ;
 opttemp: TEMPORARY
        | TEMP
@@ -598,7 +598,7 @@ colconstraintelem: NOT NULL_P
                  | PRIMARY KEY opt_definition? optconstablespace?
                  | CHECK OPEN_PAREN a_expr CLOSE_PAREN opt_no_inherit?
                  | DEFAULT b_expr
-                 | GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
+                 | GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist?
                  | GENERATED generated_when AS OPEN_PAREN a_expr CLOSE_PAREN STORED
                  | REFERENCES qualified_name opt_column_list? key_match key_actions
 ;
@@ -686,9 +686,7 @@ key_action: NO ACTION
 
 optinherit: INHERITS OPEN_PAREN qualified_name_list CLOSE_PAREN
 ;
-optpartitionspec: partitionspec
-                |
-;
+
 partitionspec: PARTITION BY colid OPEN_PAREN part_params CLOSE_PAREN;
 
 part_params: part_elem (COMMA part_elem)*
@@ -699,17 +697,17 @@ part_elem: colid opt_collate opt_class
          | OPEN_PAREN a_expr CLOSE_PAREN opt_collate opt_class
 ;
 table_access_method_clause: USING name
-                          |
 ;
+
 optwith: WITH reloptions
        | WITHOUT OIDS
-       |
 ;
+
 oncommitoption: ON COMMIT DROP
               | ON COMMIT DELETE_P ROWS
               | ON COMMIT PRESERVE ROWS
-              |
 ;
+
 opttablespace: TABLESPACE name
 ;
 
@@ -727,34 +725,30 @@ alterstatsstmt: ALTER STATISTICS any_name SET STATISTICS signediconst
 createasstmt: CREATE opttemp? TABLE create_as_target AS selectstmt opt_with_data?
             | CREATE opttemp? TABLE IF_P NOT EXISTS create_as_target AS selectstmt opt_with_data?
 ;
-create_as_target: qualified_name opt_column_list? table_access_method_clause optwith oncommitoption opttablespace?;
+create_as_target: qualified_name opt_column_list? table_access_method_clause? optwith? oncommitoption? opttablespace?;
 
 opt_with_data: WITH DATA_P
              | WITH NO DATA_P
 ;
 
-creatematviewstmt: CREATE optnolog MATERIALIZED VIEW create_mv_target AS selectstmt opt_with_data?
-                 | CREATE optnolog MATERIALIZED VIEW IF_P NOT EXISTS create_mv_target AS selectstmt opt_with_data?
+creatematviewstmt: CREATE optnolog? MATERIALIZED VIEW create_mv_target AS selectstmt opt_with_data?
+                 | CREATE optnolog? MATERIALIZED VIEW IF_P NOT EXISTS create_mv_target AS selectstmt opt_with_data?
 ;
-create_mv_target: qualified_name opt_column_list? table_access_method_clause opt_reloptions? opttablespace?;
+create_mv_target: qualified_name opt_column_list? table_access_method_clause? opt_reloptions? opttablespace?;
 
 optnolog: UNLOGGED
-        |
 ;
 refreshmatviewstmt: REFRESH MATERIALIZED VIEW opt_concurrently? qualified_name opt_with_data?;
 
-createseqstmt: CREATE opttemp? SEQUENCE qualified_name optseqoptlist
-             | CREATE opttemp? SEQUENCE IF_P NOT EXISTS qualified_name optseqoptlist
+createseqstmt: CREATE opttemp? SEQUENCE qualified_name seqoptlist?
+             | CREATE opttemp? SEQUENCE IF_P NOT EXISTS qualified_name seqoptlist?
 ;
 
 alterseqstmt: ALTER SEQUENCE qualified_name seqoptlist
             | ALTER SEQUENCE IF_P EXISTS qualified_name seqoptlist
 ;
-optseqoptlist: seqoptlist
-             |
-;
+
 optparenthesizedseqoptlist: OPEN_PAREN seqoptlist CLOSE_PAREN
-                          |
 ;
 seqoptlist: seqoptelem
           | seqoptlist seqoptelem
@@ -788,13 +782,10 @@ numericonly: fconst
 numericonly_list: numericonly (COMMA numericonly)*
 ;
 
-createplangstmt: CREATE opt_or_replace opt_trusted opt_procedural LANGUAGE name
-               | CREATE opt_or_replace opt_trusted opt_procedural LANGUAGE name HANDLER handler_name opt_inline_handler opt_validator
+createplangstmt: CREATE opt_or_replace TRUSTED? opt_procedural? LANGUAGE name
+               | CREATE opt_or_replace TRUSTED? opt_procedural? LANGUAGE name HANDLER handler_name opt_inline_handler validator_clause?
 ;
 
-opt_trusted: TRUSTED
-           |
-;
 handler_name: name
             | name attrs
 ;
@@ -804,37 +795,36 @@ opt_inline_handler: INLINE_P handler_name
 validator_clause: VALIDATOR handler_name
                 | NO VALIDATOR
 ;
-opt_validator: validator_clause
-             |
-;
+
 opt_procedural: PROCEDURAL
-              |
 ;
-createtablespacestmt: CREATE TABLESPACE name opttablespaceowner LOCATION sconst opt_reloptions?;
+
+createtablespacestmt: CREATE TABLESPACE name opttablespaceowner? LOCATION sconst opt_reloptions?;
 
 opttablespaceowner: OWNER rolespec
-                  |
 ;
+
 droptablespacestmt: DROP TABLESPACE name
                   | DROP TABLESPACE IF_P EXISTS name
 ;
-createextensionstmt: CREATE EXTENSION name opt_with? create_extension_opt_list
-                   | CREATE EXTENSION IF_P NOT EXISTS name opt_with? create_extension_opt_list
+createextensionstmt: CREATE EXTENSION name opt_with? create_extension_opt_list?
+                   | CREATE EXTENSION IF_P NOT EXISTS name opt_with? create_extension_opt_list?
 ;
-create_extension_opt_list: create_extension_opt_list create_extension_opt_item
-                         |
+
+create_extension_opt_list: create_extension_opt_item (create_extension_opt_item)*
 ;
+
 create_extension_opt_item: SCHEMA name
                          | VERSION_P nonreservedword_or_sconst
                          | FROM nonreservedword_or_sconst
                          | CASCADE
 ;
 
-alterextensionstmt: ALTER EXTENSION name UPDATE alter_extension_opt_list;
+alterextensionstmt: ALTER EXTENSION name UPDATE alter_extension_opt_list?;
 
-alter_extension_opt_list: alter_extension_opt_list alter_extension_opt_item
-                        |
+alter_extension_opt_list: alter_extension_opt_item (alter_extension_opt_item)*
 ;
+
 alter_extension_opt_item: TO nonreservedword_or_sconst;
 
 alterextensioncontentsstmt: ALTER EXTENSION name add_drop object_type_name name
@@ -852,7 +842,7 @@ alterextensioncontentsstmt: ALTER EXTENSION name add_drop object_type_name name
                           | ALTER EXTENSION name add_drop TYPE_P typename
 ;
 
-createfdwstmt: CREATE FOREIGN DATA_P WRAPPER name opt_fdw_options create_generic_options;
+createfdwstmt: CREATE FOREIGN DATA_P WRAPPER name fdw_options? create_generic_options;
 
 fdw_option: HANDLER handler_name
           | NO HANDLER
@@ -862,10 +852,8 @@ fdw_option: HANDLER handler_name
 fdw_options: fdw_option
            | fdw_options fdw_option
 ;
-opt_fdw_options: fdw_options
-               |
-;
-alterfdwstmt: ALTER FOREIGN DATA_P WRAPPER name opt_fdw_options alter_generic_options
+
+alterfdwstmt: ALTER FOREIGN DATA_P WRAPPER name fdw_options? alter_generic_options
             | ALTER FOREIGN DATA_P WRAPPER name fdw_options
 ;
 create_generic_options: OPTIONS OPEN_PAREN generic_option_list CLOSE_PAREN
@@ -890,18 +878,17 @@ generic_option_name: collabel;
 
 generic_option_arg: sconst;
 
-createforeignserverstmt: CREATE SERVER name opt_type opt_foreign_server_version FOREIGN DATA_P WRAPPER name create_generic_options
-                       | CREATE SERVER IF_P NOT EXISTS name opt_type opt_foreign_server_version FOREIGN DATA_P WRAPPER name create_generic_options
+createforeignserverstmt: CREATE SERVER name opt_type? foreign_server_version? FOREIGN DATA_P WRAPPER name create_generic_options
+                       | CREATE SERVER IF_P NOT EXISTS name opt_type? foreign_server_version? FOREIGN DATA_P WRAPPER name create_generic_options
 ;
 opt_type: TYPE_P sconst
-        |
 ;
+
 foreign_server_version: VERSION_P sconst
                       | VERSION_P NULL_P
 ;
-opt_foreign_server_version: foreign_server_version
-                          |
-;
+
+
 alterforeignserverstmt: ALTER SERVER name foreign_server_version alter_generic_options
                       | ALTER SERVER name foreign_server_version
                       | ALTER SERVER name alter_generic_options
@@ -914,14 +901,14 @@ createforeigntablestmt: CREATE FOREIGN TABLE qualified_name OPEN_PAREN tableelem
                       | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist?
                       partitionboundspec SERVER name create_generic_options
 ;
-importforeignschemastmt: IMPORT_P FOREIGN SCHEMA name import_qualification FROM SERVER name INTO name create_generic_options;
+importforeignschemastmt: IMPORT_P FOREIGN SCHEMA name import_qualification? FROM SERVER name INTO name create_generic_options;
 
 import_qualification_type: LIMIT TO
                          | EXCEPT
 ;
 import_qualification: import_qualification_type OPEN_PAREN relation_expr_list CLOSE_PAREN
-                    |
 ;
+
 createusermappingstmt: CREATE USER MAPPING FOR auth_ident SERVER name create_generic_options
                      | CREATE USER MAPPING IF_P NOT EXISTS FOR auth_ident SERVER name create_generic_options
 ;
@@ -1180,7 +1167,7 @@ drop_type_name: ACCESS METHOD
               | EVENT TRIGGER
               | EXTENSION
               | FOREIGN DATA_P WRAPPER
-              | opt_procedural LANGUAGE
+              | opt_procedural? LANGUAGE
               | PUBLICATION
               | SCHEMA
               | SERVER
@@ -1611,7 +1598,7 @@ opt_or_replace: OR REPLACE
            | ALTER FOREIGN DATA_P WRAPPER name RENAME TO name
            | ALTER FUNCTION function_with_argtypes RENAME TO name
            | ALTER GROUP_P roleid RENAME TO roleid
-           | ALTER opt_procedural LANGUAGE name RENAME TO name
+           | ALTER opt_procedural? LANGUAGE name RENAME TO name
            | ALTER OPERATOR CLASS any_name USING name RENAME TO name
            | ALTER OPERATOR FAMILY any_name USING name RENAME TO name
            | ALTER POLICY name ON qualified_name RENAME TO name
@@ -1723,7 +1710,7 @@ opt_or_replace: OR REPLACE
                | ALTER DATABASE name OWNER TO rolespec
                | ALTER DOMAIN_P any_name OWNER TO rolespec
                | ALTER FUNCTION function_with_argtypes OWNER TO rolespec
-               | ALTER opt_procedural LANGUAGE name OWNER TO rolespec
+               | ALTER opt_procedural? LANGUAGE name OWNER TO rolespec
                | ALTER LARGE_P OBJECT_P numericonly OWNER TO rolespec
                | ALTER OPERATOR operator_with_argtypes OWNER TO rolespec
                | ALTER OPERATOR CLASS any_name USING name OWNER TO rolespec
@@ -4126,7 +4113,3 @@ make_execsql_stmt:
 opt_returning_clause_into:
             INTO opt_strict? into_target
 ;
-
-//read_sql_stmt:
-//        stmt
-//        ;

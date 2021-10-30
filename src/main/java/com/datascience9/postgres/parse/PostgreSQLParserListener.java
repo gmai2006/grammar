@@ -1188,16 +1188,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOptinherit(PostgreSQLParser.OptinheritContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#optpartitionspec}.
-	 * @param ctx the parse tree
-	 */
-	void enterOptpartitionspec(PostgreSQLParser.OptpartitionspecContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#optpartitionspec}.
-	 * @param ctx the parse tree
-	 */
-	void exitOptpartitionspec(PostgreSQLParser.OptpartitionspecContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#partitionspec}.
 	 * @param ctx the parse tree
 	 */
@@ -1398,16 +1388,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitAlterseqstmt(PostgreSQLParser.AlterseqstmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#optseqoptlist}.
-	 * @param ctx the parse tree
-	 */
-	void enterOptseqoptlist(PostgreSQLParser.OptseqoptlistContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#optseqoptlist}.
-	 * @param ctx the parse tree
-	 */
-	void exitOptseqoptlist(PostgreSQLParser.OptseqoptlistContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#optparenthesizedseqoptlist}.
 	 * @param ctx the parse tree
 	 */
@@ -1478,16 +1458,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitCreateplangstmt(PostgreSQLParser.CreateplangstmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_trusted}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_trusted(PostgreSQLParser.Opt_trustedContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_trusted}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_trusted(PostgreSQLParser.Opt_trustedContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#handler_name}.
 	 * @param ctx the parse tree
 	 */
@@ -1517,16 +1487,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValidator_clause(PostgreSQLParser.Validator_clauseContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_validator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_validator(PostgreSQLParser.Opt_validatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_validator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_validator(PostgreSQLParser.Opt_validatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_procedural}.
 	 * @param ctx the parse tree
@@ -1668,16 +1628,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitFdw_options(PostgreSQLParser.Fdw_optionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_fdw_options}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_fdw_options(PostgreSQLParser.Opt_fdw_optionsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_fdw_options}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_fdw_options(PostgreSQLParser.Opt_fdw_optionsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#alterfdwstmt}.
 	 * @param ctx the parse tree
 	 */
@@ -1797,16 +1747,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForeign_server_version(PostgreSQLParser.Foreign_server_versionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_foreign_server_version}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_foreign_server_version(PostgreSQLParser.Opt_foreign_server_versionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_foreign_server_version}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_foreign_server_version(PostgreSQLParser.Opt_foreign_server_versionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#alterforeignserverstmt}.
 	 * @param ctx the parse tree

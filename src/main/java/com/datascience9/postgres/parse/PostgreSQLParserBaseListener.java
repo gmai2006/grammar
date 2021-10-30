@@ -1432,18 +1432,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOptpartitionspec(PostgreSQLParser.OptpartitionspecContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOptpartitionspec(PostgreSQLParser.OptpartitionspecContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPartitionspec(PostgreSQLParser.PartitionspecContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1684,18 +1672,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOptseqoptlist(PostgreSQLParser.OptseqoptlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOptseqoptlist(PostgreSQLParser.OptseqoptlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOptparenthesizedseqoptlist(PostgreSQLParser.OptparenthesizedseqoptlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1780,18 +1756,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_trusted(PostgreSQLParser.Opt_trustedContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_trusted(PostgreSQLParser.Opt_trustedContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterHandler_name(PostgreSQLParser.Handler_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1823,18 +1787,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitValidator_clause(PostgreSQLParser.Validator_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_validator(PostgreSQLParser.Opt_validatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_validator(PostgreSQLParser.Opt_validatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -2008,18 +1960,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_fdw_options(PostgreSQLParser.Opt_fdw_optionsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_fdw_options(PostgreSQLParser.Opt_fdw_optionsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAlterfdwstmt(PostgreSQLParser.AlterfdwstmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -2159,18 +2099,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitForeign_server_version(PostgreSQLParser.Foreign_server_versionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_foreign_server_version(PostgreSQLParser.Opt_foreign_server_versionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_foreign_server_version(PostgreSQLParser.Opt_foreign_server_versionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
