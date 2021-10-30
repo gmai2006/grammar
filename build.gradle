@@ -30,11 +30,13 @@ dependencies {
 test {
     filter {
         exclude '**/*IT*'
+        exclude '**/*It*'
     }
 }
 
 task IntegrationTest( type: Test ) {
     include '**/*IT*'
+    include '**/*It*'
 }
 
 task generatePbDwLexer(type: JavaExec) {
@@ -113,6 +115,18 @@ task generatePb() {
     println 'Generate both lexer and parser successsfully'
 }
 
+task testBb(type: JavaExec) {
+    println 'Start integration test of PB'
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.datascience9.pb.parse.ParserTestIt"
+}
+
+task testBbWithComments(type: JavaExec) {
+    println 'Start integration test for PB with comments'
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.datascience9.pb.parse.ParserWithCommentTestIt"
+}
+
 task generatePbWithComment() {
     dependsOn generatePbWithCommentLexer, generatePbWithCommentParser
     println 'Generate both lexer and parser successsfully'
@@ -145,6 +159,12 @@ task generateMySql() {
     println 'Generate both lexer and parser successsfully'
 }
 
+task testMySql(type: JavaExec) {
+    println 'Start integration test'
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.datascience9.mysql.parse.MySqlParserTestIt"
+}
+
 task generatePostgresLexer(type: JavaExec) {
     def grammarFile = "./src/main/java/com/datascience9/postgres/parse/PostgreSQLLexer.g4"
     def packageName = "com.datascience9.postgres.parse"
@@ -171,4 +191,11 @@ task generatePostgres() {
     dependsOn generatePostgresLexer, generatePostgresParser
     println 'Generate both lexer and parser successsfully'
 }
+
+task testPostgres(type: JavaExec) {
+    println 'Start integration test'
+    classpath sourceSets.main.runtimeClasspath
+    main = "com.datascience9.postgres.parse.ParserTestIt"
+}
+
 
