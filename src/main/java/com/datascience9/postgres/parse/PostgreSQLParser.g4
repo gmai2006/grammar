@@ -155,11 +155,10 @@ plsqlconsolecommand:MetaCommand EndMetaCommand?
 
 callstmt: CALL func_application;
 
-createrolestmt: CREATE ROLE roleid opt_with optrolelist;
+createrolestmt: CREATE ROLE roleid opt_with? optrolelist;
 
 opt_with: WITH
         //| WITH_LA
-        |
         ;
 
 optrolelist: optrolelist createoptroleelem
@@ -187,18 +186,18 @@ createoptroleelem: alteroptroleelem
                  | IN_P ROLE role_list
                  | IN_P GROUP_P role_list
 ;
-createuserstmt: CREATE USER roleid opt_with optrolelist;
+createuserstmt: CREATE USER roleid opt_with? optrolelist;
 
-alterrolestmt: ALTER ROLE rolespec opt_with alteroptrolelist
-             | ALTER USER rolespec opt_with alteroptrolelist
+alterrolestmt: ALTER ROLE rolespec opt_with? alteroptrolelist
+             | ALTER USER rolespec opt_with? alteroptrolelist
 ;
-opt_in_database:
-               | IN_P DATABASE name
+opt_in_database: IN_P DATABASE name
 ;
-alterrolesetstmt: ALTER ROLE rolespec opt_in_database setresetclause
-                | ALTER ROLE ALL opt_in_database setresetclause
-                | ALTER USER rolespec opt_in_database setresetclause
-                | ALTER USER ALL opt_in_database setresetclause
+
+alterrolesetstmt: ALTER ROLE rolespec opt_in_database? setresetclause
+                | ALTER ROLE ALL opt_in_database? setresetclause
+                | ALTER USER rolespec opt_in_database? setresetclause
+                | ALTER USER ALL opt_in_database? setresetclause
 ;
 droprolestmt: DROP ROLE role_list
             | DROP ROLE IF_P EXISTS role_list
@@ -207,7 +206,7 @@ droprolestmt: DROP ROLE role_list
             | DROP GROUP_P role_list
             | DROP GROUP_P IF_P EXISTS role_list
 ;
-creategroupstmt: CREATE GROUP_P roleid opt_with optrolelist;
+creategroupstmt: CREATE GROUP_P roleid opt_with? optrolelist;
 
 altergroupstmt: ALTER GROUP_P rolespec add_drop USER role_list;
 
@@ -252,7 +251,7 @@ set_rest_more: generic_set
              | TIME ZONE zone_value
              | CATALOG_P sconst
              | SCHEMA sconst
-             | NAMES opt_encoding
+             | NAMES opt_encoding?
              | ROLE nonreservedword_or_sconst
              | SESSION AUTHORIZATION nonreservedword_or_sconst
              | SESSION AUTHORIZATION DEFAULT
@@ -262,9 +261,9 @@ set_rest_more: generic_set
 var_name: colid
         | var_name DOT colid
 ;
-var_list: var_value
-        | var_list COMMA var_value
+var_list: var_value (COMMA var_value)*
 ;
+
 var_value: opt_boolean_or_string
          | numericonly
 ;
@@ -280,7 +279,7 @@ opt_boolean_or_string: TRUE_P
 ;
 zone_value: sconst
           | identifier
-          | constinterval sconst opt_interval
+          | constinterval sconst opt_interval?
           | constinterval OPEN_PAREN iconst CLOSE_PAREN sconst
           | numericonly
           | DEFAULT
@@ -288,8 +287,8 @@ zone_value: sconst
 ;
 opt_encoding: sconst
             | DEFAULT
-            |
 ;
+
 nonreservedword_or_sconst: nonreservedword
                          | sconst
 ;
@@ -338,27 +337,27 @@ altertablestmt: ALTER TABLE relation_expr alter_table_cmds
               | ALTER TABLE IF_P EXISTS relation_expr alter_table_cmds
               | ALTER TABLE relation_expr partition_cmd
               | ALTER TABLE IF_P EXISTS relation_expr partition_cmd
-              | ALTER TABLE ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait
-              | ALTER TABLE ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait
+              | ALTER TABLE ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait?
+              | ALTER TABLE ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait?
               | ALTER INDEX qualified_name alter_table_cmds
               | ALTER INDEX IF_P EXISTS qualified_name alter_table_cmds
               | ALTER INDEX qualified_name index_partition_cmd
-              | ALTER INDEX ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait
-              | ALTER INDEX ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait
+              | ALTER INDEX ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait?
+              | ALTER INDEX ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait?
               | ALTER SEQUENCE qualified_name alter_table_cmds
               | ALTER SEQUENCE IF_P EXISTS qualified_name alter_table_cmds
               | ALTER VIEW qualified_name alter_table_cmds
               | ALTER VIEW IF_P EXISTS qualified_name alter_table_cmds
               | ALTER MATERIALIZED VIEW qualified_name alter_table_cmds
               | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name alter_table_cmds
-              | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait
-              | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait
+              | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name SET TABLESPACE name opt_nowait?
+              | ALTER MATERIALIZED VIEW ALL IN_P TABLESPACE name OWNED BY role_list SET TABLESPACE name opt_nowait?
               | ALTER FOREIGN TABLE relation_expr alter_table_cmds
               | ALTER FOREIGN TABLE IF_P EXISTS relation_expr alter_table_cmds
 ;
-alter_table_cmds: alter_table_cmd
-                | alter_table_cmds COMMA alter_table_cmd
+alter_table_cmds: alter_table_cmd (COMMA alter_table_cmd)*
 ;
+
 partition_cmd: ATTACH PARTITION qualified_name partitionboundspec
              | DETACH PARTITION qualified_name
 ;
@@ -368,29 +367,29 @@ alter_table_cmd: ADD_P columnDef
                | ADD_P IF_P NOT EXISTS columnDef
                | ADD_P COLUMN columnDef
                | ADD_P COLUMN IF_P NOT EXISTS columnDef
-               | ALTER opt_column colid alter_column_default
-               | ALTER opt_column colid DROP NOT NULL_P
-               | ALTER opt_column colid SET NOT NULL_P
-               | ALTER opt_column colid DROP EXPRESSION
-               | ALTER opt_column colid DROP EXPRESSION IF_P EXISTS
-               | ALTER opt_column colid SET STATISTICS signediconst
-               | ALTER opt_column iconst SET STATISTICS signediconst
-               | ALTER opt_column colid SET reloptions
-               | ALTER opt_column colid RESET reloptions
-               | ALTER opt_column colid SET STORAGE colid
-               | ALTER opt_column colid ADD_P GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
-               | ALTER opt_column colid alter_identity_column_option_list
-               | ALTER opt_column colid DROP IDENTITY_P
-               | ALTER opt_column colid DROP IDENTITY_P IF_P EXISTS
-               | DROP opt_column IF_P EXISTS colid opt_drop_behavior
-               | DROP opt_column colid opt_drop_behavior
-               | ALTER opt_column colid opt_set_data TYPE_P typename opt_collate_clause alter_using
-               | ALTER opt_column colid alter_generic_options
+               | ALTER opt_column? colid alter_column_default
+               | ALTER opt_column? colid DROP NOT NULL_P
+               | ALTER opt_column? colid SET NOT NULL_P
+               | ALTER opt_column? colid DROP EXPRESSION
+               | ALTER opt_column? colid DROP EXPRESSION IF_P EXISTS
+               | ALTER opt_column? colid SET STATISTICS signediconst
+               | ALTER opt_column? iconst SET STATISTICS signediconst
+               | ALTER opt_column? colid SET reloptions
+               | ALTER opt_column? colid RESET reloptions
+               | ALTER opt_column? colid SET STORAGE colid
+               | ALTER opt_column? colid ADD_P GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
+               | ALTER opt_column? colid alter_identity_column_option_list
+               | ALTER opt_column? colid DROP IDENTITY_P
+               | ALTER opt_column? colid DROP IDENTITY_P IF_P EXISTS
+               | DROP opt_column? IF_P EXISTS colid opt_drop_behavior?
+               | DROP opt_column? colid opt_drop_behavior?
+               | ALTER opt_column? colid opt_set_data? TYPE_P typename opt_collate_clause? alter_using
+               | ALTER opt_column? colid alter_generic_options
                | ADD_P tableconstraint
                | ALTER CONSTRAINT name constraintattributespec
                | VALIDATE CONSTRAINT name
-               | DROP CONSTRAINT IF_P EXISTS name opt_drop_behavior
-               | DROP CONSTRAINT name opt_drop_behavior
+               | DROP CONSTRAINT IF_P EXISTS name opt_drop_behavior?
+               | DROP CONSTRAINT name opt_drop_behavior?
                | SET WITHOUT OIDS
                | CLUSTER ON name
                | SET WITHOUT CLUSTER
@@ -428,10 +427,9 @@ alter_column_default: SET DEFAULT a_expr
 ;
 opt_drop_behavior: CASCADE
                  | RESTRICT
-                 |
 ;
+
 opt_collate_clause: COLLATE any_name
-                  |
 ;
 
 alter_using: USING a_expr
@@ -445,11 +443,11 @@ replica_identity: NOTHING
 reloptions: OPEN_PAREN reloption_list CLOSE_PAREN;
 
 opt_reloptions: WITH reloptions
-              |
 ;
-reloption_list: reloption_elem
-              | reloption_list COMMA reloption_elem
+
+reloption_list: reloption_elem (COMMA reloption_elem)*
 ;
+
 reloption_elem: collabel EQUAL def_arg
               | collabel
               | collabel DOT collabel EQUAL def_arg
@@ -459,7 +457,7 @@ alter_identity_column_option_list: alter_identity_column_option
                                  | alter_identity_column_option_list alter_identity_column_option
 ;
 alter_identity_column_option: RESTART
-                            | RESTART opt_with numericonly
+                            | RESTART opt_with? numericonly
                             | SET seqoptelem
                             | SET GENERATED generated_when
 ;
@@ -470,49 +468,49 @@ partitionboundspec: FOR VALUES WITH OPEN_PAREN hash_partbound CLOSE_PAREN
 ;
 hash_partbound_elem: nonreservedword iconst;
 
-hash_partbound: hash_partbound_elem
-              | hash_partbound COMMA hash_partbound_elem
+hash_partbound: hash_partbound_elem (COMMA hash_partbound_elem)*
 ;
+
 altercompositetypestmt: ALTER TYPE_P any_name alter_type_cmds;
 
-alter_type_cmds: alter_type_cmd
-               | alter_type_cmds COMMA alter_type_cmd
+alter_type_cmds: alter_type_cmd (COMMA alter_type_cmd)*
 ;
-alter_type_cmd: ADD_P ATTRIBUTE tablefuncelement opt_drop_behavior
-              | DROP ATTRIBUTE IF_P EXISTS colid opt_drop_behavior
-              | DROP ATTRIBUTE colid opt_drop_behavior
-              | ALTER ATTRIBUTE colid opt_set_data TYPE_P typename opt_collate_clause opt_drop_behavior
+
+alter_type_cmd: ADD_P ATTRIBUTE tablefuncelement opt_drop_behavior?
+              | DROP ATTRIBUTE IF_P EXISTS colid opt_drop_behavior?
+              | DROP ATTRIBUTE colid opt_drop_behavior?
+              | ALTER ATTRIBUTE colid opt_set_data? TYPE_P typename opt_collate_clause? opt_drop_behavior?
 ;
 closeportalstmt: CLOSE cursor_name
                | CLOSE ALL
 ;
-copystmt: COPY opt_binary qualified_name opt_column_list copy_from opt_program copy_file_name copy_delimiter opt_with copy_options where_clause
-        | COPY OPEN_PAREN preparablestmt CLOSE_PAREN TO opt_program copy_file_name opt_with copy_options
+copystmt: COPY opt_binary? qualified_name opt_column_list? copy_from opt_program? copy_file_name copy_delimiter? opt_with? copy_options where_clause?
+        | COPY OPEN_PAREN preparablestmt CLOSE_PAREN TO opt_program? copy_file_name opt_with? copy_options
 ;
 copy_from: FROM
          | TO
 ;
 opt_program: PROGRAM
-           |
 ;
+
 copy_file_name: sconst
               | STDIN
               | STDOUT
 ;
-copy_options: copy_opt_list
+copy_options: copy_opt_list?
             | OPEN_PAREN copy_generic_opt_list CLOSE_PAREN
 ;
-copy_opt_list: copy_opt_list copy_opt_item
-             |
+copy_opt_list: copy_opt_item (copy_opt_item)*
 ;
+
 copy_opt_item: BINARY
              | FREEZE
-             | DELIMITER opt_as sconst
-             | NULL_P opt_as sconst
+             | DELIMITER opt_as? sconst
+             | NULL_P opt_as? sconst
              | CSV
              | HEADER_P
-             | QUOTE opt_as sconst
-             | ESCAPE opt_as sconst
+             | QUOTE opt_as? sconst
+             | ESCAPE opt_as? sconst
              | FORCE QUOTE columnlist
              | FORCE QUOTE STAR
              | FORCE NOT NULL_P columnlist
@@ -520,37 +518,43 @@ copy_opt_item: BINARY
              | ENCODING sconst
 ;
 opt_binary: BINARY
-          |
 ;
-copy_delimiter: opt_using DELIMITERS sconst
-              |
+
+copy_delimiter: opt_using? DELIMITERS sconst
 ;
+
 opt_using: USING
-         |
 ;
-copy_generic_opt_list: copy_generic_opt_elem
-                     | copy_generic_opt_list COMMA copy_generic_opt_elem
+
+copy_generic_opt_list: copy_generic_opt_elem (COMMA copy_generic_opt_elem)*
 ;
-copy_generic_opt_elem: collabel copy_generic_opt_arg;
+
+copy_generic_opt_elem: collabel copy_generic_opt_arg?;
 
 copy_generic_opt_arg: opt_boolean_or_string
                     | numericonly
                     | STAR
                     | OPEN_PAREN copy_generic_opt_arg_list CLOSE_PAREN
-                    |
+
 ;
-copy_generic_opt_arg_list: copy_generic_opt_arg_list_item
-                         | copy_generic_opt_arg_list COMMA copy_generic_opt_arg_list_item
+copy_generic_opt_arg_list: copy_generic_opt_arg_list_item (COMMA copy_generic_opt_arg_list_item)*
 ;
+
 copy_generic_opt_arg_list_item: opt_boolean_or_string;
 
 //create table
-createstmt: CREATE opttemp TABLE qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-          | CREATE opttemp TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-          | CREATE opttemp TABLE qualified_name OF any_name opttypedtableelementlist optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-          | CREATE opttemp TABLE IF_P NOT EXISTS qualified_name OF any_name opttypedtableelementlist optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-          | CREATE opttemp TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
-          | CREATE opttemp TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec optpartitionspec table_access_method_clause optwith oncommitoption opttablespace
+createstmt: CREATE opttemp? TABLE qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? optpartitionspec table_access_method_clause
+optwith oncommitoption opttablespace?
+          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? optpartitionspec
+          table_access_method_clause optwith oncommitoption opttablespace?
+          | CREATE opttemp? TABLE qualified_name OF any_name opttypedtableelementlist? optpartitionspec table_access_method_clause optwith 
+          oncommitoption opttablespace?
+          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name OF any_name opttypedtableelementlist? optpartitionspec table_access_method_clause 
+          optwith oncommitoption opttablespace?
+          | CREATE opttemp? TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec optpartitionspec 
+          table_access_method_clause optwith oncommitoption opttablespace?
+          | CREATE opttemp? TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec 
+          optpartitionspec table_access_method_clause optwith oncommitoption opttablespace?
 ;
 opttemp: TEMPORARY
        | TEMP
@@ -561,18 +565,13 @@ opttemp: TEMPORARY
        | UNLOGGED
        |
 ;
-opttableelementlist: tableelementlist
-                   |
+
+opttypedtableelementlist: OPEN_PAREN typedtableelement (COMMA typedtableelement)* CLOSE_PAREN
 ;
-opttypedtableelementlist: OPEN_PAREN typedtableelementlist CLOSE_PAREN
-                        |
+
+tableelementlist: tableelement (COMMA tableelement)*
 ;
-tableelementlist: tableelement
-                | tableelementlist COMMA tableelement
-;
-typedtableelementlist: typedtableelement
-                     | typedtableelementlist COMMA typedtableelement
-;
+
 tableelement: columnDef
             | tablelikeclause
             | tableconstraint
@@ -595,13 +594,13 @@ colconstraint: CONSTRAINT name colconstraintelem
 ;
 colconstraintelem: NOT NULL_P
                  | NULL_P
-                 | UNIQUE opt_definition optconstablespace
-                 | PRIMARY KEY opt_definition optconstablespace
-                 | CHECK OPEN_PAREN a_expr CLOSE_PAREN opt_no_inherit
+                 | UNIQUE opt_definition? optconstablespace?
+                 | PRIMARY KEY opt_definition? optconstablespace?
+                 | CHECK OPEN_PAREN a_expr CLOSE_PAREN opt_no_inherit?
                  | DEFAULT b_expr
                  | GENERATED generated_when AS IDENTITY_P optparenthesizedseqoptlist
                  | GENERATED generated_when AS OPEN_PAREN a_expr CLOSE_PAREN STORED
-                 | REFERENCES qualified_name opt_column_list key_match key_actions
+                 | REFERENCES qualified_name opt_column_list? key_match key_actions
 ;
 generated_when: ALWAYS
               | BY DEFAULT
@@ -632,22 +631,22 @@ tableconstraint: CONSTRAINT name constraintelem
 ;
 
 constraintelem: CHECK OPEN_PAREN a_expr CLOSE_PAREN constraintattributespec
-              | UNIQUE OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition optconstablespace constraintattributespec
+              | UNIQUE OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition? optconstablespace? constraintattributespec
               | UNIQUE existingindex constraintattributespec
-              | PRIMARY KEY OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition optconstablespace constraintattributespec
+              | PRIMARY KEY OPEN_PAREN columnlist CLOSE_PAREN opt_c_include opt_definition? optconstablespace? constraintattributespec
               | PRIMARY KEY existingindex constraintattributespec
-              | EXCLUDE access_method_clause OPEN_PAREN exclusionconstraintlist CLOSE_PAREN opt_c_include opt_definition optconstablespace exclusionwhereclause constraintattributespec
-              | FOREIGN KEY OPEN_PAREN columnlist CLOSE_PAREN REFERENCES qualified_name opt_column_list key_match key_actions constraintattributespec
+              | EXCLUDE access_method_clause OPEN_PAREN exclusionconstraintlist CLOSE_PAREN opt_c_include opt_definition? optconstablespace? exclusionwhereclause constraintattributespec
+              | FOREIGN KEY OPEN_PAREN columnlist CLOSE_PAREN REFERENCES qualified_name opt_column_list? key_match key_actions constraintattributespec
 ;
 opt_no_inherit: NO INHERIT
-              |
 ;
+
 opt_column_list: OPEN_PAREN columnlist CLOSE_PAREN
-               |
+
 ;
-columnlist: columnElem
-          | columnlist COMMA columnElem
+columnlist: columnElem (COMMA columnElem)*
 ;
+
 columnElem: colid;
 
 opt_c_include: INCLUDE OPEN_PAREN columnlist CLOSE_PAREN
@@ -658,8 +657,7 @@ key_match: MATCH FULL
          | MATCH SIMPLE
          |
 ;
-exclusionconstraintlist: exclusionconstraintelem
-                       | exclusionconstraintlist COMMA exclusionconstraintelem
+exclusionconstraintlist: exclusionconstraintelem (COMMA exclusionconstraintelem)*
 ;
 
 exclusionconstraintelem: index_elem WITH any_operator+
@@ -687,16 +685,15 @@ key_action: NO ACTION
 ;
 
 optinherit: INHERITS OPEN_PAREN qualified_name_list CLOSE_PAREN
-          |
 ;
 optpartitionspec: partitionspec
                 |
 ;
 partitionspec: PARTITION BY colid OPEN_PAREN part_params CLOSE_PAREN;
 
-part_params: part_elem
-           | part_params COMMA part_elem
+part_params: part_elem (COMMA part_elem)*
 ;
+
 part_elem: colid opt_collate opt_class
          | func_expr_windowless opt_collate opt_class
          | OPEN_PAREN a_expr CLOSE_PAREN opt_collate opt_class
@@ -714,11 +711,11 @@ oncommitoption: ON COMMIT DROP
               |
 ;
 opttablespace: TABLESPACE name
-             |
 ;
+
 optconstablespace: USING INDEX TABLESPACE name
-                 |
 ;
+
 existingindex: USING INDEX name;
 
 createstatsstmt: CREATE STATISTICS any_name opt_name_list ON expr_list FROM from_list
@@ -727,28 +724,27 @@ createstatsstmt: CREATE STATISTICS any_name opt_name_list ON expr_list FROM from
 alterstatsstmt: ALTER STATISTICS any_name SET STATISTICS signediconst
               | ALTER STATISTICS IF_P EXISTS any_name SET STATISTICS signediconst
 ;
-createasstmt: CREATE opttemp TABLE create_as_target AS selectstmt opt_with_data
-            | CREATE opttemp TABLE IF_P NOT EXISTS create_as_target AS selectstmt opt_with_data
+createasstmt: CREATE opttemp? TABLE create_as_target AS selectstmt opt_with_data?
+            | CREATE opttemp? TABLE IF_P NOT EXISTS create_as_target AS selectstmt opt_with_data?
 ;
-create_as_target: qualified_name opt_column_list table_access_method_clause optwith oncommitoption opttablespace;
+create_as_target: qualified_name opt_column_list? table_access_method_clause optwith oncommitoption opttablespace?;
 
 opt_with_data: WITH DATA_P
              | WITH NO DATA_P
-             |
 ;
 
-creatematviewstmt: CREATE optnolog MATERIALIZED VIEW create_mv_target AS selectstmt opt_with_data
-                 | CREATE optnolog MATERIALIZED VIEW IF_P NOT EXISTS create_mv_target AS selectstmt opt_with_data
+creatematviewstmt: CREATE optnolog MATERIALIZED VIEW create_mv_target AS selectstmt opt_with_data?
+                 | CREATE optnolog MATERIALIZED VIEW IF_P NOT EXISTS create_mv_target AS selectstmt opt_with_data?
 ;
-create_mv_target: qualified_name opt_column_list table_access_method_clause opt_reloptions opttablespace;
+create_mv_target: qualified_name opt_column_list? table_access_method_clause opt_reloptions? opttablespace?;
 
 optnolog: UNLOGGED
         |
 ;
-refreshmatviewstmt: REFRESH MATERIALIZED VIEW opt_concurrently qualified_name opt_with_data;
+refreshmatviewstmt: REFRESH MATERIALIZED VIEW opt_concurrently? qualified_name opt_with_data?;
 
-createseqstmt: CREATE opttemp SEQUENCE qualified_name optseqoptlist
-             | CREATE opttemp SEQUENCE IF_P NOT EXISTS qualified_name optseqoptlist
+createseqstmt: CREATE opttemp? SEQUENCE qualified_name optseqoptlist
+             | CREATE opttemp? SEQUENCE IF_P NOT EXISTS qualified_name optseqoptlist
 ;
 
 alterseqstmt: ALTER SEQUENCE qualified_name seqoptlist
@@ -775,9 +771,9 @@ seqoptelem: AS simpletypename
           | NO MINVALUE
           | OWNED BY any_name
           | SEQUENCE NAME_P any_name
-          | START opt_with numericonly
+          | START opt_with? numericonly
           | RESTART
-          | RESTART opt_with numericonly
+          | RESTART opt_with? numericonly
 ;
 
 opt_by: BY
@@ -789,9 +785,9 @@ numericonly: fconst
            | MINUS fconst
            | signediconst
 ;
-numericonly_list: numericonly
-                | numericonly_list COMMA numericonly
+numericonly_list: numericonly (COMMA numericonly)*
 ;
+
 createplangstmt: CREATE opt_or_replace opt_trusted opt_procedural LANGUAGE name
                | CREATE opt_or_replace opt_trusted opt_procedural LANGUAGE name HANDLER handler_name opt_inline_handler opt_validator
 ;
@@ -814,7 +810,7 @@ opt_validator: validator_clause
 opt_procedural: PROCEDURAL
               |
 ;
-createtablespacestmt: CREATE TABLESPACE name opttablespaceowner LOCATION sconst opt_reloptions;
+createtablespacestmt: CREATE TABLESPACE name opttablespaceowner LOCATION sconst opt_reloptions?;
 
 opttablespaceowner: OWNER rolespec
                   |
@@ -822,8 +818,8 @@ opttablespaceowner: OWNER rolespec
 droptablespacestmt: DROP TABLESPACE name
                   | DROP TABLESPACE IF_P EXISTS name
 ;
-createextensionstmt: CREATE EXTENSION name opt_with create_extension_opt_list
-                   | CREATE EXTENSION IF_P NOT EXISTS name opt_with create_extension_opt_list
+createextensionstmt: CREATE EXTENSION name opt_with? create_extension_opt_list
+                   | CREATE EXTENSION IF_P NOT EXISTS name opt_with? create_extension_opt_list
 ;
 create_extension_opt_list: create_extension_opt_list create_extension_opt_item
                          |
@@ -875,14 +871,14 @@ alterfdwstmt: ALTER FOREIGN DATA_P WRAPPER name opt_fdw_options alter_generic_op
 create_generic_options: OPTIONS OPEN_PAREN generic_option_list CLOSE_PAREN
                       |
 ;
-generic_option_list: generic_option_elem
-                   | generic_option_list COMMA generic_option_elem
+generic_option_list: generic_option_elem (COMMA generic_option_elem)*
 ;
+
 alter_generic_options: OPTIONS OPEN_PAREN alter_generic_option_list CLOSE_PAREN;
 
-alter_generic_option_list: alter_generic_option_elem
-                         | alter_generic_option_list COMMA alter_generic_option_elem
+alter_generic_option_list: alter_generic_option_elem (COMMA alter_generic_option_elem)*
 ;
+
 alter_generic_option_elem: generic_option_elem
                          | SET generic_option_elem
                          | ADD_P generic_option_elem
@@ -910,10 +906,13 @@ alterforeignserverstmt: ALTER SERVER name foreign_server_version alter_generic_o
                       | ALTER SERVER name foreign_server_version
                       | ALTER SERVER name alter_generic_options
 ;
-createforeigntablestmt: CREATE FOREIGN TABLE qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit SERVER name create_generic_options
-                      | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN opttableelementlist CLOSE_PAREN optinherit SERVER name create_generic_options
-                      | CREATE FOREIGN TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec SERVER name create_generic_options
-                      | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist partitionboundspec SERVER name create_generic_options
+createforeigntablestmt: CREATE FOREIGN TABLE qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? SERVER name create_generic_options
+                      | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name OPEN_PAREN tableelementlist? CLOSE_PAREN optinherit? SERVER name
+                      create_generic_options
+                      | CREATE FOREIGN TABLE qualified_name PARTITION OF qualified_name opttypedtableelementlist? partitionboundspec SERVER name
+                      create_generic_options
+                      | CREATE FOREIGN TABLE IF_P NOT EXISTS qualified_name PARTITION OF qualified_name opttypedtableelementlist?
+                      partitionboundspec SERVER name create_generic_options
 ;
 importforeignschemastmt: IMPORT_P FOREIGN SCHEMA name import_qualification FROM SERVER name INTO name create_generic_options;
 
@@ -967,8 +966,10 @@ createamstmt: CREATE ACCESS METHOD name TYPE_P am_type HANDLER handler_name;
 am_type: INDEX
        | TABLE
 ;
-createtrigstmt: CREATE TRIGGER name triggeractiontime triggerevents ON qualified_name triggerreferencing triggerforspec triggerwhen EXECUTE function_or_procedure func_name OPEN_PAREN triggerfuncargs CLOSE_PAREN
-              | CREATE CONSTRAINT TRIGGER name AFTER triggerevents ON qualified_name optconstrfromtable constraintattributespec FOR EACH ROW triggerwhen EXECUTE function_or_procedure func_name OPEN_PAREN triggerfuncargs CLOSE_PAREN
+createtrigstmt: CREATE TRIGGER name triggeractiontime triggerevents ON qualified_name triggerreferencing triggerforspec triggerwhen EXECUTE
+function_or_procedure func_name OPEN_PAREN triggerfuncargs? CLOSE_PAREN
+              | CREATE CONSTRAINT TRIGGER name AFTER triggerevents ON qualified_name optconstrfromtable? constraintattributespec FOR EACH ROW
+              triggerwhen EXECUTE function_or_procedure func_name OPEN_PAREN triggerfuncargs? CLOSE_PAREN
 ;
 triggeractiontime: BEFORE
                  | AFTER
@@ -989,7 +990,7 @@ triggerreferencing: REFERENCING triggertransitions
 triggertransitions: triggertransition
                   | triggertransitions triggertransition
 ;
-triggertransition: transitionoldornew transitionrowortable opt_as transitionrelname;
+triggertransition: transitionoldornew transitionrowortable opt_as? transitionrelname;
 
 transitionoldornew: NEW
                   | OLD
@@ -1014,20 +1015,20 @@ triggerwhen: WHEN OPEN_PAREN a_expr CLOSE_PAREN
 function_or_procedure: FUNCTION
                      | PROCEDURE
 ;
-triggerfuncargs: triggerfuncarg
-               | triggerfuncargs COMMA triggerfuncarg
-               |
+triggerfuncargs: triggerfuncarg (COMMA triggerfuncarg)*
 ;
+
 triggerfuncarg: iconst
               | fconst
               | sconst
               | collabel
 ;
+
 optconstrfromtable: FROM qualified_name
-                  |
 ;
+
 constraintattributespec:
-                       | constraintattributespec constraintattributeElem
+          | constraintattributespec constraintattributeElem
 ;
 constraintattributeElem: NOT DEFERRABLE
                        | DEFERRABLE
@@ -1042,11 +1043,8 @@ createeventtrigstmt: CREATE EVENT TRIGGER name ON collabel EXECUTE function_or_p
 event_trigger_when_list: event_trigger_when_item
                        | event_trigger_when_list AND event_trigger_when_item
 ;
-event_trigger_when_item: colid IN_P OPEN_PAREN event_trigger_value_list CLOSE_PAREN;
+event_trigger_when_item: colid IN_P OPEN_PAREN sconst (COMMA sconst)* CLOSE_PAREN;
 
-event_trigger_value_list: sconst
-                        | event_trigger_value_list COMMA sconst
-;
 altereventtrigstmt: ALTER EVENT TRIGGER name enable_trigger;
 
 enable_trigger: ENABLE_P
@@ -1061,8 +1059,8 @@ definestmt: CREATE opt_or_replace AGGREGATE func_name aggr_args definition
           | CREATE OPERATOR any_operator+ definition
           | CREATE TYPE_P any_name definition
           | CREATE TYPE_P any_name
-          | CREATE TYPE_P any_name AS OPEN_PAREN opttablefuncelementlist CLOSE_PAREN
-          | CREATE TYPE_P any_name AS ENUM_P OPEN_PAREN opt_enum_val_list CLOSE_PAREN
+          | CREATE TYPE_P any_name AS OPEN_PAREN opttablefuncelementlist? CLOSE_PAREN
+          | CREATE TYPE_P any_name AS ENUM_P OPEN_PAREN sconst (COMMA sconst)* CLOSE_PAREN
           | CREATE TYPE_P any_name AS RANGE definition
           | CREATE TEXT_P SEARCH PARSER any_name definition
           | CREATE TEXT_P SEARCH DICTIONARY any_name definition
@@ -1074,11 +1072,8 @@ definestmt: CREATE opt_or_replace AGGREGATE func_name aggr_args definition
           | CREATE COLLATION IF_P NOT EXISTS any_name FROM any_name
 ;
 
-definition: OPEN_PAREN def_list CLOSE_PAREN;
+definition: OPEN_PAREN def_elem (COMMA def_elem)* CLOSE_PAREN;
 
-def_list: def_elem
-        | def_list COMMA def_elem
-;
 def_elem: collabel EQUAL def_arg
         | collabel
 ;
@@ -1089,93 +1084,77 @@ def_arg: func_type
        | sconst
        | NONE
 ;
-old_aggr_definition: OPEN_PAREN old_aggr_list CLOSE_PAREN;
+old_aggr_definition: OPEN_PAREN old_aggr_elem (COMMA old_aggr_elem)* CLOSE_PAREN;
 
-old_aggr_list: old_aggr_elem
-             | old_aggr_list COMMA old_aggr_elem
-;
 old_aggr_elem: identifier EQUAL def_arg;
 
-opt_enum_val_list: enum_val_list
-                 |
-;
-enum_val_list: sconst
-             | enum_val_list COMMA sconst
-;
-alterenumstmt: ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst
-             | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst BEFORE sconst
-             | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists sconst AFTER sconst
+alterenumstmt: ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists? sconst
+             | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists? sconst BEFORE sconst
+             | ALTER TYPE_P any_name ADD_P VALUE_P opt_if_not_exists? sconst AFTER sconst
              | ALTER TYPE_P any_name RENAME VALUE_P sconst TO sconst
 ;
 
 opt_if_not_exists: IF_P NOT EXISTS
-                 |
-;
-createopclassstmt: CREATE OPERATOR CLASS any_name opt_default FOR TYPE_P typename USING name opt_opfamily AS opclass_item_list;
-
-opclass_item_list: opclass_item
-                 | opclass_item_list COMMA opclass_item
 ;
 
-opclass_item: OPERATOR iconst any_operator+ opclass_purpose opt_recheck
-            | OPERATOR iconst operator_with_argtypes opclass_purpose opt_recheck
+createopclassstmt: CREATE OPERATOR CLASS any_name opt_default? FOR TYPE_P typename USING name opt_opfamily? AS opclass_item_list;
+
+opclass_item_list: opclass_item (COMMA opclass_item)*
+;
+
+opclass_item: OPERATOR iconst any_operator+ opclass_purpose? opt_recheck?
+            | OPERATOR iconst operator_with_argtypes opclass_purpose? opt_recheck?
             | FUNCTION iconst function_with_argtypes
             | FUNCTION iconst OPEN_PAREN type_list CLOSE_PAREN function_with_argtypes
             | STORAGE typename
 ;
 
 opt_default: DEFAULT
-           |
 ;
 
 opt_opfamily: FAMILY any_name
-            |
 ;
 
 opclass_purpose: FOR SEARCH
                | FOR ORDER BY any_name
-               |
 ;
 
 opt_recheck: RECHECK
-           |
 ;
 
 createopfamilystmt: CREATE OPERATOR FAMILY any_name USING name;
 
 alteropfamilystmt: ALTER OPERATOR FAMILY any_name USING name ADD_P opclass_item_list
-                 | ALTER OPERATOR FAMILY any_name USING name DROP opclass_drop_list
+                 | ALTER OPERATOR FAMILY any_name USING name DROP opclass_drop (COMMA opclass_drop)*
 ;
-opclass_drop_list: opclass_drop
-                 | opclass_drop_list COMMA opclass_drop
-;
+
 opclass_drop: OPERATOR iconst OPEN_PAREN type_list CLOSE_PAREN
             | FUNCTION iconst OPEN_PAREN type_list CLOSE_PAREN
 ;
-dropopclassstmt: DROP OPERATOR CLASS any_name USING name opt_drop_behavior
-               | DROP OPERATOR CLASS IF_P EXISTS any_name USING name opt_drop_behavior
+dropopclassstmt: DROP OPERATOR CLASS any_name USING name opt_drop_behavior?
+               | DROP OPERATOR CLASS IF_P EXISTS any_name USING name opt_drop_behavior?
 ;
 
-dropopfamilystmt: DROP OPERATOR FAMILY any_name USING name opt_drop_behavior
-                | DROP OPERATOR FAMILY IF_P EXISTS any_name USING name opt_drop_behavior
+dropopfamilystmt: DROP OPERATOR FAMILY any_name USING name opt_drop_behavior?
+                | DROP OPERATOR FAMILY IF_P EXISTS any_name USING name opt_drop_behavior?
 ;
 
-dropownedstmt: DROP OWNED BY role_list opt_drop_behavior;
+dropownedstmt: DROP OWNED BY role_list opt_drop_behavior?;
 
 reassignownedstmt: REASSIGN OWNED BY role_list TO rolespec;
 
-dropstmt: DROP object_type_any_name IF_P EXISTS any_name_list opt_drop_behavior
-        | DROP object_type_any_name any_name_list opt_drop_behavior
-        | DROP drop_type_name IF_P EXISTS name_list opt_drop_behavior
-        | DROP drop_type_name name_list opt_drop_behavior
-        | DROP object_type_name_on_any_name name ON any_name opt_drop_behavior
-        | DROP object_type_name_on_any_name IF_P EXISTS name ON any_name opt_drop_behavior
-        | DROP TYPE_P type_name_list opt_drop_behavior
-        | DROP TYPE_P IF_P EXISTS type_name_list opt_drop_behavior
-        | DROP DOMAIN_P type_name_list opt_drop_behavior
-        | DROP DOMAIN_P IF_P EXISTS type_name_list opt_drop_behavior
-        | DROP INDEX CONCURRENTLY any_name_list opt_drop_behavior
-        | DROP INDEX CONCURRENTLY IF_P EXISTS any_name_list opt_drop_behavior
+dropstmt: DROP object_type_any_name IF_P EXISTS any_name_list opt_drop_behavior?
+        | DROP object_type_any_name any_name_list opt_drop_behavior?
+        | DROP drop_type_name IF_P EXISTS name_list opt_drop_behavior?
+        | DROP drop_type_name name_list opt_drop_behavior?
+        | DROP object_type_name_on_any_name name ON any_name opt_drop_behavior?
+        | DROP object_type_name_on_any_name IF_P EXISTS name ON any_name opt_drop_behavior?
+        | DROP TYPE_P type_name_list opt_drop_behavior?
+        | DROP TYPE_P IF_P EXISTS type_name_list opt_drop_behavior?
+        | DROP DOMAIN_P type_name_list opt_drop_behavior?
+        | DROP DOMAIN_P IF_P EXISTS type_name_list opt_drop_behavior?
+        | DROP INDEX CONCURRENTLY any_name_list opt_drop_behavior?
+        | DROP INDEX CONCURRENTLY IF_P EXISTS any_name_list opt_drop_behavior?
 ;
 object_type_any_name: TABLE
                     | SEQUENCE
@@ -1210,19 +1189,19 @@ object_type_name_on_any_name: POLICY
                             | RULE
                             | TRIGGER
 ;
-any_name_list: any_name
-             | any_name_list COMMA any_name
+any_name_list: any_name (COMMA any_name)*
 ;
+
 any_name: colid
         | colid attrs
 ;
 attrs: DOT attr_name
      | attrs DOT attr_name
 ;
-type_name_list: typename
-              | type_name_list COMMA typename
+type_name_list: typename (COMMA typename)*
 ;
-truncatestmt: TRUNCATE opt_table relation_expr_list opt_restart_seqs opt_drop_behavior;
+
+truncatestmt: TRUNCATE opt_table? relation_expr_list opt_restart_seqs opt_drop_behavior?;
 
 opt_restart_seqs: CONTINUE_P IDENTITY_P
                 | RESTART IDENTITY_P
@@ -1295,8 +1274,8 @@ opt_from_in: from_in
 ;
 grantstmt: GRANT privileges ON privilege_target TO grantee_list opt_grant_grant_option;
 
-revokestmt: REVOKE privileges ON privilege_target FROM grantee_list opt_drop_behavior
-          | REVOKE GRANT OPTION FOR privileges ON privilege_target FROM grantee_list opt_drop_behavior
+revokestmt: REVOKE privileges ON privilege_target FROM grantee_list opt_drop_behavior?
+          | REVOKE GRANT OPTION FOR privileges ON privilege_target FROM grantee_list opt_drop_behavior?
 ;
 privileges: privilege_list
           | ALL
@@ -1304,13 +1283,13 @@ privileges: privilege_list
           | ALL OPEN_PAREN columnlist CLOSE_PAREN
           | ALL PRIVILEGES OPEN_PAREN columnlist CLOSE_PAREN
 ;
-privilege_list: privilege
-              | privilege_list COMMA privilege
+privilege_list: privilege (COMMA privilege)*
 ;
-privilege: SELECT opt_column_list
-         | REFERENCES opt_column_list
-         | CREATE opt_column_list
-         | colid opt_column_list
+
+privilege: SELECT opt_column_list?
+         | REFERENCES opt_column_list?
+         | CREATE opt_column_list?
+         | colid opt_column_list?
 ;
 privilege_target: qualified_name_list
                 | TABLE qualified_name_list
@@ -1333,9 +1312,9 @@ privilege_target: qualified_name_list
                 | ALL PROCEDURES IN_P SCHEMA name_list
                 | ALL ROUTINES IN_P SCHEMA name_list
 ;
- grantee_list: grantee
-             | grantee_list COMMA grantee
+ grantee_list: grantee (COMMA grantee)*
 ;
+
  grantee: rolespec
         | GROUP_P rolespec
 ;
@@ -1344,8 +1323,8 @@ privilege_target: qualified_name_list
 ;
  grantrolestmt: GRANT privilege_list TO role_list opt_grant_admin_option opt_granted_by;
 
- revokerolestmt: REVOKE privilege_list FROM role_list opt_granted_by opt_drop_behavior
-               | REVOKE ADMIN OPTION FOR privilege_list FROM role_list opt_granted_by opt_drop_behavior
+ revokerolestmt: REVOKE privilege_list FROM role_list opt_granted_by opt_drop_behavior?
+               | REVOKE ADMIN OPTION FOR privilege_list FROM role_list opt_granted_by opt_drop_behavior?
 ;
  opt_grant_admin_option: WITH ADMIN OPTION
                        |
@@ -1363,8 +1342,8 @@ privilege_target: qualified_name_list
              | FOR USER role_list
 ;
  defaclaction: GRANT privileges ON defacl_privilege_target TO grantee_list opt_grant_grant_option
-             | REVOKE privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior
-             | REVOKE GRANT OPTION FOR privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior
+             | REVOKE privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior?
+             | REVOKE GRANT OPTION FOR privileges ON defacl_privilege_target FROM grantee_list opt_drop_behavior?
 ;
  defacl_privilege_target: TABLES
                         | FUNCTIONS
@@ -1374,24 +1353,26 @@ privilege_target: qualified_name_list
                         | SCHEMAS
 ;
 //create index
- indexstmt: CREATE opt_unique INDEX opt_concurrently opt_index_name ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN opt_include opt_reloptions opttablespace where_clause
-          | CREATE opt_unique INDEX opt_concurrently IF_P NOT EXISTS name ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN opt_include opt_reloptions opttablespace where_clause
+ indexstmt: CREATE opt_unique? INDEX opt_concurrently? opt_index_name? ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN 
+ opt_include? opt_reloptions? opttablespace? where_clause?
+          | CREATE opt_unique? INDEX opt_concurrently? IF_P NOT EXISTS name ON relation_expr access_method_clause OPEN_PAREN index_params CLOSE_PAREN
+           opt_include? opt_reloptions? opttablespace? where_clause?
 ;
+
  opt_unique: UNIQUE
-           |
 ;
+
  opt_concurrently: CONCURRENTLY
-                 |
 ;
  opt_index_name: name
-               |
 ;
+
  access_method_clause: USING name
                      |
 ;
- index_params: index_elem
-             | index_params COMMA index_elem
+ index_params: index_elem (COMMA index_elem)*
 ;
+
  index_elem_options: opt_collate opt_class opt_asc_desc opt_nulls_order
                    | opt_collate any_name reloptions opt_asc_desc opt_nulls_order
 ;
@@ -1399,12 +1380,9 @@ privilege_target: qualified_name_list
            | func_expr_windowless index_elem_options
            | OPEN_PAREN a_expr CLOSE_PAREN index_elem_options
 ;
- opt_include: INCLUDE OPEN_PAREN index_including_params CLOSE_PAREN
-            |
+ opt_include: INCLUDE OPEN_PAREN index_elem (COMMA index_elem)* CLOSE_PAREN
 ;
- index_including_params: index_elem
-                       | index_including_params COMMA index_elem
-;
+
  opt_collate: COLLATE any_name
             |
 ;
@@ -1426,33 +1404,31 @@ createfunctionstmt:
 	CREATE opt_or_replace FUNCTION func_name func_args_with_defaults RETURNS func_return
 		createfunc_opt_list
 	| CREATE opt_or_replace FUNCTION func_name func_args_with_defaults RETURNS TABLE OPEN_PAREN
-		table_func_column_list CLOSE_PAREN createfunc_opt_list
+		table_func_column (COMMA table_func_column)* CLOSE_PAREN createfunc_opt_list
 	| CREATE opt_or_replace FUNCTION func_name func_args_with_defaults createfunc_opt_list
 	| CREATE opt_or_replace PROCEDURE func_name func_args_with_defaults createfunc_opt_list
 	;
 opt_or_replace: OR REPLACE
                |
 ;
- func_args: OPEN_PAREN func_args_list CLOSE_PAREN
+ func_args: OPEN_PAREN func_arg (COMMA func_arg)* CLOSE_PAREN
           | OPEN_PAREN CLOSE_PAREN
 ;
- func_args_list: func_arg
-               | func_args_list COMMA func_arg
+
+
+ function_with_argtypes_list: function_with_argtypes (COMMA function_with_argtypes)*
 ;
- function_with_argtypes_list: function_with_argtypes
-                            | function_with_argtypes_list COMMA function_with_argtypes
-;
+
  function_with_argtypes: func_name func_args
                        | type_func_name_keyword
                        | colid
                        | colid indirection
 ;
- func_args_with_defaults: OPEN_PAREN func_args_with_defaults_list CLOSE_PAREN
+ func_args_with_defaults: OPEN_PAREN func_arg_with_default (COMMA func_arg_with_default)* CLOSE_PAREN
                         | OPEN_PAREN CLOSE_PAREN
 ;
- func_args_with_defaults_list: func_arg_with_default
-                             | func_args_with_defaults_list COMMA func_arg_with_default
-;
+
+
  func_arg: arg_class param_name func_type
          | param_name arg_class func_type
          | param_name func_type
@@ -1484,14 +1460,14 @@ opt_or_replace: OR REPLACE
           | OPEN_PAREN ORDER BY aggr_args_list CLOSE_PAREN
           | OPEN_PAREN aggr_args_list ORDER BY aggr_args_list CLOSE_PAREN
 ;
- aggr_args_list: aggr_arg
-               | aggr_args_list COMMA aggr_arg
+ aggr_args_list: aggr_arg (COMMA aggr_arg)*
 ;
+
  aggregate_with_argtypes: func_name aggr_args;
 
- aggregate_with_argtypes_list: aggregate_with_argtypes
-                             | aggregate_with_argtypes_list COMMA aggregate_with_argtypes
+ aggregate_with_argtypes_list: aggregate_with_argtypes (COMMA aggregate_with_argtypes)*
 ;
+
  createfunc_opt_list: createfunc_opt_item+
 //                    | createfunc_opt_list createfunc_opt_item
 ;
@@ -1531,17 +1507,15 @@ opt_or_replace: OR REPLACE
         //| AS 'obj_file', 'link_symbol'
          | sconst COMMA sconst
 ;
- transform_type_list: FOR TYPE_P typename
-                    | transform_type_list COMMA FOR TYPE_P typename
+
+ transform_type_list: FOR TYPE_P typename (COMMA FOR TYPE_P typename)*
 ;
+
  opt_definition: WITH definition
-               |
 ;
+
  table_func_column: param_name func_type;
 
- table_func_column_list: table_func_column
-                       | table_func_column_list COMMA table_func_column
-;
  alterfunctionstmt: ALTER FUNCTION function_with_argtypes alterfunc_opt_list opt_restrict
                   | ALTER PROCEDURE function_with_argtypes alterfunc_opt_list opt_restrict
                   | ALTER ROUTINE function_with_argtypes alterfunc_opt_list opt_restrict
@@ -1552,18 +1526,18 @@ opt_or_replace: OR REPLACE
  opt_restrict: RESTRICT
              |
 ;
- removefuncstmt: DROP FUNCTION function_with_argtypes_list opt_drop_behavior
-               | DROP FUNCTION IF_P EXISTS function_with_argtypes_list opt_drop_behavior
-               | DROP PROCEDURE function_with_argtypes_list opt_drop_behavior
-               | DROP PROCEDURE IF_P EXISTS function_with_argtypes_list opt_drop_behavior
-               | DROP ROUTINE function_with_argtypes_list opt_drop_behavior
-               | DROP ROUTINE IF_P EXISTS function_with_argtypes_list opt_drop_behavior
+ removefuncstmt: DROP FUNCTION function_with_argtypes_list opt_drop_behavior?
+               | DROP FUNCTION IF_P EXISTS function_with_argtypes_list opt_drop_behavior?
+               | DROP PROCEDURE function_with_argtypes_list opt_drop_behavior?
+               | DROP PROCEDURE IF_P EXISTS function_with_argtypes_list opt_drop_behavior?
+               | DROP ROUTINE function_with_argtypes_list opt_drop_behavior?
+               | DROP ROUTINE IF_P EXISTS function_with_argtypes_list opt_drop_behavior?
 ;
- removeaggrstmt: DROP AGGREGATE aggregate_with_argtypes_list opt_drop_behavior
-               | DROP AGGREGATE IF_P EXISTS aggregate_with_argtypes_list opt_drop_behavior
+ removeaggrstmt: DROP AGGREGATE aggregate_with_argtypes_list opt_drop_behavior?
+               | DROP AGGREGATE IF_P EXISTS aggregate_with_argtypes_list opt_drop_behavior?
 ;
- removeoperstmt: DROP OPERATOR operator_with_argtypes_list opt_drop_behavior
-               | DROP OPERATOR IF_P EXISTS operator_with_argtypes_list opt_drop_behavior
+ removeoperstmt: DROP OPERATOR operator_with_argtypes_list opt_drop_behavior?
+               | DROP OPERATOR IF_P EXISTS operator_with_argtypes_list opt_drop_behavior?
 ;
  oper_argtypes: OPEN_PAREN typename CLOSE_PAREN
               | OPEN_PAREN typename COMMA typename CLOSE_PAREN
@@ -1573,9 +1547,9 @@ opt_or_replace: OR REPLACE
  any_operator: all_op
              | colid DOT any_operator
 ;
- operator_with_argtypes_list: operator_with_argtypes
-                            | operator_with_argtypes_list COMMA operator_with_argtypes
+ operator_with_argtypes_list: operator_with_argtypes (COMMA operator_with_argtypes)*
 ;
+
  operator_with_argtypes: any_operator+ oper_argtypes;
 
  dostmt: DO dostmt_opt_list;
@@ -1594,7 +1568,7 @@ opt_or_replace: OR REPLACE
              | AS ASSIGNMENT
              |
 ;
- dropcaststmt: DROP CAST opt_if_exists OPEN_PAREN typename AS typename CLOSE_PAREN opt_drop_behavior;
+ dropcaststmt: DROP CAST opt_if_exists OPEN_PAREN typename AS typename CLOSE_PAREN opt_drop_behavior?;
 
  opt_if_exists: IF_P EXISTS
               |
@@ -1606,12 +1580,12 @@ opt_or_replace: OR REPLACE
                        | FROM SQL_P WITH FUNCTION function_with_argtypes
                        | TO SQL_P WITH FUNCTION function_with_argtypes
 ;
- droptransformstmt: DROP TRANSFORM opt_if_exists FOR typename LANGUAGE name opt_drop_behavior;
+ droptransformstmt: DROP TRANSFORM opt_if_exists FOR typename LANGUAGE name opt_drop_behavior?;
 
- reindexstmt: REINDEX reindex_target_type opt_concurrently qualified_name
-            | REINDEX reindex_target_multitable opt_concurrently name
-            | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_type opt_concurrently qualified_name
-            | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_multitable opt_concurrently name
+ reindexstmt: REINDEX reindex_target_type opt_concurrently? qualified_name
+            | REINDEX reindex_target_multitable opt_concurrently? name
+            | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_type opt_concurrently? qualified_name
+            | REINDEX OPEN_PAREN reindex_option_list CLOSE_PAREN reindex_target_multitable opt_concurrently? name
 ;
  reindex_target_type: INDEX
                     | TABLE
@@ -1620,9 +1594,9 @@ opt_or_replace: OR REPLACE
                           | SYSTEM_P
                           | DATABASE
 ;
- reindex_option_list: reindex_option_elem
-                    | reindex_option_list COMMA reindex_option_elem
+ reindex_option_list: reindex_option_elem (COMMA reindex_option_elem)*
 ;
+
  reindex_option_elem: VERBOSE;
 
  altertblspcstmt: ALTER TABLESPACE name SET reloptions
@@ -1660,16 +1634,16 @@ opt_or_replace: OR REPLACE
            | ALTER INDEX IF_P EXISTS qualified_name RENAME TO name
            | ALTER FOREIGN TABLE relation_expr RENAME TO name
            | ALTER FOREIGN TABLE IF_P EXISTS relation_expr RENAME TO name
-           | ALTER TABLE relation_expr RENAME opt_column name TO name
-           | ALTER TABLE IF_P EXISTS relation_expr RENAME opt_column name TO name
-           | ALTER VIEW qualified_name RENAME opt_column name TO name
-           | ALTER VIEW IF_P EXISTS qualified_name RENAME opt_column name TO name
-           | ALTER MATERIALIZED VIEW qualified_name RENAME opt_column name TO name
-           | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name RENAME opt_column name TO name
+           | ALTER TABLE relation_expr RENAME opt_column? name TO name
+           | ALTER TABLE IF_P EXISTS relation_expr RENAME opt_column? name TO name
+           | ALTER VIEW qualified_name RENAME opt_column? name TO name
+           | ALTER VIEW IF_P EXISTS qualified_name RENAME opt_column? name TO name
+           | ALTER MATERIALIZED VIEW qualified_name RENAME opt_column? name TO name
+           | ALTER MATERIALIZED VIEW IF_P EXISTS qualified_name RENAME opt_column? name TO name
            | ALTER TABLE relation_expr RENAME CONSTRAINT name TO name
            | ALTER TABLE IF_P EXISTS relation_expr RENAME CONSTRAINT name TO name
-           | ALTER FOREIGN TABLE relation_expr RENAME opt_column name TO name
-           | ALTER FOREIGN TABLE IF_P EXISTS relation_expr RENAME opt_column name TO name
+           | ALTER FOREIGN TABLE relation_expr RENAME opt_column? name TO name
+           | ALTER FOREIGN TABLE IF_P EXISTS relation_expr RENAME opt_column? name TO name
            | ALTER RULE name ON qualified_name RENAME TO name
            | ALTER TRIGGER name ON qualified_name RENAME TO name
            | ALTER EVENT TRIGGER name RENAME TO name
@@ -1682,23 +1656,22 @@ opt_or_replace: OR REPLACE
            | ALTER TEXT_P SEARCH TEMPLATE any_name RENAME TO name
            | ALTER TEXT_P SEARCH CONFIGURATION any_name RENAME TO name
            | ALTER TYPE_P any_name RENAME TO name
-           | ALTER TYPE_P any_name RENAME ATTRIBUTE name TO name opt_drop_behavior
+           | ALTER TYPE_P any_name RENAME ATTRIBUTE name TO name opt_drop_behavior?
 ;
  opt_column: COLUMN
-           |
 ;
+
  opt_set_data: SET DATA_P
-             |
 ;
- alterobjectdependsstmt: ALTER FUNCTION function_with_argtypes opt_no DEPENDS ON EXTENSION name
-                       | ALTER PROCEDURE function_with_argtypes opt_no DEPENDS ON EXTENSION name
-                       | ALTER ROUTINE function_with_argtypes opt_no DEPENDS ON EXTENSION name
-                       | ALTER TRIGGER name ON qualified_name opt_no DEPENDS ON EXTENSION name
-                       | ALTER MATERIALIZED VIEW qualified_name opt_no DEPENDS ON EXTENSION name
-                       | ALTER INDEX qualified_name opt_no DEPENDS ON EXTENSION name
+
+ alterobjectdependsstmt: ALTER FUNCTION function_with_argtypes opt_no? DEPENDS ON EXTENSION name
+                       | ALTER PROCEDURE function_with_argtypes opt_no? DEPENDS ON EXTENSION name
+                       | ALTER ROUTINE function_with_argtypes opt_no? DEPENDS ON EXTENSION name
+                       | ALTER TRIGGER name ON qualified_name opt_no? DEPENDS ON EXTENSION name
+                       | ALTER MATERIALIZED VIEW qualified_name opt_no? DEPENDS ON EXTENSION name
+                       | ALTER INDEX qualified_name opt_no? DEPENDS ON EXTENSION name
 ;
  opt_no: NO
-       |
 ;
  alterobjectschemastmt: ALTER AGGREGATE aggregate_with_argtypes SET SCHEMA name
                       | ALTER COLLATION any_name SET SCHEMA name
@@ -1730,9 +1703,9 @@ opt_or_replace: OR REPLACE
 ;
  alteroperatorstmt: ALTER OPERATOR operator_with_argtypes SET OPEN_PAREN operator_def_list CLOSE_PAREN;
 
- operator_def_list: operator_def_elem
-                  | operator_def_list COMMA operator_def_elem
+ operator_def_list: operator_def_elem (COMMA operator_def_elem)*
 ;
+
  operator_def_elem: collabel EQUAL NONE
                   | collabel EQUAL operator_def_arg
 ;
@@ -1769,7 +1742,7 @@ opt_or_replace: OR REPLACE
                | ALTER PUBLICATION name OWNER TO rolespec
                | ALTER SUBSCRIPTION name OWNER TO rolespec
 ;
- createpublicationstmt: CREATE PUBLICATION name opt_publication_for_tables opt_definition;
+ createpublicationstmt: CREATE PUBLICATION name opt_publication_for_tables opt_definition?;
 
  opt_publication_for_tables: publication_for_tables
                            |
@@ -1782,24 +1755,24 @@ opt_or_replace: OR REPLACE
                      | ALTER PUBLICATION name SET TABLE relation_expr_list
                      | ALTER PUBLICATION name DROP TABLE relation_expr_list
 ;
- createsubscriptionstmt: CREATE SUBSCRIPTION name CONNECTION sconst PUBLICATION publication_name_list opt_definition;
+ createsubscriptionstmt: CREATE SUBSCRIPTION name CONNECTION sconst PUBLICATION publication_name_list opt_definition?;
 
- publication_name_list: publication_name_item
-                      | publication_name_list COMMA publication_name_item
+ publication_name_list: publication_name_item (COMMA publication_name_item)*
 ;
+
  publication_name_item: collabel;
 
  altersubscriptionstmt: ALTER SUBSCRIPTION name SET definition
                       | ALTER SUBSCRIPTION name CONNECTION sconst
-                      | ALTER SUBSCRIPTION name REFRESH PUBLICATION opt_definition
-                      | ALTER SUBSCRIPTION name SET PUBLICATION publication_name_list opt_definition
+                      | ALTER SUBSCRIPTION name REFRESH PUBLICATION opt_definition?
+                      | ALTER SUBSCRIPTION name SET PUBLICATION publication_name_list opt_definition?
                       | ALTER SUBSCRIPTION name ENABLE_P
                       | ALTER SUBSCRIPTION name DISABLE_P
 ;
- dropsubscriptionstmt: DROP SUBSCRIPTION name opt_drop_behavior
-                     | DROP SUBSCRIPTION IF_P EXISTS name opt_drop_behavior
+ dropsubscriptionstmt: DROP SUBSCRIPTION name opt_drop_behavior?
+                     | DROP SUBSCRIPTION IF_P EXISTS name opt_drop_behavior?
 ;
- rulestmt: CREATE opt_or_replace RULE name AS ON event TO qualified_name where_clause DO opt_instead ruleactionlist;
+ rulestmt: CREATE opt_or_replace RULE name AS ON event TO qualified_name where_clause? DO opt_instead? ruleactionlist;
 
  ruleactionlist: NOTHING
                | ruleactionstmt
@@ -1824,29 +1797,25 @@ opt_or_replace: OR REPLACE
 ;
  opt_instead: INSTEAD
             | ALSO
-            |
 ;
- notifystmt: NOTIFY colid notify_payload;
+ notifystmt: NOTIFY colid (COMMA sconst)*;
 
- notify_payload: COMMA sconst
-               |
-;
  listenstmt: LISTEN colid;
 
  unlistenstmt: UNLISTEN colid
              | UNLISTEN STAR
 ;
- transactionstmt: ABORT_P opt_transaction opt_transaction_chain
-                | BEGIN_P opt_transaction transaction_mode_list_or_empty
-                | START TRANSACTION transaction_mode_list_or_empty
-                | COMMIT opt_transaction opt_transaction_chain
-                | END_P opt_transaction opt_transaction_chain
-                | ROLLBACK opt_transaction opt_transaction_chain
+ transactionstmt: ABORT_P opt_transaction? opt_transaction_chain?
+                | BEGIN_P opt_transaction? transaction_mode_list_or_empty?
+                | START TRANSACTION transaction_mode_list_or_empty?
+                | COMMIT opt_transaction? opt_transaction_chain?
+                | END_P opt_transaction? opt_transaction_chain?
+                | ROLLBACK opt_transaction? opt_transaction_chain?
                 | SAVEPOINT colid
                 | RELEASE SAVEPOINT colid
                 | RELEASE colid
-                | ROLLBACK opt_transaction TO SAVEPOINT colid
-                | ROLLBACK opt_transaction TO colid
+                | ROLLBACK opt_transaction? TO SAVEPOINT colid
+                | ROLLBACK opt_transaction? TO colid
                 | PREPARE TRANSACTION sconst
                 | COMMIT PREPARED sconst
                 | ROLLBACK PREPARED sconst
@@ -1854,7 +1823,6 @@ opt_or_replace: OR REPLACE
 
  opt_transaction: WORK
                 | TRANSACTION
-                |
 ;
  transaction_mode_item: ISOLATION LEVEL iso_level
                       | READ ONLY
@@ -1862,37 +1830,33 @@ opt_or_replace: OR REPLACE
                       | DEFERRABLE
                       | NOT DEFERRABLE
 ;
- transaction_mode_list: transaction_mode_item
-                      | transaction_mode_list COMMA transaction_mode_item
-                      | transaction_mode_list transaction_mode_item
+ transaction_mode_list: transaction_mode_item (COMMA? transaction_mode_item)*
 ;
+
  transaction_mode_list_or_empty: transaction_mode_list
-                               |
 ;
+
  opt_transaction_chain: AND CHAIN
                       | AND NO CHAIN
-                      |
 ;
- viewstmt: CREATE opttemp VIEW qualified_name opt_column_list opt_reloptions AS selectstmt opt_check_option
-         | CREATE OR REPLACE opttemp VIEW qualified_name opt_column_list opt_reloptions AS selectstmt opt_check_option
-         | CREATE opttemp RECURSIVE VIEW qualified_name OPEN_PAREN columnlist CLOSE_PAREN opt_reloptions AS selectstmt opt_check_option
-         | CREATE OR REPLACE opttemp RECURSIVE VIEW qualified_name OPEN_PAREN columnlist CLOSE_PAREN opt_reloptions AS selectstmt opt_check_option
+
+ viewstmt: CREATE opttemp? VIEW qualified_name opt_column_list? opt_reloptions? AS selectstmt opt_check_option?
+         | CREATE OR REPLACE opttemp? VIEW qualified_name opt_column_list? opt_reloptions? AS selectstmt opt_check_option?
+         | CREATE opttemp? RECURSIVE VIEW qualified_name OPEN_PAREN columnlist CLOSE_PAREN opt_reloptions? AS selectstmt opt_check_option?
+         | CREATE OR REPLACE opttemp? RECURSIVE VIEW qualified_name OPEN_PAREN columnlist CLOSE_PAREN opt_reloptions? AS selectstmt opt_check_option?
 ;
  opt_check_option: WITH CHECK OPTION
                  | WITH CASCADED CHECK OPTION
                  | WITH LOCAL CHECK OPTION
-                 |
 ;
+
  loadstmt: LOAD file_name;
 
- createdbstmt: CREATE DATABASE name opt_with createdb_opt_list;
+ createdbstmt: CREATE DATABASE name opt_with? createdb_opt_list?;
 
- createdb_opt_list: createdb_opt_items
-                  |
+ createdb_opt_list: createdb_opt_item (createdb_opt_item)*
 ;
- createdb_opt_items: createdb_opt_item
-                   | createdb_opt_items createdb_opt_item
-;
+
  createdb_opt_item: createdb_opt_name opt_equal signediconst
                   | createdb_opt_name opt_equal opt_boolean_or_string
                   | createdb_opt_name opt_equal DEFAULT
@@ -1908,20 +1872,20 @@ opt_or_replace: OR REPLACE
  opt_equal: EQUAL
           |
 ;
- alterdatabasestmt: ALTER DATABASE name WITH createdb_opt_list
-                  | ALTER DATABASE name createdb_opt_list
+ alterdatabasestmt: ALTER DATABASE name WITH createdb_opt_list?
+                  | ALTER DATABASE name createdb_opt_list?
                   | ALTER DATABASE name SET TABLESPACE name
 ;
  alterdatabasesetstmt: ALTER DATABASE name setresetclause;
 
  dropdbstmt: DROP DATABASE name
            | DROP DATABASE IF_P EXISTS name
-           | DROP DATABASE name opt_with OPEN_PAREN drop_option_list CLOSE_PAREN
-           | DROP DATABASE IF_P EXISTS name opt_with OPEN_PAREN drop_option_list CLOSE_PAREN
+           | DROP DATABASE name opt_with? OPEN_PAREN drop_option_list CLOSE_PAREN
+           | DROP DATABASE IF_P EXISTS name opt_with? OPEN_PAREN drop_option_list CLOSE_PAREN
 ;
- drop_option_list: drop_option
-                 | drop_option_list COMMA drop_option
+ drop_option_list: drop_option (COMMA drop_option)*
 ;
+
  drop_option: FORCE;
 
  altercollationstmt: ALTER COLLATION any_name REFRESH VERSION_P;
@@ -1929,19 +1893,19 @@ opt_or_replace: OR REPLACE
  altersystemstmt: ALTER SYSTEM_P SET generic_set
                 | ALTER SYSTEM_P RESET generic_reset
 ;
- createdomainstmt: CREATE DOMAIN_P any_name opt_as typename colquallist;
+ createdomainstmt: CREATE DOMAIN_P any_name opt_as? typename colquallist;
 
  alterdomainstmt: ALTER DOMAIN_P any_name alter_column_default
                 | ALTER DOMAIN_P any_name DROP NOT NULL_P
                 | ALTER DOMAIN_P any_name SET NOT NULL_P
                 | ALTER DOMAIN_P any_name ADD_P tableconstraint
-                | ALTER DOMAIN_P any_name DROP CONSTRAINT name opt_drop_behavior
-                | ALTER DOMAIN_P any_name DROP CONSTRAINT IF_P EXISTS name opt_drop_behavior
+                | ALTER DOMAIN_P any_name DROP CONSTRAINT name opt_drop_behavior?
+                | ALTER DOMAIN_P any_name DROP CONSTRAINT IF_P EXISTS name opt_drop_behavior?
                 | ALTER DOMAIN_P any_name VALIDATE CONSTRAINT name
 ;
  opt_as: AS
-       |
 ;
+
  altertsdictionarystmt: ALTER TEXT_P SEARCH DICTIONARY any_name definition;
 
  altertsconfigurationstmt: ALTER TEXT_P SEARCH CONFIGURATION any_name ADD_P MAPPING FOR name_list any_with any_name_list
@@ -1955,63 +1919,59 @@ opt_or_replace: OR REPLACE
  //TODO
 //         | WITH_LA
 ;
- createconversionstmt: CREATE opt_default CONVERSION_P any_name FOR sconst TO sconst FROM any_name;
+ createconversionstmt: CREATE opt_default? CONVERSION_P any_name FOR sconst TO sconst FROM any_name;
 
- clusterstmt: CLUSTER opt_verbose qualified_name cluster_index_specification
-            | CLUSTER opt_verbose
-            | CLUSTER opt_verbose name ON qualified_name
+ clusterstmt: CLUSTER opt_verbose? qualified_name cluster_index_specification
+            | CLUSTER opt_verbose?
+            | CLUSTER opt_verbose? name ON qualified_name
 ;
  cluster_index_specification: USING name
                             |
 ;
- vacuumstmt: VACUUM opt_full opt_freeze opt_verbose opt_analyze opt_vacuum_relation_list
-           | VACUUM OPEN_PAREN vac_analyze_option_list CLOSE_PAREN opt_vacuum_relation_list
+ vacuumstmt: VACUUM opt_full? opt_freeze? opt_verbose? opt_analyze? opt_vacuum_relation_list?
+           | VACUUM OPEN_PAREN vac_analyze_option_list CLOSE_PAREN opt_vacuum_relation_list?
 ;
- analyzestmt: analyze_keyword opt_verbose opt_vacuum_relation_list
+ analyzestmt: analyze_keyword opt_verbose? opt_vacuum_relation_list
             | analyze_keyword OPEN_PAREN vac_analyze_option_list CLOSE_PAREN opt_vacuum_relation_list
 ;
- vac_analyze_option_list: vac_analyze_option_elem
-                        | vac_analyze_option_list COMMA vac_analyze_option_elem
+ vac_analyze_option_list: vac_analyze_option_elem (COMMA vac_analyze_option_elem)*
 ;
+
  analyze_keyword: ANALYZE
                 | ANALYSE
 ;
- vac_analyze_option_elem: vac_analyze_option_name vac_analyze_option_arg;
+ vac_analyze_option_elem: vac_analyze_option_name vac_analyze_option_arg?;
 
  vac_analyze_option_name: nonreservedword
                         | analyze_keyword
 ;
  vac_analyze_option_arg: opt_boolean_or_string
                        | numericonly
-                       |
 ;
+
  opt_analyze: analyze_keyword
-            |
 ;
+
  opt_verbose: VERBOSE
-            |
 ;
+
  opt_full: FULL
-         |
 ;
+
  opt_freeze: FREEZE
-           |
 ;
+
  opt_name_list: OPEN_PAREN name_list CLOSE_PAREN
               |
 ;
  vacuum_relation: qualified_name opt_name_list;
 
- vacuum_relation_list: vacuum_relation
-                     | vacuum_relation_list COMMA vacuum_relation
-;
- opt_vacuum_relation_list: vacuum_relation_list
-                         |
+ opt_vacuum_relation_list: vacuum_relation (COMMA vacuum_relation)*
 ;
  explainstmt: EXPLAIN explainablestmt
-            | EXPLAIN analyze_keyword opt_verbose explainablestmt
+            | EXPLAIN analyze_keyword opt_verbose? explainablestmt
             | EXPLAIN VERBOSE explainablestmt
-            | EXPLAIN OPEN_PAREN explain_option_list CLOSE_PAREN explainablestmt
+            | EXPLAIN OPEN_PAREN explain_option_elem (COMMA explain_option_elem)* CLOSE_PAREN explainablestmt
 ;
  explainablestmt: selectstmt
                 | insertstmt
@@ -2023,9 +1983,8 @@ opt_or_replace: OR REPLACE
                 | refreshmatviewstmt
                 | executestmt
 ;
- explain_option_list: explain_option_elem
-                    | explain_option_list COMMA explain_option_elem
-;
+
+
  explain_option_elem: explain_option_name explain_option_arg
 ;
  explain_option_name: nonreservedword
@@ -2046,8 +2005,8 @@ opt_or_replace: OR REPLACE
                | deletestmt
 ;
  executestmt: EXECUTE name execute_param_clause
-            | CREATE opttemp TABLE create_as_target AS EXECUTE name execute_param_clause opt_with_data
-            | CREATE opttemp TABLE IF_P NOT EXISTS create_as_target AS EXECUTE name execute_param_clause opt_with_data
+            | CREATE opttemp? TABLE create_as_target AS EXECUTE name execute_param_clause opt_with_data?
+            | CREATE opttemp? TABLE IF_P NOT EXISTS create_as_target AS EXECUTE name execute_param_clause opt_with_data?
 ;
  execute_param_clause: OPEN_PAREN expr_list CLOSE_PAREN
                      |
@@ -2057,7 +2016,7 @@ opt_or_replace: OR REPLACE
                | DEALLOCATE ALL
                | DEALLOCATE PREPARE ALL
 ;
- insertstmt: opt_with_clause INSERT INTO insert_target insert_rest opt_on_conflict returning_clause;
+ insertstmt: with_clause? INSERT INTO insert_target insert_rest opt_on_conflict returning_clause;
 
  insert_target: qualified_name
               | qualified_name AS colid
@@ -2071,28 +2030,27 @@ opt_or_replace: OR REPLACE
  override_kind: USER
               | SYSTEM_P
 ;
- insert_column_list: insert_column_item
-                   | insert_column_list COMMA insert_column_item
+ insert_column_list: insert_column_item (COMMA insert_column_item)*
 ;
- insert_column_item: colid opt_indirection;
 
- opt_on_conflict: ON CONFLICT opt_conf_expr DO UPDATE SET set_clause_list where_clause
-                | ON CONFLICT opt_conf_expr DO NOTHING
+ insert_column_item: colid indirection?;
+
+ opt_on_conflict: ON CONFLICT opt_conf_expr? DO UPDATE SET set_clause_list where_clause?
+                | ON CONFLICT opt_conf_expr? DO NOTHING
                 |
 ;
- opt_conf_expr: OPEN_PAREN index_params CLOSE_PAREN where_clause
+ opt_conf_expr: OPEN_PAREN index_params CLOSE_PAREN where_clause?
               | ON CONSTRAINT name
-              |
 ;
  returning_clause: RETURNING target_list
                  |
 ;
- deletestmt: opt_with_clause DELETE_P FROM relation_expr_opt_alias using_clause where_or_current_clause returning_clause;
+ deletestmt: with_clause? DELETE_P FROM relation_expr_opt_alias using_clause where_or_current_clause? returning_clause;
 
  using_clause: USING from_list
              |
 ;
- lockstmt: LOCK_P opt_table relation_expr_list opt_lock opt_nowait;
+ lockstmt: LOCK_P opt_table? relation_expr_list opt_lock opt_nowait?;
 
  opt_lock: IN_P lock_type MODE
          |
@@ -2107,25 +2065,22 @@ opt_or_replace: OR REPLACE
           | ACCESS EXCLUSIVE
 ;
  opt_nowait: NOWAIT
-           |
 ;
+
  opt_nowait_or_skip: NOWAIT
                    | SKIP_P LOCKED
-                   |
 ;
- updatestmt: opt_with_clause UPDATE relation_expr_opt_alias SET set_clause_list from_clause where_or_current_clause returning_clause;
 
- set_clause_list: set_clause
-                | set_clause_list COMMA set_clause
+ updatestmt: with_clause? UPDATE relation_expr_opt_alias SET set_clause_list from_clause where_or_current_clause? returning_clause;
+
+ set_clause_list: set_clause (COMMA set_clause)*
 ;
+
  set_clause: set_target EQUAL a_expr
-           | OPEN_PAREN set_target_list CLOSE_PAREN EQUAL a_expr
+           | OPEN_PAREN set_target (COMMA set_target)* CLOSE_PAREN EQUAL a_expr
 ;
- set_target: colid opt_indirection;
+ set_target: colid indirection?;
 
- set_target_list: set_target
-                | set_target_list COMMA set_target
-;
  declarecursorstmt: DECLARE cursor_name cursor_options CURSOR opt_hold FOR selectstmt;
 
  cursor_name: name;
@@ -2149,12 +2104,12 @@ opt_or_replace: OR REPLACE
 
  select_no_parens: simple_select
                  | select_clause sort_clause
-                 | select_clause opt_sort_clause for_locking_clause opt_select_limit
-                 | select_clause opt_sort_clause select_limit opt_for_locking_clause
+                 | select_clause sort_clause? for_locking_clause select_limit?
+                 | select_clause sort_clause? select_limit opt_for_locking_clause
                  | with_clause select_clause
                  | with_clause select_clause sort_clause
-                 | with_clause select_clause opt_sort_clause for_locking_clause opt_select_limit
-                 | with_clause select_clause opt_sort_clause select_limit opt_for_locking_clause
+                 | with_clause select_clause sort_clause? for_locking_clause select_limit?
+                 | with_clause select_clause sort_clause? select_limit opt_for_locking_clause
 ;
 
  select_clause: simple_select
@@ -2162,9 +2117,10 @@ opt_or_replace: OR REPLACE
 
 ;
 simple_select:
-	  SELECT  opt_all_clause into_clause/*??? unable to find in doc syntax like select  into sysrec * from system where name = new.sysname; - got from plpgsql.sql test script*/
-	            opt_target_list into_clause from_clause where_clause group_clause  having_clause window_clause # simple_select_select
-	| SELECT  distinct_clause target_list     into_clause from_clause where_clause group_clause  having_clause window_clause # simple_select_select
+	  SELECT  opt_all_clause? into_clause?/*??? unable to find in doc syntax like select  into sysrec * from system where name = new.sysname; - got 
+	  from plpgsql.sql test script*/
+	            opt_target_list? into_clause? from_clause where_clause? group_clause?  having_clause? window_clause? # simple_select_select
+	| SELECT  distinct_clause target_list     into_clause? from_clause where_clause? group_clause?  having_clause? window_clause? # simple_select_select
 	| values_clause # simple_select_values
 	| TABLE relation_expr # simple_select_table
 	/*this replacement solves mutual left-recursive problem betwee simple_select and select_clause */
@@ -2179,8 +2135,8 @@ simple_select:
 		| select_with_parens
 	) # simple_select_union_except_intersect
 	//this is replaced by rules above ^^^
-	//| select_clause UNION all_or_distinct select_clause | select_clause INTERSECT all_or_distinct
-	// select_clause | select_clause EXCEPT all_or_distinct select_clause
+	//| select_clause UNION all_or_distinct? select_clause | select_clause INTERSECT all_or_distinct?
+	// select_clause | select_clause EXCEPT all_or_distinct? select_clause
 	;
 
 set_operator:
@@ -2189,7 +2145,7 @@ set_operator:
 		| EXCEPT # except
 ;
 set_operator_with_all_or_distinct:
-        set_operator all_or_distinct
+        set_operator all_or_distinct?
 ;
 
 with_clause: WITH cte_list
@@ -2197,58 +2153,49 @@ with_clause: WITH cte_list
 //            | WITH_LA cte_list
             | WITH RECURSIVE cte_list
 ;
- cte_list: common_table_expr
-         | cte_list COMMA common_table_expr
+ cte_list: common_table_expr (COMMA common_table_expr)*
 ;
 
- common_table_expr: name opt_name_list AS opt_materialized OPEN_PAREN preparablestmt CLOSE_PAREN;
+ common_table_expr: name opt_name_list AS opt_materialized? OPEN_PAREN preparablestmt CLOSE_PAREN;
 
  opt_materialized: MATERIALIZED
                  | NOT MATERIALIZED
-                 |
 ;
- opt_with_clause: with_clause
-                |
-;
+
  into_clause:
-            INTO opt_strict opttempTableName
-            |INTO into_target
-            |
+            INTO opt_strict? opttempTableName
+            | INTO into_target
 ;
-opt_strict:
-            |STRICT_P
+
+opt_strict: STRICT_P
 ;
- opttempTableName: TEMPORARY opt_table qualified_name
-                 | TEMP opt_table qualified_name
-                 | LOCAL TEMPORARY opt_table qualified_name
-                 | LOCAL TEMP opt_table qualified_name
-                 | GLOBAL TEMPORARY opt_table qualified_name
-                 | GLOBAL TEMP opt_table qualified_name
-                 | UNLOGGED opt_table qualified_name
+
+ opttempTableName: TEMPORARY opt_table? qualified_name
+                 | TEMP opt_table? qualified_name
+                 | LOCAL TEMPORARY opt_table? qualified_name
+                 | LOCAL TEMP opt_table? qualified_name
+                 | GLOBAL TEMPORARY opt_table? qualified_name
+                 | GLOBAL TEMP opt_table? qualified_name
+                 | UNLOGGED opt_table? qualified_name
                  | TABLE qualified_name
                  | qualified_name
 ;
  opt_table: TABLE
-          |
 ;
+
  all_or_distinct: ALL
                 | DISTINCT
-                |
+
 ;
  distinct_clause: DISTINCT
                 | DISTINCT ON OPEN_PAREN expr_list CLOSE_PAREN
 ;
  opt_all_clause: ALL
-               |
 ;
- opt_sort_clause: sort_clause
-                |
-;
- sort_clause: ORDER BY sortby_list;
 
- sortby_list: sortby (COMMA sortby)*
-//            | sortby_list COMMA sortby
-;
+ sort_clause: ORDER BY sortby (COMMA sortby)*;
+
+
  sortby: a_expr USING (text_patterns | qual_all_op) opt_nulls_order
        | a_expr opt_asc_desc opt_nulls_order
 ;
@@ -2257,9 +2204,8 @@ opt_strict:
              | limit_clause
              | offset_clause
 ;
- opt_select_limit: select_limit
-                 |
-;
+
+
  limit_clause: LIMIT select_limit_value
              | LIMIT select_limit_value COMMA select_offset_value
              | FETCH first_or_next select_fetch_first_value row_or_rows ONLY
@@ -2289,11 +2235,10 @@ opt_strict:
               | NEXT
 ;
  group_clause: GROUP_P BY group_by_list
-             |
 ;
- group_by_list: group_by_item
-              | group_by_list COMMA group_by_item
+ group_by_list: group_by_item (COMMA group_by_item)*
 ;
+
  group_by_item: a_expr
               | empty_grouping_set
               | cube_clause
@@ -2309,8 +2254,8 @@ opt_strict:
  grouping_sets_clause: GROUPING SETS OPEN_PAREN group_by_list CLOSE_PAREN;
 
  having_clause: HAVING a_expr
-              |
 ;
+
  for_locking_clause: for_locking_items
                    | FOR READ ONLY
 ;
@@ -2320,7 +2265,7 @@ opt_strict:
  for_locking_items: for_locking_item
                   | for_locking_items for_locking_item
 ;
- for_locking_item: for_locking_strength locked_rels_list opt_nowait_or_skip;
+ for_locking_item: for_locking_strength locked_rels_list opt_nowait_or_skip?;
 
  for_locking_strength: FOR UPDATE
                      | FOR NO KEY UPDATE
@@ -2337,7 +2282,6 @@ opt_strict:
             |
 ;
  from_list: table_ref (COMMA table_ref)*
-//          | from_list COMMA table_ref
 ;
 /*
 table_ref:
@@ -2434,9 +2378,9 @@ alias_clause: AS colid OPEN_PAREN name_list CLOSE_PAREN
               | ONLY qualified_name
               | ONLY OPEN_PAREN qualified_name CLOSE_PAREN
 ;
- relation_expr_list: relation_expr
-                   | relation_expr_list COMMA relation_expr
+ relation_expr_list: relation_expr (COMMA relation_expr)*
 ;
+
  relation_expr_opt_alias: relation_expr
                         | relation_expr colid
                         | relation_expr AS colid
@@ -2446,42 +2390,42 @@ alias_clause: AS colid OPEN_PAREN name_list CLOSE_PAREN
  opt_repeatable_clause: REPEATABLE OPEN_PAREN a_expr CLOSE_PAREN
                       |
 ;
- func_table: func_expr_windowless opt_ordinality
-           | ROWS FROM OPEN_PAREN rowsfrom_list CLOSE_PAREN opt_ordinality
+ func_table: func_expr_windowless opt_ordinality?
+           | ROWS FROM OPEN_PAREN rowsfrom_list CLOSE_PAREN opt_ordinality?
 ;
- rowsfrom_item: func_expr_windowless opt_col_def_list;
+ rowsfrom_item: func_expr_windowless opt_col_def_list?;
 
- rowsfrom_list: rowsfrom_item
-              | rowsfrom_list COMMA rowsfrom_item
+ rowsfrom_list: rowsfrom_item (COMMA rowsfrom_item)*
 ;
+
  opt_col_def_list: AS OPEN_PAREN tablefuncelementlist CLOSE_PAREN
-                 |
 ;
+
 //TODO WITH_LA was used
  opt_ordinality: WITH ORDINALITY
-               |
 ;
+
  where_clause: WHERE a_expr
-             |
 ;
+
  where_or_current_clause: WHERE a_expr
                         | WHERE CURRENT_P OF cursor_name
-                        |
 ;
+
  opttablefuncelementlist: tablefuncelementlist
-                        |
 ;
- tablefuncelementlist: tablefuncelement
-                     | tablefuncelementlist COMMA tablefuncelement
+
+ tablefuncelementlist: tablefuncelement (COMMA tablefuncelement)*
 ;
- tablefuncelement: colid typename opt_collate_clause;
+
+ tablefuncelement: colid typename opt_collate_clause?;
 
  xmltable: XMLTABLE OPEN_PAREN c_expr xmlexists_argument COLUMNS xmltable_column_list CLOSE_PAREN
          | XMLTABLE OPEN_PAREN XMLNAMESPACES OPEN_PAREN xml_namespace_list CLOSE_PAREN COMMA c_expr xmlexists_argument COLUMNS xmltable_column_list CLOSE_PAREN
 ;
- xmltable_column_list: xmltable_column_el
-                     | xmltable_column_list COMMA xmltable_column_el
+ xmltable_column_list: xmltable_column_el (COMMA xmltable_column_el)*
 ;
+
  xmltable_column_el: colid typename
                    | colid typename xmltable_column_option_list
                    | colid FOR ORDINALITY
@@ -2494,31 +2438,25 @@ alias_clause: AS colid OPEN_PAREN name_list CLOSE_PAREN
                           | NOT NULL_P
                           | NULL_P
 ;
- xml_namespace_list: xml_namespace_el
-                   | xml_namespace_list COMMA xml_namespace_el
+ xml_namespace_list: xml_namespace_el (COMMA xml_namespace_el)*
 ;
+
  xml_namespace_el: b_expr AS collabel
                  | DEFAULT b_expr
 ;
- typename: simpletypename opt_array_bounds
-         | SETOF simpletypename opt_array_bounds
-         | simpletypename ARRAY OPEN_BRACKET iconst CLOSE_BRACKET
-         | SETOF simpletypename ARRAY OPEN_BRACKET iconst CLOSE_BRACKET
-         | simpletypename ARRAY
-         | SETOF simpletypename ARRAY
+ typename: SETOF? simpletypename ARRAY? opt_array_bounds?
          | qualified_name PERCENT ROWTYPE
          | qualified_name PERCENT TYPE_P
 ;
- opt_array_bounds: opt_array_bounds OPEN_BRACKET CLOSE_BRACKET
-                 | opt_array_bounds OPEN_BRACKET iconst CLOSE_BRACKET
-                 |
+ opt_array_bounds: OPEN_BRACKET iconst? CLOSE_BRACKET (OPEN_BRACKET iconst? CLOSE_BRACKET)*
 ;
+
  simpletypename: generictype
                | numeric
                | bit
                | character
                | constdatetime
-               | constinterval opt_interval
+               | constinterval opt_interval?
                | constinterval OPEN_PAREN iconst CLOSE_PAREN
 ;
  consttypename: numeric
@@ -2601,7 +2539,6 @@ character: characterWithLength
              | HOUR_P TO MINUTE_P
              | HOUR_P TO interval_second
              | MINUTE_P TO interval_second
-             |
 ;
  interval_second: SECOND_P
                 | SECOND_P OPEN_PAREN iconst CLOSE_PAREN
@@ -2638,8 +2575,8 @@ opt_escape:
        | a_expr not_la ILIKE a_expr opt_escape?
        | a_expr SIMILAR TO a_expr opt_escape?
        | a_expr not_la SIMILAR TO a_expr opt_escape?
-       | a_expr BETWEEN opt_asymmetric b_expr AND a_expr
-       | a_expr not_la BETWEEN opt_asymmetric b_expr AND a_expr
+       | a_expr BETWEEN opt_asymmetric? b_expr AND a_expr
+       | a_expr not_la BETWEEN opt_asymmetric? b_expr AND a_expr
        | a_expr BETWEEN SYMMETRIC b_expr AND a_expr
        | a_expr not_la BETWEEN SYMMETRIC b_expr AND a_expr
 
@@ -2729,8 +2666,8 @@ not_la: NOT;
  c_expr: columnref # c_expr_expr
        | aexprconst# c_expr_expr
        | plsqlvariablename# c_expr_expr
-       | PARAM opt_indirection # c_expr_expr
-       | OPEN_PAREN a_expr_in_parens=a_expr CLOSE_PAREN opt_indirection # c_expr_expr
+       | PARAM indirection? # c_expr_expr
+       | OPEN_PAREN a_expr_in_parens=a_expr CLOSE_PAREN indirection? # c_expr_expr
        | case_expr # c_expr_case
        | func_expr # c_expr_expr
 //       | select_with_parens  # c_expr_expr
@@ -2745,11 +2682,11 @@ not_la: NOT;
 plsqlvariablename:PLSQLVARIABLENAME
 ;
  func_application: func_name OPEN_PAREN CLOSE_PAREN
-                 | func_name OPEN_PAREN func_arg_list opt_sort_clause CLOSE_PAREN
-                 | func_name OPEN_PAREN VARIADIC func_arg_expr opt_sort_clause CLOSE_PAREN
-                 | func_name OPEN_PAREN func_arg_list COMMA VARIADIC func_arg_expr opt_sort_clause CLOSE_PAREN
-                 | func_name OPEN_PAREN ALL func_arg_list opt_sort_clause CLOSE_PAREN
-                 | func_name OPEN_PAREN DISTINCT func_arg_list opt_sort_clause CLOSE_PAREN
+                 | func_name OPEN_PAREN func_arg_list sort_clause? CLOSE_PAREN
+                 | func_name OPEN_PAREN VARIADIC func_arg_expr sort_clause? CLOSE_PAREN
+                 | func_name OPEN_PAREN func_arg_list COMMA VARIADIC func_arg_expr sort_clause? CLOSE_PAREN
+                 | func_name OPEN_PAREN ALL func_arg_list sort_clause? CLOSE_PAREN
+                 | func_name OPEN_PAREN DISTINCT func_arg_list sort_clause? CLOSE_PAREN
                  | func_name OPEN_PAREN STAR CLOSE_PAREN
 ;
  func_expr: func_application within_group_clause filter_clause over_clause
@@ -2809,13 +2746,12 @@ plsqlvariablename:PLSQLVARIABLENAME
  opt_xml_root_standalone: COMMA STANDALONE_P YES_P
                         | COMMA STANDALONE_P NO
                         | COMMA STANDALONE_P NO VALUE_P
-                        |
 ;
  xml_attributes: XMLATTRIBUTES OPEN_PAREN xml_attribute_list CLOSE_PAREN;
 
- xml_attribute_list: xml_attribute_el
-                   | xml_attribute_list COMMA xml_attribute_el
+ xml_attribute_list: xml_attribute_el (COMMA xml_attribute_el)*
 ;
+
  xml_attribute_el: a_expr AS collabel
                  | a_expr
 ;
@@ -2841,18 +2777,18 @@ plsqlvariablename:PLSQLVARIABLENAME
               |
 ;
  window_clause: WINDOW window_definition_list
-              |
 ;
- window_definition_list: window_definition
-                       | window_definition_list COMMA window_definition
+
+ window_definition_list: window_definition (COMMA window_definition)*
 ;
+
  window_definition: colid AS window_specification;
 
  over_clause: OVER window_specification
             | OVER colid
             |
 ;
- window_specification: OPEN_PAREN opt_existing_window_name opt_partition_clause opt_sort_clause opt_frame_clause CLOSE_PAREN;
+ window_specification: OPEN_PAREN opt_existing_window_name opt_partition_clause sort_clause? opt_frame_clause CLOSE_PAREN;
 
  opt_existing_window_name: colid
                          |
@@ -2887,7 +2823,7 @@ plsqlvariablename:PLSQLVARIABLENAME
  explicit_row: ROW OPEN_PAREN expr_list CLOSE_PAREN
              | ROW OPEN_PAREN CLOSE_PAREN
 ;
- implicit_row: OPEN_PAREN expr_list COMMA a_expr CLOSE_PAREN;
+ implicit_row: OPEN_PAREN expr_list CLOSE_PAREN;
 
  sub_type: ANY
          | SOME
@@ -2962,26 +2898,26 @@ geometric_operators:
             | ILIKE
             | NOT ILIKE
 ;
- expr_list: a_expr
-          | expr_list COMMA a_expr
+ expr_list: a_expr (COMMA a_expr)*
 ;
- func_arg_list: func_arg_expr
-              | func_arg_list COMMA func_arg_expr
+
+ func_arg_list: func_arg_expr (COMMA func_arg_expr)*
 ;
+
  func_arg_expr: a_expr
               | param_name COLON_EQUALS a_expr
               | param_name EQUALS_GREATER a_expr
 ;
- type_list: typename
-          | type_list COMMA typename
+ type_list: typename (COMMA typename)*
 ;
+
  array_expr: OPEN_BRACKET expr_list CLOSE_BRACKET
            | OPEN_BRACKET array_expr_list CLOSE_BRACKET
            | OPEN_BRACKET CLOSE_BRACKET
 ;
- array_expr_list: array_expr
-                | array_expr_list COMMA array_expr
+ array_expr_list: array_expr (COMMA array_expr)*
 ;
+
  extract_list: extract_arg FROM a_expr
              |
 ;
@@ -3020,7 +2956,7 @@ geometric_operators:
  in_expr: select_with_parens # in_expr_select
         | OPEN_PAREN expr_list CLOSE_PAREN # in_expr_list
 ;
- case_expr: CASE case_arg when_clause_list case_default END_P;
+ case_expr: CASE a_expr? when_clause_list case_default? END_P;
 
  when_clause_list: when_clause
                  | when_clause_list when_clause
@@ -3028,34 +2964,26 @@ geometric_operators:
  when_clause: WHEN a_expr THEN a_expr;
 
  case_default: ELSE a_expr
-             |
 ;
- case_arg: a_expr
-         |
-;
+
  columnref: colid
           | colid indirection
 ;
  indirection_el: DOT attr_name
-               | DOT STAR
-               | OPEN_BRACKET a_expr CLOSE_BRACKET
-               | OPEN_BRACKET opt_slice_bound COLON opt_slice_bound CLOSE_BRACKET
+                | DOT STAR
+                | OPEN_BRACKET a_expr CLOSE_BRACKET
+                | OPEN_BRACKET a_expr? COLON a_expr? CLOSE_BRACKET
+ ;
+
+ indirection: indirection_el (indirection_el)*
 ;
- opt_slice_bound: a_expr
-                |
-;
- indirection: indirection_el
-            | indirection indirection_el
-;
- opt_indirection:
-                | opt_indirection indirection_el
-;
+
  opt_asymmetric: ASYMMETRIC
-               |
 ;
+
  opt_target_list: target_list
-                |
 ;
+
  target_list: target_el  (COMMA target_el)*
 ;
  target_el: a_expr
@@ -3068,15 +2996,15 @@ geometric_operators:
 //          | a_expr             #target_expr
           | STAR                #target_star
 ;
- qualified_name_list: qualified_name
-                    | qualified_name_list COMMA qualified_name
+ qualified_name_list: qualified_name (COMMA qualified_name)*
 ;
+
  qualified_name: colid
                | colid indirection
 ;
- name_list: name
-          | name_list COMMA name
+ name_list: name (COMMA name)*
 ;
+
  name: colid;
 
  attr_name: collabel;
@@ -3092,9 +3020,9 @@ geometric_operators:
            | bconst
            | xconst
            | func_name sconst
-           | func_name OPEN_PAREN func_arg_list opt_sort_clause CLOSE_PAREN sconst
+           | func_name OPEN_PAREN func_arg_list sort_clause? CLOSE_PAREN sconst
            | consttypename sconst
-           | constinterval sconst opt_interval
+           | constinterval sconst opt_interval?
            | constinterval OPEN_PAREN iconst CLOSE_PAREN sconst
            | TRUE_P
            | FALSE_P
@@ -3105,7 +3033,7 @@ bconst:BinaryStringConstant;
 fconst: Numeric;
 iconst: Integral;
 
-sconst: anysconst opt_uescape
+sconst: anysconst opt_uescape?
  ;
  anysconst:
         StringConstant+
@@ -3113,9 +3041,7 @@ sconst: anysconst opt_uescape
         |BeginDollarStringConstant DollarText* EndDollarStringConstant
         |EscapeStringConstant
  ;
-opt_uescape:
-                UESCAPE anysconst
-                |
+opt_uescape: UESCAPE anysconst
 ;
 
  signediconst: iconst
@@ -3128,9 +3054,9 @@ opt_uescape:
          | CURRENT_USER
          | SESSION_USER
 ;
- role_list: rolespec
-          | role_list COMMA rolespec
+ role_list: rolespec (COMMA rolespec)*
 ;
+
  colid: identifier
       | unreserved_keyword
       | col_name_keyword
@@ -3153,7 +3079,7 @@ opt_uescape:
          | type_func_name_keyword
          | reserved_keyword
 ;
-identifier: Identifier opt_uescape
+identifier: Identifier opt_uescape?
            |QuotedIdentifier
            |UnicodeQuotedIdentifier
            |plsqlvariablename
@@ -3718,9 +3644,9 @@ decl_cursor_query: selectstmt;
 decl_cursor_args:
                 | OPEN_PAREN decl_cursor_arglist CLOSE_PAREN
 ;
-decl_cursor_arglist: decl_cursor_arg
-                   | decl_cursor_arglist COMMA decl_cursor_arg
+decl_cursor_arglist: decl_cursor_arg (COMMA decl_cursor_arg)*
 ;
+
 decl_cursor_arg: decl_varname decl_datatype;
 
 decl_is_for: IS
@@ -3799,9 +3725,9 @@ getdiag_area_opt:
                 | CURRENT_P
                 | STACKED
 ;
-getdiag_list: getdiag_list COMMA getdiag_list_item
-            | getdiag_list_item
+getdiag_list: getdiag_list_item (COMMA getdiag_list_item)*
 ;
+
 getdiag_list_item: getdiag_target assign_operator getdiag_item
 ;
 getdiag_item: colid
@@ -3814,35 +3740,34 @@ assign_var:
           | assign_var OPEN_BRACKET expr_until_rightbracket CLOSE_BRACKET
 
 ;
-stmt_if: IF_P expr_until_then THEN proc_sect stmt_elsifs stmt_else END_P IF_P SEMI
+stmt_if: IF_P expr_until_then THEN proc_sect stmt_elsifs? stmt_else? END_P IF_P SEMI
 ;
-stmt_elsifs:
-           | stmt_elsifs ELSIF a_expr THEN proc_sect
+stmt_elsifs: ELSIF a_expr THEN proc_sect (ELSIF a_expr THEN proc_sect)*
 ;
-stmt_else:
-         | ELSE proc_sect
+
+stmt_else: ELSE proc_sect
 ;
-stmt_case: CASE opt_expr_until_when
+stmt_case: CASE sql_expression?
                     case_when_list
-                    opt_case_else
+                    opt_case_else?
            END_P CASE SEMI
 ;
-opt_expr_until_when:
-                | sql_expression
+
+case_when_list: case_when (case_when)*
 ;
-case_when_list: case_when_list case_when
-              | case_when
-;
+
 case_when: WHEN expr_list THEN proc_sect
 ;
-opt_case_else:
-             | ELSE proc_sect
+
+opt_case_else: ELSE proc_sect
 ;
-stmt_loop: opt_loop_label loop_body
+
+stmt_loop: opt_loop_label? loop_body
 ;
-stmt_while: opt_loop_label WHILE expr_until_loop loop_body
+
+stmt_while: opt_loop_label? WHILE expr_until_loop loop_body
 ;
-stmt_for: opt_loop_label FOR for_control loop_body
+stmt_for: opt_loop_label? FOR for_control loop_body
 ;
 //TODO: rewrite using read_sql_expression logic?
 for_control: for_variable IN_P opt_reverse a_expr DOT_DOT a_expr opt_by_expression
@@ -3855,12 +3780,7 @@ for_control: for_variable IN_P opt_reverse a_expr DOT_DOT a_expr opt_by_expressi
 opt_for_using_expression:
             | USING expr_list
 ;
-opt_cursor_parameters:
-                |
-                OPEN_PAREN
-                    a_expr
-                    (COMMA a_expr)*
-                CLOSE_PAREN
+opt_cursor_parameters:OPEN_PAREN a_expr (COMMA a_expr)* CLOSE_PAREN
 ;
 
 opt_reverse:
@@ -3874,13 +3794,14 @@ opt_by_expression:
 
 for_variable: any_name_list
 ;
-stmt_foreach_a: opt_loop_label FOREACH for_variable foreach_slice IN_P ARRAY a_expr loop_body
+stmt_foreach_a: opt_loop_label? FOREACH for_variable foreach_slice? IN_P ARRAY a_expr loop_body
 ;
-foreach_slice:
-             | SLICE iconst
+foreach_slice: SLICE iconst
 ;
+
 stmt_exit: exit_type opt_label opt_exitcond
 ;
+
 exit_type: EXIT
          | CONTINUE_P
 ;
@@ -3917,28 +3838,23 @@ opt_stmt_raise_level:
         |WARNING
         |EXCEPTION
 ;
-opt_raise_list:
-               | COMMA a_expr
-               |  opt_raise_list COMMA a_expr
+opt_raise_list: COMMA? a_expr (COMMA a_expr)*
 ;
-opt_raise_using:
-                | USING opt_raise_using_elem_list
-;
-opt_raise_using_elem:
-                    identifier EQUAL a_expr
-;
-opt_raise_using_elem_list:
-                    opt_raise_using_elem
-                    |opt_raise_using_elem COMMA opt_raise_using_elem_list
 
+opt_raise_using: USING opt_raise_using_elem_list
 ;
+
+opt_raise_using_elem: identifier EQUAL a_expr
+;
+
+opt_raise_using_elem_list: opt_raise_using_elem (COMMA opt_raise_using_elem)*
+;
+
 //todo imnplement
-stmt_assert: ASSERT sql_expression opt_stmt_assert_message SEMI
+stmt_assert: ASSERT sql_expression COMMA sql_expression SEMI
 ;
 
-opt_stmt_assert_message:
-                    | COMMA sql_expression
-;
+
 loop_body: LOOP proc_sect END_P LOOP opt_label SEMI
 ;
 //TODO: looks like all other statements like INSERT/SELECT/UPDATE/DELETE are handled here;
@@ -3964,13 +3880,10 @@ stmt_dynexecute: EXECUTE a_expr
 SEMI
 ;
 
-opt_execute_using:
-            |USING opt_execute_using_list
+opt_execute_using: USING opt_execute_using_list
 ;
 
-opt_execute_using_list:
-                    a_expr
-                    |opt_execute_using_list COMMA a_expr
+opt_execute_using_list: a_expr (COMMA a_expr)*
 ;
 
 opt_execute_into:
@@ -3996,23 +3909,16 @@ opt_open_bound_list_item:
 ;
 
 opt_open_bound_list:
-                opt_open_bound_list_item
-              |opt_open_bound_list COMMA opt_open_bound_list_item
+                opt_open_bound_list_item (COMMA opt_open_bound_list_item)*
 ;
 
 opt_open_using:
             |USING expr_list
 ;
-sql_expression_list:
-    sql_expression
-    (COMMA sql_expression)*
+sql_expression_list: sql_expression (COMMA sql_expression)*
 ;
 
-opt_scroll_option:
-            |opt_scroll_option_no SCROLL
-;
-opt_scroll_option_no:
-            |NO
+opt_scroll_option: NO SCROLL
 ;
 
 //https://www.postgresql.org/docs/current/plpgsql-cursors.html#PLPGSQL-CURSOR-OPENING
@@ -4096,9 +4002,10 @@ proc_condition: any_identifier
 opt_block_label:
                | label_decl
 ;
-opt_loop_label:
-              | label_decl
+
+opt_loop_label: label_decl
 ;
+
 opt_label:
          | any_identifier
 ;
@@ -4194,7 +4101,7 @@ plsql_unreserved_keyword: ABSOLUTE_P
 ;
 
 sql_expression:
-                opt_target_list into_clause from_clause where_clause group_clause  having_clause window_clause
+                opt_target_list? into_clause? from_clause where_clause? group_clause?  having_clause? window_clause?
 ;
 
 expr_until_then :
@@ -4213,13 +4120,13 @@ expr_until_loop :
 					a_expr
 				;
 make_execsql_stmt:
-                stmt opt_returning_clause_into
+                stmt opt_returning_clause_into?
 ;
 
 opt_returning_clause_into:
-            INTO opt_strict into_target
-            |
+            INTO opt_strict? into_target
 ;
+
 //read_sql_stmt:
 //        stmt
 //        ;

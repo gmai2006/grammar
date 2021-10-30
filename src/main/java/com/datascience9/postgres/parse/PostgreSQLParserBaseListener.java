@@ -1072,18 +1072,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpttableelementlist(PostgreSQLParser.OpttableelementlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpttableelementlist(PostgreSQLParser.OpttableelementlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOpttypedtableelementlist(PostgreSQLParser.OpttypedtableelementlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1103,18 +1091,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTableelementlist(PostgreSQLParser.TableelementlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypedtableelementlist(PostgreSQLParser.TypedtableelementlistContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypedtableelementlist(PostgreSQLParser.TypedtableelementlistContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -2716,18 +2692,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEvent_trigger_value_list(PostgreSQLParser.Event_trigger_value_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEvent_trigger_value_list(PostgreSQLParser.Event_trigger_value_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterAltereventtrigstmt(PostgreSQLParser.AltereventtrigstmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -2788,18 +2752,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDef_list(PostgreSQLParser.Def_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDef_list(PostgreSQLParser.Def_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDef_elem(PostgreSQLParser.Def_elemContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -2836,18 +2788,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOld_aggr_list(PostgreSQLParser.Old_aggr_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOld_aggr_list(PostgreSQLParser.Old_aggr_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOld_aggr_elem(PostgreSQLParser.Old_aggr_elemContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -2855,30 +2795,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOld_aggr_elem(PostgreSQLParser.Old_aggr_elemContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_enum_val_list(PostgreSQLParser.Opt_enum_val_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_enum_val_list(PostgreSQLParser.Opt_enum_val_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEnum_val_list(PostgreSQLParser.Enum_val_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEnum_val_list(PostgreSQLParser.Enum_val_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -3011,18 +2927,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAlteropfamilystmt(PostgreSQLParser.AlteropfamilystmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpclass_drop_list(PostgreSQLParser.Opclass_drop_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpclass_drop_list(PostgreSQLParser.Opclass_drop_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -3652,18 +3556,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_including_params(PostgreSQLParser.Index_including_paramsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIndex_including_params(PostgreSQLParser.Index_including_paramsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOpt_collate(PostgreSQLParser.Opt_collateContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -3748,18 +3640,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc_args_list(PostgreSQLParser.Func_args_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunc_args_list(PostgreSQLParser.Func_args_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunction_with_argtypes_list(PostgreSQLParser.Function_with_argtypes_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -3791,18 +3671,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunc_args_with_defaults(PostgreSQLParser.Func_args_with_defaultsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunc_args_with_defaults_list(PostgreSQLParser.Func_args_with_defaults_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunc_args_with_defaults_list(PostgreSQLParser.Func_args_with_defaults_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -4019,18 +3887,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTable_func_column(PostgreSQLParser.Table_func_columnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTable_func_column_list(PostgreSQLParser.Table_func_column_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTable_func_column_list(PostgreSQLParser.Table_func_column_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -4696,18 +4552,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNotify_payload(PostgreSQLParser.Notify_payloadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNotify_payload(PostgreSQLParser.Notify_payloadContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterListenstmt(PostgreSQLParser.ListenstmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -4859,18 +4703,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCreatedb_opt_list(PostgreSQLParser.Createdb_opt_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCreatedb_opt_items(PostgreSQLParser.Createdb_opt_itemsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCreatedb_opt_items(PostgreSQLParser.Createdb_opt_itemsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -5260,18 +5092,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVacuum_relation_list(PostgreSQLParser.Vacuum_relation_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVacuum_relation_list(PostgreSQLParser.Vacuum_relation_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOpt_vacuum_relation_list(PostgreSQLParser.Opt_vacuum_relation_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -5303,18 +5123,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExplainablestmt(PostgreSQLParser.ExplainablestmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExplain_option_list(PostgreSQLParser.Explain_option_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExplain_option_list(PostgreSQLParser.Explain_option_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -5668,18 +5476,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSet_target_list(PostgreSQLParser.Set_target_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSet_target_list(PostgreSQLParser.Set_target_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDeclarecursorstmt(PostgreSQLParser.DeclarecursorstmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -5920,18 +5716,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_with_clause(PostgreSQLParser.Opt_with_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_with_clause(PostgreSQLParser.Opt_with_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterInto_clause(PostgreSQLParser.Into_clauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -6016,18 +5800,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_sort_clause(PostgreSQLParser.Opt_sort_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_sort_clause(PostgreSQLParser.Opt_sort_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSort_clause(PostgreSQLParser.Sort_clauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -6035,18 +5807,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSort_clause(PostgreSQLParser.Sort_clauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSortby_list(PostgreSQLParser.Sortby_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSortby_list(PostgreSQLParser.Sortby_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -6071,18 +5831,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSelect_limit(PostgreSQLParser.Select_limitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_select_limit(PostgreSQLParser.Opt_select_limitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_select_limit(PostgreSQLParser.Opt_select_limitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -7792,18 +7540,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCase_arg(PostgreSQLParser.Case_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCase_arg(PostgreSQLParser.Case_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterColumnref(PostgreSQLParser.ColumnrefContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -7828,18 +7564,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_slice_bound(PostgreSQLParser.Opt_slice_boundContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_slice_bound(PostgreSQLParser.Opt_slice_boundContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIndirection(PostgreSQLParser.IndirectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -7847,18 +7571,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIndirection(PostgreSQLParser.IndirectionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_indirection(PostgreSQLParser.Opt_indirectionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_indirection(PostgreSQLParser.Opt_indirectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -8824,18 +8536,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_expr_until_when(PostgreSQLParser.Opt_expr_until_whenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_expr_until_when(PostgreSQLParser.Opt_expr_until_whenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterCase_when_list(PostgreSQLParser.Case_when_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -9136,18 +8836,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpt_stmt_assert_message(PostgreSQLParser.Opt_stmt_assert_messageContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_stmt_assert_message(PostgreSQLParser.Opt_stmt_assert_messageContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLoop_body(PostgreSQLParser.Loop_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -9287,18 +8975,6 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpt_scroll_option(PostgreSQLParser.Opt_scroll_optionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpt_scroll_option_no(PostgreSQLParser.Opt_scroll_option_noContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpt_scroll_option_no(PostgreSQLParser.Opt_scroll_option_noContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

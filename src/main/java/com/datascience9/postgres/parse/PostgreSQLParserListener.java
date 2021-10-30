@@ -888,16 +888,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOpttemp(PostgreSQLParser.OpttempContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opttableelementlist}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpttableelementlist(PostgreSQLParser.OpttableelementlistContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opttableelementlist}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpttableelementlist(PostgreSQLParser.OpttableelementlistContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opttypedtableelementlist}.
 	 * @param ctx the parse tree
 	 */
@@ -917,16 +907,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTableelementlist(PostgreSQLParser.TableelementlistContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#typedtableelementlist}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypedtableelementlist(PostgreSQLParser.TypedtableelementlistContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#typedtableelementlist}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypedtableelementlist(PostgreSQLParser.TypedtableelementlistContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#tableelement}.
 	 * @param ctx the parse tree
@@ -2258,16 +2238,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitEvent_trigger_when_item(PostgreSQLParser.Event_trigger_when_itemContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#event_trigger_value_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterEvent_trigger_value_list(PostgreSQLParser.Event_trigger_value_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#event_trigger_value_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitEvent_trigger_value_list(PostgreSQLParser.Event_trigger_value_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#altereventtrigstmt}.
 	 * @param ctx the parse tree
 	 */
@@ -2318,16 +2288,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitDefinition(PostgreSQLParser.DefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#def_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterDef_list(PostgreSQLParser.Def_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#def_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitDef_list(PostgreSQLParser.Def_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#def_elem}.
 	 * @param ctx the parse tree
 	 */
@@ -2358,16 +2318,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOld_aggr_definition(PostgreSQLParser.Old_aggr_definitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#old_aggr_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterOld_aggr_list(PostgreSQLParser.Old_aggr_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#old_aggr_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitOld_aggr_list(PostgreSQLParser.Old_aggr_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#old_aggr_elem}.
 	 * @param ctx the parse tree
 	 */
@@ -2377,26 +2327,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOld_aggr_elem(PostgreSQLParser.Old_aggr_elemContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_enum_val_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_enum_val_list(PostgreSQLParser.Opt_enum_val_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_enum_val_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_enum_val_list(PostgreSQLParser.Opt_enum_val_listContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#enum_val_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterEnum_val_list(PostgreSQLParser.Enum_val_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#enum_val_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitEnum_val_list(PostgreSQLParser.Enum_val_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#alterenumstmt}.
 	 * @param ctx the parse tree
@@ -2507,16 +2437,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAlteropfamilystmt(PostgreSQLParser.AlteropfamilystmtContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opclass_drop_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpclass_drop_list(PostgreSQLParser.Opclass_drop_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opclass_drop_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpclass_drop_list(PostgreSQLParser.Opclass_drop_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opclass_drop}.
 	 * @param ctx the parse tree
@@ -3038,16 +2958,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOpt_include(PostgreSQLParser.Opt_includeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#index_including_params}.
-	 * @param ctx the parse tree
-	 */
-	void enterIndex_including_params(PostgreSQLParser.Index_including_paramsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#index_including_params}.
-	 * @param ctx the parse tree
-	 */
-	void exitIndex_including_params(PostgreSQLParser.Index_including_paramsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_collate}.
 	 * @param ctx the parse tree
 	 */
@@ -3118,16 +3028,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitFunc_args(PostgreSQLParser.Func_argsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#func_args_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunc_args_list(PostgreSQLParser.Func_args_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#func_args_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunc_args_list(PostgreSQLParser.Func_args_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#function_with_argtypes_list}.
 	 * @param ctx the parse tree
 	 */
@@ -3157,16 +3057,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunc_args_with_defaults(PostgreSQLParser.Func_args_with_defaultsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#func_args_with_defaults_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunc_args_with_defaults_list(PostgreSQLParser.Func_args_with_defaults_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#func_args_with_defaults_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunc_args_with_defaults_list(PostgreSQLParser.Func_args_with_defaults_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#func_arg}.
 	 * @param ctx the parse tree
@@ -3347,16 +3237,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTable_func_column(PostgreSQLParser.Table_func_columnContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#table_func_column_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterTable_func_column_list(PostgreSQLParser.Table_func_column_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#table_func_column_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitTable_func_column_list(PostgreSQLParser.Table_func_column_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#alterfunctionstmt}.
 	 * @param ctx the parse tree
@@ -3908,16 +3788,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitNotifystmt(PostgreSQLParser.NotifystmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#notify_payload}.
-	 * @param ctx the parse tree
-	 */
-	void enterNotify_payload(PostgreSQLParser.Notify_payloadContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#notify_payload}.
-	 * @param ctx the parse tree
-	 */
-	void exitNotify_payload(PostgreSQLParser.Notify_payloadContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#listenstmt}.
 	 * @param ctx the parse tree
 	 */
@@ -4047,16 +3917,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCreatedb_opt_list(PostgreSQLParser.Createdb_opt_listContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#createdb_opt_items}.
-	 * @param ctx the parse tree
-	 */
-	void enterCreatedb_opt_items(PostgreSQLParser.Createdb_opt_itemsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#createdb_opt_items}.
-	 * @param ctx the parse tree
-	 */
-	void exitCreatedb_opt_items(PostgreSQLParser.Createdb_opt_itemsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#createdb_opt_item}.
 	 * @param ctx the parse tree
@@ -4378,16 +4238,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitVacuum_relation(PostgreSQLParser.Vacuum_relationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#vacuum_relation_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterVacuum_relation_list(PostgreSQLParser.Vacuum_relation_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#vacuum_relation_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitVacuum_relation_list(PostgreSQLParser.Vacuum_relation_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_vacuum_relation_list}.
 	 * @param ctx the parse tree
 	 */
@@ -4417,16 +4267,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExplainablestmt(PostgreSQLParser.ExplainablestmtContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#explain_option_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterExplain_option_list(PostgreSQLParser.Explain_option_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#explain_option_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitExplain_option_list(PostgreSQLParser.Explain_option_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#explain_option_elem}.
 	 * @param ctx the parse tree
@@ -4718,16 +4558,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitSet_target(PostgreSQLParser.Set_targetContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#set_target_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterSet_target_list(PostgreSQLParser.Set_target_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#set_target_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitSet_target_list(PostgreSQLParser.Set_target_listContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#declarecursorstmt}.
 	 * @param ctx the parse tree
 	 */
@@ -4942,16 +4772,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOpt_materialized(PostgreSQLParser.Opt_materializedContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_with_clause}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_with_clause(PostgreSQLParser.Opt_with_clauseContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_with_clause}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_with_clause(PostgreSQLParser.Opt_with_clauseContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#into_clause}.
 	 * @param ctx the parse tree
 	 */
@@ -5022,16 +4842,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitOpt_all_clause(PostgreSQLParser.Opt_all_clauseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_sort_clause}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_sort_clause(PostgreSQLParser.Opt_sort_clauseContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_sort_clause}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_sort_clause(PostgreSQLParser.Opt_sort_clauseContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#sort_clause}.
 	 * @param ctx the parse tree
 	 */
@@ -5041,16 +4851,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSort_clause(PostgreSQLParser.Sort_clauseContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#sortby_list}.
-	 * @param ctx the parse tree
-	 */
-	void enterSortby_list(PostgreSQLParser.Sortby_listContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#sortby_list}.
-	 * @param ctx the parse tree
-	 */
-	void exitSortby_list(PostgreSQLParser.Sortby_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#sortby}.
 	 * @param ctx the parse tree
@@ -5071,16 +4871,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSelect_limit(PostgreSQLParser.Select_limitContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_select_limit}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_select_limit(PostgreSQLParser.Opt_select_limitContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_select_limit}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_select_limit(PostgreSQLParser.Opt_select_limitContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#limit_clause}.
 	 * @param ctx the parse tree
@@ -6516,16 +6306,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitCase_default(PostgreSQLParser.Case_defaultContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#case_arg}.
-	 * @param ctx the parse tree
-	 */
-	void enterCase_arg(PostgreSQLParser.Case_argContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#case_arg}.
-	 * @param ctx the parse tree
-	 */
-	void exitCase_arg(PostgreSQLParser.Case_argContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#columnref}.
 	 * @param ctx the parse tree
 	 */
@@ -6546,16 +6326,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitIndirection_el(PostgreSQLParser.Indirection_elContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_slice_bound}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_slice_bound(PostgreSQLParser.Opt_slice_boundContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_slice_bound}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_slice_bound(PostgreSQLParser.Opt_slice_boundContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#indirection}.
 	 * @param ctx the parse tree
 	 */
@@ -6565,16 +6335,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIndirection(PostgreSQLParser.IndirectionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_indirection}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_indirection(PostgreSQLParser.Opt_indirectionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_indirection}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_indirection(PostgreSQLParser.Opt_indirectionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_asymmetric}.
 	 * @param ctx the parse tree
@@ -7380,16 +7140,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitStmt_case(PostgreSQLParser.Stmt_caseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_expr_until_when}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_expr_until_when(PostgreSQLParser.Opt_expr_until_whenContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_expr_until_when}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_expr_until_when(PostgreSQLParser.Opt_expr_until_whenContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#case_when_list}.
 	 * @param ctx the parse tree
 	 */
@@ -7640,16 +7390,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitStmt_assert(PostgreSQLParser.Stmt_assertContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_stmt_assert_message}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_stmt_assert_message(PostgreSQLParser.Opt_stmt_assert_messageContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_stmt_assert_message}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_stmt_assert_message(PostgreSQLParser.Opt_stmt_assert_messageContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#loop_body}.
 	 * @param ctx the parse tree
 	 */
@@ -7769,16 +7509,6 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOpt_scroll_option(PostgreSQLParser.Opt_scroll_optionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_scroll_option_no}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpt_scroll_option_no(PostgreSQLParser.Opt_scroll_option_noContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#opt_scroll_option_no}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpt_scroll_option_no(PostgreSQLParser.Opt_scroll_option_noContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#stmt_fetch}.
 	 * @param ctx the parse tree

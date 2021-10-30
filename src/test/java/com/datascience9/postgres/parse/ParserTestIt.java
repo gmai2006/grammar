@@ -14,7 +14,10 @@ public class ParserTestIt {
   public static void main(String[] args) throws Exception {
     final Path dir = Paths.get("./src/test/resources/postgres/");
     Predicate<Path> filtered = path -> Files.isRegularFile(path) && path.toString().endsWith(".sql");
+    long start = System.currentTimeMillis();
     testAllFiles(dir, filtered);
+    long end = System.currentTimeMillis();
+    System.out.println(String.format("Test takes: %d seconds", (end-start)/1000));
     try (Stream<Path> paths = Files.walk(dir, 2)) {
       System.out.printf("Tested %s files.", paths.filter(filtered).count());
     }
