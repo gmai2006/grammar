@@ -35,5 +35,6 @@ To test all run: gradle **testMySql**
 To generate parser and lexer run: **gradle generatePostgres**
 To test all run: gradle **testPostgres**
 - A modified version from the ANTLR4 repo, which should be language agnostic
-- Replace all recursive rules with iterative rules (list: list item => list item (item)*) => reduce the parsetree size
+- Replace all recursive rules with iterative rules (list: list item => item+) => reduce the parsetree size
 - Replace or epsilon rules with optional => remove all the empty node on the parse tree
+- Add a base class for the Lexer per kaby76
