@@ -1,9 +1,5 @@
 // Generated from /backup/apps/grammars/src/main/java/com/datascience9/postgres/parse/PostgreSQLLexer.g4 by ANTLR 4.9.1
 package com.datascience9.postgres.parse;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -14,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class PostgreSQLLexer extends Lexer {
+public class PostgreSQLLexer extends Java9LexerBase {
 	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -442,11 +438,6 @@ public class PostgreSQLLexer extends Lexer {
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
-
-
-	/* This field stores the tags which are used to detect the end of a dollar-quoted string literal.
-	 */
-	private final Deque<String> _tags = new ArrayDeque<String>();
 
 
 	public PostgreSQLLexer(CharStream input) {

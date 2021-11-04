@@ -30,15 +30,8 @@ https://github.com/tunnelvisionlabs/antlr4-grammar-postgresql/blob/master/src/co
 
 
 lexer grammar PostgreSQLLexer;
-@header {
-import java.util.ArrayDeque;
-import java.util.Deque;
-}
-
-@members {
-/* This field stores the tags which are used to detect the end of a dollar-quoted string literal.
- */
-private final Deque<String> _tags = new ArrayDeque<String>();
+options {
+  superClass = PostgreSQLLexerBase;
 }
 
 /* Reference:
@@ -788,7 +781,7 @@ UnterminatedUnicodeEscapeStringConstant
 
 // Dollar-quoted String Constants (�4.1.2.4)
 BeginDollarStringConstant
-	:	'$' Tag? '$' {_tags.push(getText());}
+	:	'$' Tag? '$' {pushTag();}
 		-> pushMode(DollarQuotedStringMode)
 	;
 
@@ -1034,7 +1027,7 @@ DollarQuotedStringMode;
 		;
 
 	EndDollarStringConstant
-		:	('$' Tag? '$') {getText().equals(_tags.peek())}?
-      			{_tags.pop();}
+		:	('$' Tag? '$') {isTag()}?
+      			{popTag();}
       			-> popMode
 		;

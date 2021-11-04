@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.Token;
 
 public class LexerTest {
   public static void main(String[] args) throws Exception {
-    InputStream in = LexerTest.class.getResourceAsStream("/postgres/failed/strings.sql.errors");
+    InputStream in = LexerTest.class.getResourceAsStream("/postgres/brin.sql");
     PostgreSQLLexer lexer = PostgresHelper.getLexer(in);
     List<? extends Token> tokens = lexer.getAllTokens();
     tokens.forEach(System.out::println);

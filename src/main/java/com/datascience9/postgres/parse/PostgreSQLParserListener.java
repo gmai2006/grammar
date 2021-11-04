@@ -488,15 +488,77 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 */
 	void exitDiscardstmt(PostgreSQLParser.DiscardstmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PostgreSQLParser#altertablestmt}.
+	 * Enter a parse tree produced by the {@code altertable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterAltertablestmt(PostgreSQLParser.AltertablestmtContext ctx);
+	void enterAltertable(PostgreSQLParser.AltertableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PostgreSQLParser#altertablestmt}.
+	 * Exit a parse tree produced by the {@code altertable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitAltertablestmt(PostgreSQLParser.AltertablestmtContext ctx);
+	void exitAltertable(PostgreSQLParser.AltertableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code altertablepartition}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAltertablepartition(PostgreSQLParser.AltertablepartitionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code altertablepartition}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAltertablepartition(PostgreSQLParser.AltertablepartitionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code alterallbyrole}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlterallbyrole(PostgreSQLParser.AlterallbyroleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code alterallbyrole}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlterallbyrole(PostgreSQLParser.AlterallbyroleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code alterall}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlterall(PostgreSQLParser.AlterallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code alterall}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlterall(PostgreSQLParser.AlterallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code alterindex}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlterindex(PostgreSQLParser.AlterindexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code alterindex}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlterindex(PostgreSQLParser.AlterindexContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code alterforeigntable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlterforeigntable(PostgreSQLParser.AlterforeigntableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code alterforeigntable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlterforeigntable(PostgreSQLParser.AlterforeigntableContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#alter_table_cmds}.
 	 * @param ctx the parse tree
@@ -1047,6 +1109,76 @@ public interface PostgreSQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConstraintelem(PostgreSQLParser.ConstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#primaryconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryconstraintelem(PostgreSQLParser.PrimaryconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#primaryconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryconstraintelem(PostgreSQLParser.PrimaryconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#primaryindexconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryindexconstraintelem(PostgreSQLParser.PrimaryindexconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#primaryindexconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryindexconstraintelem(PostgreSQLParser.PrimaryindexconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#checkconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterCheckconstraintelem(PostgreSQLParser.CheckconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#checkconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitCheckconstraintelem(PostgreSQLParser.CheckconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#uniqueconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterUniqueconstraintelem(PostgreSQLParser.UniqueconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#uniqueconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitUniqueconstraintelem(PostgreSQLParser.UniqueconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#uniqueindexconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterUniqueindexconstraintelem(PostgreSQLParser.UniqueindexconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#uniqueindexconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitUniqueindexconstraintelem(PostgreSQLParser.UniqueindexconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#excludeconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterExcludeconstraintelem(PostgreSQLParser.ExcludeconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#excludeconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitExcludeconstraintelem(PostgreSQLParser.ExcludeconstraintelemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PostgreSQLParser#foreignkeyconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void enterForeignkeyconstraintelem(PostgreSQLParser.ForeignkeyconstraintelemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PostgreSQLParser#foreignkeyconstraintelem}.
+	 * @param ctx the parse tree
+	 */
+	void exitForeignkeyconstraintelem(PostgreSQLParser.ForeignkeyconstraintelemContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PostgreSQLParser#opt_no_inherit}.
 	 * @param ctx the parse tree

@@ -592,13 +592,73 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAltertablestmt(PostgreSQLParser.AltertablestmtContext ctx) { }
+	@Override public void enterAltertable(PostgreSQLParser.AltertableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAltertablestmt(PostgreSQLParser.AltertablestmtContext ctx) { }
+	@Override public void exitAltertable(PostgreSQLParser.AltertableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAltertablepartition(PostgreSQLParser.AltertablepartitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAltertablepartition(PostgreSQLParser.AltertablepartitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAlterallbyrole(PostgreSQLParser.AlterallbyroleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlterallbyrole(PostgreSQLParser.AlterallbyroleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAlterall(PostgreSQLParser.AlterallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlterall(PostgreSQLParser.AlterallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAlterindex(PostgreSQLParser.AlterindexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlterindex(PostgreSQLParser.AlterindexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAlterforeigntable(PostgreSQLParser.AlterforeigntableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlterforeigntable(PostgreSQLParser.AlterforeigntableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1259,6 +1319,90 @@ public class PostgreSQLParserBaseListener implements PostgreSQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConstraintelem(PostgreSQLParser.ConstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrimaryconstraintelem(PostgreSQLParser.PrimaryconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrimaryconstraintelem(PostgreSQLParser.PrimaryconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrimaryindexconstraintelem(PostgreSQLParser.PrimaryindexconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrimaryindexconstraintelem(PostgreSQLParser.PrimaryindexconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCheckconstraintelem(PostgreSQLParser.CheckconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCheckconstraintelem(PostgreSQLParser.CheckconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUniqueconstraintelem(PostgreSQLParser.UniqueconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUniqueconstraintelem(PostgreSQLParser.UniqueconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUniqueindexconstraintelem(PostgreSQLParser.UniqueindexconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUniqueindexconstraintelem(PostgreSQLParser.UniqueindexconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExcludeconstraintelem(PostgreSQLParser.ExcludeconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExcludeconstraintelem(PostgreSQLParser.ExcludeconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForeignkeyconstraintelem(PostgreSQLParser.ForeignkeyconstraintelemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForeignkeyconstraintelem(PostgreSQLParser.ForeignkeyconstraintelemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

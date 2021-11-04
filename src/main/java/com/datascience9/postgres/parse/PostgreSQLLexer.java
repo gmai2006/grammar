@@ -1,9 +1,5 @@
 // Generated from ./src/main/java/com/datascience9/postgres/parse/PostgreSQLLexer.g4 by ANTLR 4.9.2
 package com.datascience9.postgres.parse;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -14,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class PostgreSQLLexer extends Lexer {
+public class PostgreSQLLexer extends PostgreSQLLexerBase {
 	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -444,11 +440,6 @@ public class PostgreSQLLexer extends Lexer {
 	}
 
 
-	/* This field stores the tags which are used to detect the end of a dollar-quoted string literal.
-	 */
-	private final Deque<String> _tags = new ArrayDeque<String>();
-
-
 	public PostgreSQLLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
@@ -495,7 +486,7 @@ public class PostgreSQLLexer extends Lexer {
 	private void BeginDollarStringConstant_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
-			_tags.push(getText());
+			pushTag();
 			break;
 		}
 	}
@@ -523,7 +514,7 @@ public class PostgreSQLLexer extends Lexer {
 	private void EndDollarStringConstant_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 4:
-			_tags.pop();
+			popTag();
 			break;
 		}
 	}
@@ -538,7 +529,7 @@ public class PostgreSQLLexer extends Lexer {
 	private boolean EndDollarStringConstant_sempred(RuleContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return getText().equals(_tags.peek());
+			return isTag();
 		}
 		return true;
 	}

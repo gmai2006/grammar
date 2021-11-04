@@ -299,11 +299,47 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDiscardstmt(PostgreSQLParser.DiscardstmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PostgreSQLParser#altertablestmt}.
+	 * Visit a parse tree produced by the {@code altertable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAltertablestmt(PostgreSQLParser.AltertablestmtContext ctx);
+	T visitAltertable(PostgreSQLParser.AltertableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code altertablepartition}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAltertablepartition(PostgreSQLParser.AltertablepartitionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code alterallbyrole}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlterallbyrole(PostgreSQLParser.AlterallbyroleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code alterall}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlterall(PostgreSQLParser.AlterallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code alterindex}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlterindex(PostgreSQLParser.AlterindexContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code alterforeigntable}
+	 * labeled alternative in {@link PostgreSQLParser#altertablestmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlterforeigntable(PostgreSQLParser.AlterforeigntableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#alter_table_cmds}.
 	 * @param ctx the parse tree
@@ -634,6 +670,48 @@ public interface PostgreSQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConstraintelem(PostgreSQLParser.ConstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#primaryconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryconstraintelem(PostgreSQLParser.PrimaryconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#primaryindexconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryindexconstraintelem(PostgreSQLParser.PrimaryindexconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#checkconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCheckconstraintelem(PostgreSQLParser.CheckconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#uniqueconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniqueconstraintelem(PostgreSQLParser.UniqueconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#uniqueindexconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUniqueindexconstraintelem(PostgreSQLParser.UniqueindexconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#excludeconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExcludeconstraintelem(PostgreSQLParser.ExcludeconstraintelemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PostgreSQLParser#foreignkeyconstraintelem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForeignkeyconstraintelem(PostgreSQLParser.ForeignkeyconstraintelemContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PostgreSQLParser#opt_no_inherit}.
 	 * @param ctx the parse tree
