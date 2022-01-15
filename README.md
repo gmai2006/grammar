@@ -1,14 +1,18 @@
-# grammar
-ANTLR4 PowerBuilder, DataWindow, MySql, and PostgreSQL grammars
+# Grammars
+ANTLR4 grammars for PowerBuilder, DataWindow, MySql, and PostgreSQL grammars
 
-## PowerBuilder
+## PowerBuilder grammars
 There are two versions of PB: (1) general and (2) grammar that supports comments extraction.
 
 To generate parser and lexer for PB no support for comment run: **gradle generatePb**
+
 To generate parser and lexer for PB that supports comment run: **gradle generatePbWithComment**
+
 To test all run: gradle **testPb**
+
 To test all run: gradle **testPbWithComments**
 
+### Change History
 - Add a grammar that parse comments
 - Fixed the ambiguous HEADER.  Put it into the hidden channel
 - Fixed the function call statement that should accept argument types (string literal, primitive data types)
@@ -21,19 +25,29 @@ To test all run: gradle **testPbWithComments**
 
 ## DataWindow
 To generate parser and lexer run: **gradle generatePostgres**
+
 Tested against 120 DataWindow files.
+
 Test files are from [this project](https://github.com/gmai2006/powerbuilder-pbl-dump/tree/master/test)
 
 ## MySql
 To generate parser and lexer run: **gradle generateMySql**
+
 To test all run: gradle **testMySql**
+
+## #Change history
 - Support mix case.  No need to use ChangeCase any more
 - Add BIND_VAR to handle plSql :<variable_name>
 - Test against more 100 Sql files
 - Resolve the expression issue with minus minus  condition #1525 (https://github.com/antlr/grammars-v4/issues/1525)
-# PostgreSQL
+- 
+## PostgreSQL
+
 To generate parser and lexer run: **gradle generatePostgres**
+
 To test all run: gradle **testPostgres**
+
+### Change history
 - A modified version from the ANTLR4 repo, which should be language agnostic
 - Replace all recursive rules with iterative rules (list: list item => item+) => reduce the parsetree size
 - Replace or epsilon rules with optional => remove all the empty node on the parse tree
