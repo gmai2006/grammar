@@ -22,9 +22,9 @@ dependencies {
     implementation group: 'org.antlr', name: 'antlr4', version: '4.9.2'
     implementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
 
-    testCompile "junit:junit:4.11"
-    testCompile group: 'org.antlr', name: 'antlr4', version: '4.9.2'
-    testCompile group: 'org.antlr', name: 'ST4', version: '4.3.1'
+    testImplementation "junit:junit:4.+"
+    testImplementation group: 'org.antlr', name: 'antlr4', version: '4.9.2'
+    testImplementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
 }
 
 test {
